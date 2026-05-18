@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
+/* ─── Figma Design Tokens ────────────────────────────────────────────
+   Source: figma.json — "Calenders Arun"
+   Background: r:0.969 g:0.984 b:0.976 → #F7FBF9 (light sage green)
+   Navbar border: rgba(0,0,0,0.08)
+   ─────────────────────────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --color-sage-50: #F7FBF9;
+  --color-sage-100: #EAF5EF;
+  --color-sage-200: #D0EBD9;
+  --color-sage-300: #A8D4B7;
+  --color-sage-400: #77B990;
+  --color-sage-500: #4E9E6D;
+  --color-sage-600: #3A8258;
+  --color-sage-700: #2D6A47;
+  --color-sage-800: #1E4A30;
+  --color-sage-900: #0F2E1C;
+
+  /* ShadCN CSS variables (mapped to brand) */
+  --background: 148 32% 98%;          /* #F7FBF9 */
+  --foreground: 0 0% 10%;             /* #1A1A1A */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10%;
+  --primary: 148 42% 35%;             /* #2D6A47 forest green */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 148 32% 93%;           /* #EAF5EF */
+  --secondary-foreground: 148 42% 25%;
+  --muted: 148 20% 93%;
+  --muted-foreground: 0 0% 42%;       /* #6B7280 */
+  --accent: 148 32% 91%;
+  --accent-foreground: 148 42% 25%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 148 20% 89%;
+  --input: 148 20% 89%;
+  --ring: 148 42% 35%;
+  --radius: 0.5rem;
+
+  /* Figma layout tokens */
+  --navbar-height: 64px;
+  --navbar-height-landing: 72px;
+  --content-max-width: 1200px;
+  --content-padding-x: 32px;
+  --content-outer-margin: 120px;
+  --section-gap: 32px;
+  --card-gap: 28px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Brand sage colors */
+  --color-sage-50: var(--color-sage-50);
+  --color-sage-100: var(--color-sage-100);
+  --color-sage-500: var(--color-sage-500);
+  --color-sage-700: var(--color-sage-700);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: hsl(var(--border));
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+

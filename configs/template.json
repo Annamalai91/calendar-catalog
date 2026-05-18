@@ -1,0 +1,41 @@
+[
+    {
+        "name": "Design 1",
+        "main_category": "Monthly Calendar",
+        "sub_category": "11\" x 17\"",
+        "size": "11 x 17",
+        "image": "/assets/products/primary/design-1.jpg",
+        "secondary_image": "/assets/products/secondary/design-1.jpg",
+        "paper_type": "Art",
+        "description": "Product description",
+        "tag": "Best seller",
+        "meta_title": "",
+        "meta_description": ""
+    },
+    {
+        "name": "Design 2",
+        "main_category": "Monthly Calendar",
+        "sub_category": "10\" x 17\"",
+        "size": "10 x 17",
+        "image": "/assets/products/primary/design-2.jpg",
+        "secondary_image": "/assets/products/secondary/design-2.jpg",
+        "paper_type": "Art",
+        "description": "Product description",
+        "tag": "Best seller",
+        "meta_title": "",
+        "meta_description": ""
+    },
+    {
+        "name": "Design 3",
+        "main_category": "Daily Calendar",
+        "sub_category": "11\" x 17\"",
+        "size": "11 x 17",
+        "image": "/assets/products/primary/design-3.jpg",
+        "secondary_image": "/assets/products/secondary/design-3.jpg",
+        "paper_type": "Normal",
+        "description": "Product description",
+        "tag": "",
+        "meta_title": "",
+        "meta_description": ""
+    }
+]
