@@ -83,7 +83,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <Button
           variant="outline"
           size="lg"
-          className="flex-1 sm:flex-none"
+          className="flex-1 py-3 sm:py-0 sm:flex-none"
           asChild
         >
           <a href={product.image} download={downloadFileName}>

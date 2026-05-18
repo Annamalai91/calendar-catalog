@@ -61,7 +61,7 @@ const RequestQuoteDialog = ({ productName }: RequestQuoteDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex-1 sm:flex-none" size="lg">
+        <Button className="flex-1 py-3 sm:py-0 sm:flex-none" size="lg">
           Request a Quote
         </Button>
       </DialogTrigger>

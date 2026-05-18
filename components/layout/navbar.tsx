@@ -2,8 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Phone, MessageCircle, Camera, Users, Mail } from "lucide-react";
+import { Phone, MessageCircle, Camera, Users, Mail, Menu } from "lucide-react";
 import { Button } from "@components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+} from "@components/ui/sheet";
 import { CONTACT_INFO, CONTACT_LINKS } from "@/configs/contact";
 
 const contactLinks = [
@@ -48,6 +54,68 @@ const quickContactItems = [
 ] as const;
 
 /**
+ * Mobile menu sheet — shared between both header variants.
+ */
+const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
+  <Sheet>
+    <SheetTrigger asChild>
+      <button
+        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/10 bg-white/70 text-muted-foreground transition-colors hover:bg-white hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
+        aria-label="Open menu"
+      >
+        <Menu className="h-5 w-5" />
+      </button>
+    </SheetTrigger>
+    <SheetContent side="right" className="flex flex-col gap-6 pt-12">
+      <div className="flex flex-col gap-1">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Contact
+        </p>
+        {quickContactItems.map(({ label, href, shortLabel }) => (
+          <SheetClose asChild key={shortLabel}>
+            <a
+              href={href}
+              className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {label}
+            </a>
+          </SheetClose>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Socials
+        </p>
+        {contactLinks.map(({ label, href, icon: Icon }) => (
+          <SheetClose asChild key={label}>
+            <a
+              href={href}
+              className="flex items-center gap-3 rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noreferrer" : undefined}
+            >
+              <Icon className="h-4 w-4 text-muted-foreground" />
+              {label}
+            </a>
+          </SheetClose>
+        ))}
+      </div>
+
+      {showStoreLink && (
+        <div className="mt-auto">
+          <SheetClose asChild>
+            <Button asChild className="w-full rounded-lg">
+              <Link href="/products">Go to Store</Link>
+            </Button>
+          </SheetClose>
+        </div>
+      )}
+    </SheetContent>
+  </Sheet>
+);
+
+/**
  * Site-wide navigation bar.
  *
  * Landing route uses the Figma header.
@@ -89,7 +157,7 @@ const Navbar = () => {
             </div>
 
             <nav
-              className="flex items-center gap-1 sm:gap-2"
+              className="hidden items-center gap-1 sm:gap-2 lg:flex"
               aria-label="Contact and social links"
             >
               {contactLinks.map(({ label, href, icon: Icon }) => (
@@ -108,10 +176,12 @@ const Navbar = () => {
 
             <Button
               asChild
-              className="rounded-lg px-4 py-2 text-sm sm:px-6 sm:py-3"
+              className="hidden rounded-lg px-4 py-2 text-sm sm:px-6 sm:py-3 lg:inline-flex"
             >
               <Link href="/products">Go to Store</Link>
             </Button>
+
+            <MobileMenu showStoreLink={true} />
           </div>
         </div>
       </header>
@@ -149,7 +219,7 @@ const Navbar = () => {
           </div>
 
           <nav
-            className="flex items-center gap-1 sm:gap-2"
+            className="hidden items-center gap-1 sm:gap-2 lg:flex"
             aria-label="Contact and social links"
           >
             {contactLinks.map(({ label, href, icon: Icon }) => (
@@ -165,6 +235,8 @@ const Navbar = () => {
               </a>
             ))}
           </nav>
+
+          <MobileMenu showStoreLink={false} />
         </div>
       </div>
     </header>

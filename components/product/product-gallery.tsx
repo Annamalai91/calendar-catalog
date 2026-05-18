@@ -3,7 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@lib/utils";
-import { Dialog, DialogContent, DialogTitle } from "@components/ui/dialog";
+import { X } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+} from "@components/ui/dialog";
 import type { ProductGalleryProps } from "./type";
 
 /**
@@ -74,16 +80,32 @@ const ProductGallery = ({
       </div>
 
       <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
-        <DialogContent className="max-w-5xl overflow-hidden bg-white p-2 sm:p-4">
+        <DialogContent
+          className="flex h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] max-w-none cursor-pointer items-center justify-center overflow-hidden bg-transparent p-2 shadow-none [&>button]:hidden"
+          onClick={() => setIsPreviewOpen(false)}
+        >
           <DialogTitle className="sr-only">{alt} image preview</DialogTitle>
-          <div className="relative aspect-4/3 w-full sm:aspect-16/10">
+          <div
+            className="relative inline-flex cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Image
               src={currentSrc}
               alt={alt}
-              fill
-              sizes="(max-width: 1024px) 95vw, 80vw"
-              className="object-contain"
+              width={0}
+              height={0}
+              sizes="calc(100vw - 1rem)"
+              style={{
+                width: "auto",
+                height: "auto",
+                maxWidth: "calc(100vw - 1rem)",
+                maxHeight: "calc(100vh - 1rem)",
+              }}
             />
+            <DialogClose className="absolute right-2 -top-12 sm:-right-12 sm:top-2 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/90 text-slate-700 shadow-sm transition duration-200 hover:scale-105 hover:bg-white hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </DialogClose>
           </div>
         </DialogContent>
       </Dialog>
