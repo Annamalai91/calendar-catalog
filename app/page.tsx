@@ -10,23 +10,24 @@ import {
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { homeMetadata } from "@configs/metadata";
+import { APP_TEXT } from "@configs/constants";
 export { homeMetadata as metadata };
 
 const expertiseCards = [
   {
     icon: CalendarRange,
-    title: "Wall Calendars",
-    body: "Vibrant, high-resolution prints featuring scenic landscapes, art, and customizable corporate branding for your office or home.",
+    title: APP_TEXT.homePage.expertiseCards[0].title,
+    body: APP_TEXT.homePage.expertiseCards[0].body,
   },
   {
     icon: NotebookPen,
-    title: "Desk Planners",
-    body: "Compact and elegant designs with premium paper quality, perfectly structured for daily notes, meetings, and tight schedules.",
+    title: APP_TEXT.homePage.expertiseCards[1].title,
+    body: APP_TEXT.homePage.expertiseCards[1].body,
   },
   {
     icon: Gift,
-    title: "Corporate Gifting",
-    body: "Curated premium diary and pen sets in elegant packaging. Make a lasting, professional impression on clients and employees.",
+    title: APP_TEXT.homePage.expertiseCards[2].title,
+    body: APP_TEXT.homePage.expertiseCards[2].body,
   },
 ] as const;
 
@@ -42,19 +43,16 @@ export default function HomePage() {
           <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_536px] lg:items-center">
             <div className="max-w-xl">
               <div className="inline-flex rounded-xl bg-[#EDEFF4] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.5px] text-slate-600">
-                Sivakasi Printing Excellence
+                {APP_TEXT.homePage.heroTag}
               </div>
               <h1
                 id="hero-heading"
                 className="mt-6 max-w-lg text-5xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-6xl"
               >
-                Masterpieces for your wall &amp; desk.
+                {APP_TEXT.homePage.heroTitle}
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-                Discover our exclusive range of corporate planners, wall
-                calendars, and premium diaries. Crafted with precision and over
-                30 years of printing expertise to help you organize your year
-                beautifully.
+                {APP_TEXT.homePage.heroDescription}
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -64,7 +62,7 @@ export default function HomePage() {
                   className="rounded-xl px-8 py-6 text-base"
                 >
                   <Link href="/products">
-                    Explore Calendars
+                    {APP_TEXT.homePage.heroPrimaryCta}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -76,7 +74,7 @@ export default function HomePage() {
                 <div className="relative aspect-536/392">
                   <Image
                     src="/assets/design1.svg"
-                    alt="Premium calendars collection"
+                    alt={APP_TEXT.homePage.heroImageAlt}
                     fill
                     priority
                     className="object-cover"
@@ -86,14 +84,14 @@ export default function HomePage() {
 
               <button
                 type="button"
-                aria-label="Previous slide"
+                aria-label={APP_TEXT.homePage.heroPreviousSlideAria}
                 className="absolute -left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border/60 bg-[#F7FBF9] text-slate-950 shadow-lg"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
                 type="button"
-                aria-label="Next slide"
+                aria-label={APP_TEXT.homePage.heroNextSlideAria}
                 className="absolute -right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border/60 bg-[#F7FBF9] text-slate-950 shadow-lg"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -101,7 +99,7 @@ export default function HomePage() {
 
               <div className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-xl bg-black/30 px-3 py-2 text-xs font-medium text-white backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full bg-white" />
-                Premium Calendars Collection
+                {APP_TEXT.homePage.heroImageCaption}
               </div>
             </div>
           </div>
@@ -118,11 +116,10 @@ export default function HomePage() {
               id="expertise-heading"
               className="text-3xl font-bold tracking-[-0.02em] text-slate-950 sm:text-4xl"
             >
-              Our Categories &amp; Expertise
+              {APP_TEXT.homePage.expertiseTitle}
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg">
-              From daily planning to corporate gifting, we offer a comprehensive
-              range of premium printed products designed to inspire.
+              {APP_TEXT.homePage.expertiseDescription}
             </p>
           </div>
 
@@ -151,7 +148,7 @@ export default function HomePage() {
               className="rounded-xl px-8 py-6 text-base"
             >
               <Link href="/products">
-                Go to Store
+                {APP_TEXT.homePage.expertiseSecondaryCta}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

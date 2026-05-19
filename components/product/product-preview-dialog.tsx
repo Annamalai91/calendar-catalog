@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { Dialog, DialogClose, DialogContent } from "@components/ui/dialog";
 import type { Product } from "@shared/types/product";
+import { APP_TEXT } from "@configs/constants";
 
 export interface ProductPreviewDialogProps {
   open: boolean;
@@ -26,7 +27,6 @@ const ProductPreviewDialog = ({
   onNavigate,
 }: ProductPreviewDialogProps) => {
   const product = products[index];
-  console.log("Previewing product:", product);
   const [detailsOpenIndex, setDetailsOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const ProductPreviewDialog = ({
                     <button
                       type="button"
                       onClick={onPrevious}
-                      aria-label="Previous design"
+                      aria-label={APP_TEXT.productPreview.previousDesignAria}
                       className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-slate-900 shadow-md transition-transform hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:left-4"
                     >
                       <ChevronLeft className="h-5 w-5" />
@@ -73,7 +73,7 @@ const ProductPreviewDialog = ({
                     <button
                       type="button"
                       onClick={onNext}
-                      aria-label="Next design"
+                      aria-label={APP_TEXT.productPreview.nextDesignAria}
                       className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-slate-900 shadow-md transition-transform hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:right-4"
                     >
                       <ChevronRight className="h-5 w-5" />
@@ -85,7 +85,7 @@ const ProductPreviewDialog = ({
                       <button
                         key={item.slug ?? item.name}
                         type="button"
-                        aria-label={`Show ${item.name}`}
+                        aria-label={`${APP_TEXT.productPreview.showPrefix} ${item.name}`}
                         aria-current={itemIndex === index}
                         onClick={() => onNavigate(itemIndex)}
                         className={
@@ -110,7 +110,7 @@ const ProductPreviewDialog = ({
                     }
                     className="flex w-full items-center justify-between px-5 py-3 text-sm font-medium text-white lg:hidden"
                   >
-                    <span>View details</span>
+                    <span>{APP_TEXT.productPreview.mobileViewDetails}</span>
                     <ChevronDown
                       className={`h-4 w-4 transition-transform duration-200 ${detailsOpenIndex === index ? "rotate-180" : ""}`}
                     />
@@ -122,7 +122,7 @@ const ProductPreviewDialog = ({
                   >
                     <div className="flex flex-col gap-1">
                       <span className="text-xs font-medium uppercase tracking-widest text-white/50">
-                        Name
+                        {APP_TEXT.productPreview.nameLabel}
                       </span>
                       <span className="text-lg font-semibold leading-snug text-white">
                         {product.name}
@@ -132,7 +132,7 @@ const ProductPreviewDialog = ({
                     {product.description && (
                       <div className="flex flex-col gap-1">
                         <span className="text-xs font-medium uppercase tracking-widest text-white/50">
-                          Description
+                          {APP_TEXT.productPreview.descriptionLabel}
                         </span>
                         <p className="text-sm leading-relaxed text-white/80">
                           {product.description}
@@ -143,7 +143,7 @@ const ProductPreviewDialog = ({
                     {product.size && (
                       <div className="flex flex-col gap-1">
                         <span className="text-xs font-medium uppercase tracking-widest text-white/50">
-                          Size
+                          {APP_TEXT.productPreview.sizeLabel}
                         </span>
                         <span className="text-sm font-medium text-white/90">
                           {product.size}
@@ -154,7 +154,7 @@ const ProductPreviewDialog = ({
                     {product.paper_type && (
                       <div className="flex flex-col gap-1">
                         <span className="text-xs font-medium uppercase tracking-widest text-white/50">
-                          Paper Type
+                          {APP_TEXT.productPreview.paperTypeLabel}
                         </span>
                         <span className="text-sm font-medium text-white/90">
                           {product.paper_type}
@@ -165,7 +165,7 @@ const ProductPreviewDialog = ({
                 </div>
 
                 <DialogClose
-                  aria-label="Close preview"
+                  aria-label={APP_TEXT.productPreview.closePreviewAria}
                   className="absolute right-2 top-2 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/15 bg-white/90 text-slate-700 shadow-sm transition duration-200 hover:scale-105 hover:bg-white hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:right-4 sm:top-4"
                 >
                   <span className="text-lg leading-none">x</span>

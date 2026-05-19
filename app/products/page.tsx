@@ -16,6 +16,7 @@ import { toSlug, fromSlug } from "@lib/utils/slug";
 import type { PageProps } from "@shared/types/common";
 import type { ProductsPageSearchParams } from "./type";
 import { productsMetadata } from "@configs/metadata";
+import { APP_TEXT } from "@configs/constants";
 export { productsMetadata as metadata };
 
 /**
@@ -85,27 +86,36 @@ export default async function ProductsPage({
     ? fromSlug(params.paper)
     : undefined;
   const activeQueryLabel = params.q?.trim() ? params.q.trim() : undefined;
-  const selectedFilters = [
-    activeCategoryLabel
-      ? { key: "category", label: "Category", value: activeCategoryLabel }
-      : null,
-    activeSubCategoryLabel
-      ? {
-          key: "size",
-          label: "Size",
-          value: activeSubCategoryLabel,
-        }
-      : null,
-    activePaperTypeLabel
-      ? { key: "paper", label: "Paper", value: activePaperTypeLabel }
-      : null,
-    activeQueryLabel
-      ? { key: "search", label: "Search", value: activeQueryLabel }
-      : null,
-  ].filter(
-    (item): item is { key: string; label: string; value: string } =>
-      item !== null,
-  );
+  type SelectedFilter = { key: string; label: string; value: string };
+  const selectedFilters: SelectedFilter[] = [];
+  if (activeCategoryLabel) {
+    selectedFilters.push({
+      key: "category",
+      label: APP_TEXT.productsPage.selectedFilterLabels.category,
+      value: activeCategoryLabel,
+    });
+  }
+  if (activeSubCategoryLabel) {
+    selectedFilters.push({
+      key: "size",
+      label: APP_TEXT.productsPage.selectedFilterLabels.size,
+      value: activeSubCategoryLabel,
+    });
+  }
+  if (activePaperTypeLabel) {
+    selectedFilters.push({
+      key: "paper",
+      label: APP_TEXT.productsPage.selectedFilterLabels.paper,
+      value: activePaperTypeLabel,
+    });
+  }
+  if (activeQueryLabel) {
+    selectedFilters.push({
+      key: "search",
+      label: APP_TEXT.productsPage.selectedFilterLabels.search,
+      value: activeQueryLabel,
+    });
+  }
 
   return (
     <div className="min-h-screen bg-[#F7FBF9]">
@@ -128,15 +138,17 @@ export default async function ProductsPage({
             <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Catalog
+                  {APP_TEXT.productsPage.catalogLabel}
                 </p>
                 <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
                   <h2 className="text-2xl font-bold tracking-[-0.03em] text-slate-950">
-                    {activeCategoryLabel ?? "All Products"}
+                    {activeCategoryLabel ?? APP_TEXT.common.allProducts}
                   </h2>
                   <p className="text-sm text-slate-600">
                     {filteredProducts.length}{" "}
-                    {filteredProducts.length === 1 ? "product" : "products"}
+                    {filteredProducts.length === 1
+                      ? APP_TEXT.productsPage.productSingular
+                      : APP_TEXT.productsPage.productPlural}
                   </p>
                 </div>
                 {selectedFilters.length > 0 ? (
@@ -160,12 +172,14 @@ export default async function ProductsPage({
                     className="h-10 rounded-xl border-black/10 bg-white px-4 text-sm lg:hidden"
                   >
                     <SlidersHorizontal className="h-4 w-4" />
-                    Filters
+                    {APP_TEXT.productsPage.mobileFiltersButton}
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-[#F7FBF9] p-0">
                   <SheetHeader className="border-b border-black/8 px-5 py-4">
-                    <SheetTitle>Product Filters</SheetTitle>
+                    <SheetTitle>
+                      {APP_TEXT.productsPage.mobileFiltersTitle}
+                    </SheetTitle>
                   </SheetHeader>
                   <div className="p-5">
                     <ProductFilter

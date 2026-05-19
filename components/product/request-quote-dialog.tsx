@@ -19,6 +19,7 @@ import {
   Mail,
   ArrowUpRight,
 } from "lucide-react";
+import { APP_TEXT } from "@configs/constants";
 
 interface RequestQuoteDialogProps {
   productName: string;
@@ -26,31 +27,31 @@ interface RequestQuoteDialogProps {
 
 const contactChannels = [
   {
-    label: "Call",
+    label: APP_TEXT.navbar.contactLinkLabels.call,
     href: CONTACT_LINKS.call,
     value: CONTACT_INFO.phoneDisplay,
     icon: Phone,
   },
   {
-    label: "WhatsApp",
+    label: APP_TEXT.navbar.contactLinkLabels.whatsapp,
     href: CONTACT_LINKS.whatsapp,
-    value: "Quick chat",
+    value: APP_TEXT.requestQuote.values.whatsapp,
     icon: MessageCircle,
   },
   {
-    label: "Instagram",
+    label: APP_TEXT.navbar.contactLinkLabels.instagram,
     href: CONTACT_LINKS.instagram,
-    value: "Direct message",
+    value: APP_TEXT.requestQuote.values.instagram,
     icon: Camera,
   },
   {
-    label: "Facebook",
+    label: APP_TEXT.navbar.contactLinkLabels.facebook,
     href: CONTACT_LINKS.facebook,
-    value: "Message page",
+    value: APP_TEXT.requestQuote.values.facebook,
     icon: Users,
   },
   {
-    label: "Email",
+    label: APP_TEXT.navbar.contactLinkLabels.email,
     href: CONTACT_LINKS.email,
     value: CONTACT_INFO.email,
     icon: Mail,
@@ -62,7 +63,7 @@ const RequestQuoteDialog = ({ productName }: RequestQuoteDialogProps) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button className="flex-1 py-3 sm:py-0 sm:flex-none" size="lg">
-          Request a Quote
+          {APP_TEXT.requestQuote.trigger}
         </Button>
       </DialogTrigger>
 
@@ -70,14 +71,13 @@ const RequestQuoteDialog = ({ productName }: RequestQuoteDialogProps) => {
         <div className="bg-[linear-gradient(145deg,#ecfdf5_0%,#f0f9ff_40%,#ffffff_100%)] p-6 sm:p-7">
           <DialogHeader>
             <Badge className="w-fit rounded-full border border-black/10 bg-white text-slate-700">
-              Quote Support
+              {APP_TEXT.requestQuote.badge}
             </Badge>
             <DialogTitle className="mt-3 text-2xl leading-tight text-slate-950">
-              Request a quote for {productName}
+              {APP_TEXT.requestQuote.titlePrefix} {productName}
             </DialogTitle>
             <DialogDescription className="max-w-md text-slate-600">
-              Reach us through any channel below. Contact details are synced
-              with the site navbar.
+              {APP_TEXT.requestQuote.description}
             </DialogDescription>
           </DialogHeader>
         </div>

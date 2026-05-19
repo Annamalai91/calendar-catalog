@@ -9,6 +9,7 @@ import { getPaperBadgeClassName, sizeBadgeClassName } from "./badge-styles";
 import { cn } from "@lib/utils";
 import { toSlug } from "@lib/utils/slug";
 import type { ProductCardProps } from "./type";
+import { APP_TEXT } from "@configs/constants";
 
 /**
  * ProductCard — displays a single product in grid/list views.
@@ -29,7 +30,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
         <div
           role="button"
           tabIndex={0}
-          aria-label={`Preview ${product.name}`}
+          aria-label={`${APP_TEXT.productCard.previewAriaPrefix} ${product.name}`}
           onClick={() => {
             onPreview?.(product);
           }}
@@ -75,7 +76,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
               <Badge
                 className={`${getPaperBadgeClassName(product.paper_type)} text-xs`}
               >
-                {product.paper_type} Paper
+                {product.paper_type} {APP_TEXT.productCard.paperSuffix}
               </Badge>
             </div>
 
@@ -90,10 +91,10 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
               >
                 <Link
                   href={`/products/${slug}`}
-                  aria-label={`View details for ${product.name}`}
+                  aria-label={`${APP_TEXT.productCard.viewDetailsAriaPrefix} ${product.name}`}
                   onClick={(event) => event.stopPropagation()}
                 >
-                  View Details
+                  {APP_TEXT.productCard.viewDetails}
                 </Link>
               </Button>
             </div>

@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getAllProductSlugs, getAllCategorySlugs } from "@data/products";
+import { SITEMAP, SITE_CONFIG } from "@configs/constants";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://calenders-arun.com";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? SITE_CONFIG.defaultBaseUrl;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const productSlugs = getAllProductSlugs();
@@ -11,29 +12,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: BASE_URL,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
+      changeFrequency: SITEMAP.frequencies.home,
+      priority: SITEMAP.priorities.home,
     },
     {
-      url: `${BASE_URL}/products`,
+      url: `${BASE_URL}${SITEMAP.staticRoutes.productsPath}`,
       lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
+      changeFrequency: SITEMAP.frequencies.products,
+      priority: SITEMAP.priorities.products,
     },
   ];
 
   const categoryRoutes: MetadataRoute.Sitemap = categorySlugs.map((slug) => ({
     url: `${BASE_URL}/products?category=${slug}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
+    changeFrequency: SITEMAP.frequencies.category,
+    priority: SITEMAP.priorities.category,
   }));
 
   const productRoutes: MetadataRoute.Sitemap = productSlugs.map((slug) => ({
     url: `${BASE_URL}/products/${slug}`,
     lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
+    changeFrequency: SITEMAP.frequencies.product,
+    priority: SITEMAP.priorities.product,
   }));
 
   return [...staticRoutes, ...categoryRoutes, ...productRoutes];

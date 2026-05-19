@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 import type { ProductGalleryProps } from "./type";
+import { APP_TEXT } from "@configs/constants";
 
 /**
  * ProductGallery — main + secondary image viewer for product detail page.
@@ -27,8 +28,16 @@ const ProductGallery = ({
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const images = [
-    { key: "main" as const, src: mainImage, label: "Front view" },
-    { key: "secondary" as const, src: secondaryImage, label: "Detail view" },
+    {
+      key: "main" as const,
+      src: mainImage,
+      label: APP_TEXT.productGallery.frontView,
+    },
+    {
+      key: "secondary" as const,
+      src: secondaryImage,
+      label: APP_TEXT.productGallery.detailView,
+    },
   ];
 
   const currentSrc = activeImage === "main" ? mainImage : secondaryImage;
@@ -39,7 +48,7 @@ const ProductGallery = ({
       <button
         type="button"
         onClick={() => setIsPreviewOpen(true)}
-        aria-label={`Open image preview for ${alt}`}
+        aria-label={`${APP_TEXT.productGallery.openPreviewPrefix} ${alt}`}
         className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-xl border border-border/60 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <Image
@@ -53,7 +62,11 @@ const ProductGallery = ({
       </button>
 
       {/* Thumbnail strip */}
-      <div className="flex gap-3" role="tablist" aria-label="Product images">
+      <div
+        className="flex gap-3"
+        role="tablist"
+        aria-label={APP_TEXT.productGallery.tabListAriaLabel}
+      >
         {images.map(({ key, src, label }) => (
           <button
             key={key}
@@ -84,7 +97,9 @@ const ProductGallery = ({
           className="flex h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] max-w-none cursor-pointer items-center justify-center overflow-hidden bg-transparent p-2 shadow-none [&>button]:hidden"
           onClick={() => setIsPreviewOpen(false)}
         >
-          <DialogTitle className="sr-only">{alt} image preview</DialogTitle>
+          <DialogTitle className="sr-only">
+            {alt} {APP_TEXT.productGallery.imagePreviewSuffix}
+          </DialogTitle>
           <div
             className="relative inline-flex cursor-default"
             onClick={(e) => e.stopPropagation()}
@@ -104,7 +119,7 @@ const ProductGallery = ({
             />
             <DialogClose className="absolute right-2 -top-12 sm:-right-12 sm:top-2 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/90 text-slate-700 shadow-sm transition duration-200 hover:scale-105 hover:bg-white hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{APP_TEXT.productGallery.close}</span>
             </DialogClose>
           </div>
         </DialogContent>

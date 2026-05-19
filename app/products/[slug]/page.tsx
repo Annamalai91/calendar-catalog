@@ -14,6 +14,7 @@ import type { Metadata } from "next";
 import type { PageProps } from "@shared/types/common";
 import type { ProductDetailParams } from "./type";
 import { buildProductMetadata } from "@configs/metadata";
+import { APP_TEXT } from "@configs/constants";
 
 /**
  * Generates static params for all known product slugs.
@@ -29,7 +30,7 @@ export const generateMetadata = async ({
   const product = getProductBySlug(slug);
 
   if (!product) {
-    return { title: "Product Not Found" };
+    return { title: APP_TEXT.productDetailPage.metadataNotFoundTitle };
   }
 
   return buildProductMetadata(product);
@@ -74,8 +75,11 @@ export default async function ProductDetailPage({
         <div className="mx-auto max-w-300">
           <Breadcrumbs
             items={[
-              { label: "Home", href: "/" },
-              { label: "Catalog", href: "/products" },
+              { label: APP_TEXT.common.home, href: "/" },
+              {
+                label: APP_TEXT.productDetailPage.breadcrumb.products,
+                href: "/products",
+              },
               {
                 label: product.main_category,
                 href: `/products?category=${toSlug(product.main_category)}`,
@@ -91,7 +95,7 @@ export default async function ProductDetailPage({
         <div className="mx-auto max-w-300 py-8 lg:py-12">
           {/* Product section: Gallery + Details */}
           <article
-            aria-label={`Product detail: ${product.name}`}
+            aria-label={`${APP_TEXT.productDetailPage.ariaLabelPrefix} ${product.name}`}
             className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12"
           >
             {/* Left: Gallery */}
@@ -113,7 +117,7 @@ export default async function ProductDetailPage({
                 id="related-heading"
                 className="text-xl font-bold text-foreground mb-7 sm:text-2xl"
               >
-                Related Products
+                {APP_TEXT.productDetailPage.relatedProductsTitle}
               </h2>
               <ProductGrid products={relatedProducts} />
             </section>

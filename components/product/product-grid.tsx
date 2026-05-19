@@ -5,6 +5,7 @@ import { cn } from "@lib/utils";
 import ProductCard from "./product-card";
 import ProductPreviewDialog from "./product-preview-dialog";
 import type { ProductGridProps } from "./type";
+import { APP_TEXT } from "@configs/constants";
 
 /**
  * ProductGrid — responsive grid layout for product cards.
@@ -47,9 +48,11 @@ const ProductGrid = ({ products, className }: ProductGridProps) => {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <p className="text-lg font-medium text-foreground">No products found</p>
+        <p className="text-lg font-medium text-foreground">
+          {APP_TEXT.productGrid.emptyTitle}
+        </p>
         <p className="mt-1 text-sm text-muted-foreground">
-          Try adjusting your filters.
+          {APP_TEXT.productGrid.emptyDescription}
         </p>
       </div>
     );
@@ -57,7 +60,7 @@ const ProductGrid = ({ products, className }: ProductGridProps) => {
 
   return (
     <section
-      aria-label="Product grid"
+      aria-label={APP_TEXT.productGrid.ariaLabel}
       className={cn(
         "grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3",
         className,

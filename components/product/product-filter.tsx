@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 import { cn } from "@lib/utils";
 import { toSlug } from "@lib/utils/slug";
 import type { ProductFilterProps } from "./type";
+import { APP_TEXT } from "@configs/constants";
 
 /**
  * ProductFilter — sidebar filter for the catalog page.
@@ -80,17 +81,19 @@ const ProductFilter = ({
 
   return (
     <aside
-      aria-label="Product filters"
+      aria-label={APP_TEXT.productFilter.ariaLabel}
       className="flex w-full flex-col gap-4 rounded-xl border border-black/8 bg-white p-5 shadow-sm"
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold text-slate-950">Filters</h2>
+        <h2 className="text-base font-semibold text-slate-950">
+          {APP_TEXT.common.filters}
+        </h2>
         {hasActiveFilters ? (
           <button
             onClick={clearAll}
             className="text-xs font-medium text-slate-500 transition-colors hover:text-slate-900"
           >
-            Clear all
+            {APP_TEXT.common.clearAll}
           </button>
         ) : null}
       </div>
@@ -110,7 +113,7 @@ const ProductFilter = ({
         >
           {!activeCategory ? <Check className="h-3 w-3" /> : null}
         </span>
-        <span>All Products</span>
+        <span>{APP_TEXT.common.allProducts}</span>
       </button>
 
       {categories.map((category) => {
@@ -145,7 +148,7 @@ const ProductFilter = ({
                     <Check className="h-3 w-3" />
                   ) : null}
                 </span>
-                <span>All</span>
+                <span>{APP_TEXT.common.all}</span>
               </button>
 
               {categorySubCategories.map((subCategory) => {
@@ -185,7 +188,9 @@ const ProductFilter = ({
       })}
 
       <section className={sectionClassName}>
-        <h3 className={sectionTitleClassName}>Paper Type</h3>
+        <h3 className={sectionTitleClassName}>
+          {APP_TEXT.productFilter.paperTypeTitle}
+        </h3>
         <div className={optionListClassName}>
           <button
             onClick={() => setFilter("paper", undefined)}
@@ -200,7 +205,7 @@ const ProductFilter = ({
             >
               {!activePaperType ? <Check className="h-3 w-3" /> : null}
             </span>
-            <span>All</span>
+            <span>{APP_TEXT.common.all}</span>
           </button>
 
           {paperTypes.map((type) => {

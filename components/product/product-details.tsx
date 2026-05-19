@@ -6,6 +6,7 @@ import { Tag, Layers, FileText, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { ProductDetailsProps } from "./type";
 import RequestQuoteDialog from "./request-quote-dialog";
+import { APP_TEXT } from "@configs/constants";
 
 /**
  * ProductDetails — right-panel product information for detail page.
@@ -28,7 +29,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors w-fit"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to Catalog
+        {APP_TEXT.productDetails.backToCatalog}
       </Link>
 
       {/* Category breadcrumb */}
@@ -56,7 +57,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       {/* Description */}
       <div>
         <h2 className="text-sm font-semibold text-foreground mb-2">
-          Description
+          {APP_TEXT.productDetails.descriptionTitle}
         </h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           {product.description}
@@ -64,13 +65,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <div className="mt-4 flex flex-wrap gap-3">
           <Badge className={`${sizeBadgeClassName} gap-1.5 px-3 py-1`}>
             <Layers className="h-3.5 w-3.5" />
-            Size: {product.size ?? product.sub_category}
+            {APP_TEXT.productDetails.sizePrefix}{" "}
+            {product.size ?? product.sub_category}
           </Badge>
           <Badge
             className={`${getPaperBadgeClassName(product.paper_type)} gap-1.5 px-3 py-1`}
           >
             <FileText className="h-3.5 w-3.5" />
-            Paper Type: {product.paper_type}
+            {APP_TEXT.productDetails.paperTypePrefix} {product.paper_type}
           </Badge>
         </div>
       </div>
@@ -87,7 +89,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           asChild
         >
           <a href={product.image} download={downloadFileName}>
-            Download Sample
+            {APP_TEXT.productDetails.downloadSample}
           </a>
         </Button>
       </div>

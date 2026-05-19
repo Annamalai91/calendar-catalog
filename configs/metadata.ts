@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { APP_TEXT, SEO_TEXT, SITE_CONFIG } from "@configs/constants";
 
 // ---------------------------------------------------------------------------
 // Site-wide constants
 // ---------------------------------------------------------------------------
 
 export const SITE = {
-  name: "Calenders Arun",
-  baseUrl: process.env.NEXT_PUBLIC_BASE_URL ?? "https://calenders-arun.com",
-  locale: "en_US",
+  name: APP_TEXT.brand.siteName,
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL ?? SITE_CONFIG.defaultBaseUrl,
+  locale: SITE_CONFIG.locale,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -17,31 +18,24 @@ export const SITE = {
 export const rootMetadata: Metadata = {
   metadataBase: new URL(SITE.baseUrl),
   title: {
-    default: "Calenders Arun — Premium Calendar Printing",
-    template: `%s | ${SITE.name}`,
+    default: SEO_TEXT.root.titleDefault,
+    template: `${SEO_TEXT.root.titleTemplate} | ${SITE.name}`,
   },
-  description:
-    "Browse our premium calendar collection. Monthly, yearly, and custom calendars with art and gloss paper options. Quality printing for every occasion.",
-  keywords: [
-    "calendar",
-    "calendar printing",
-    "monthly calendar",
-    "custom calendar",
-  ],
+  description: SEO_TEXT.root.description,
+  keywords: [...SEO_TEXT.root.keywords],
   authors: [{ name: SITE.name }],
   creator: SITE.name,
   openGraph: {
     type: "website",
     locale: SITE.locale,
     siteName: SITE.name,
-    title: "Calenders Arun — Premium Calendar Printing",
-    description:
-      "Browse our premium calendar collection with art and gloss paper options.",
+    title: SEO_TEXT.root.openGraphTitle,
+    description: SEO_TEXT.root.openGraphDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Calenders Arun — Premium Calendar Printing",
-    description: "Browse our premium calendar collection.",
+    title: SEO_TEXT.root.twitterTitle,
+    description: SEO_TEXT.root.twitterDescription,
   },
   robots: {
     index: true,
@@ -54,9 +48,8 @@ export const rootMetadata: Metadata = {
 // ---------------------------------------------------------------------------
 
 export const homeMetadata: Metadata = {
-  title: "Sivakasi Calendars — Premium Printing",
-  description:
-    "Masterpieces for your wall and desk with premium calendar printing, corporate planners, and gifting collections.",
+  title: SEO_TEXT.home.title,
+  description: SEO_TEXT.home.description,
 };
 
 // ---------------------------------------------------------------------------
@@ -64,12 +57,11 @@ export const homeMetadata: Metadata = {
 // ---------------------------------------------------------------------------
 
 export const productsMetadata: Metadata = {
-  title: "Product Catalog",
-  description:
-    "Browse our full calendar catalog. Filter by category, size, and paper type to find your perfect calendar.",
+  title: SEO_TEXT.products.title,
+  description: SEO_TEXT.products.description,
   openGraph: {
-    title: `Product Catalog — ${SITE.name}`,
-    description: "Browse our full calendar catalog.",
+    title: `${SEO_TEXT.products.title} — ${SITE.name}`,
+    description: SEO_TEXT.products.openGraphDescription,
   },
 };
 
