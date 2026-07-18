@@ -217,7 +217,7 @@ export default async function ProductsPage({
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-center">
                     {advtSpacesList.length > 0 && (
                       <>
-                        <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Advt. Space</span>
+                        <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Advertisement Space</span>
                         <div className="flex flex-wrap items-center gap-1">
                           {advtSpacesList.map((space) => (
                             <span key={space} className="bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
