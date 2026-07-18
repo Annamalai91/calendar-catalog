@@ -20,8 +20,8 @@ import { APP_TEXT } from "@configs/constants";
  * Client Component — handles active image state.
  */
 const ProductGallery = ({
-  mainImage,
-  secondaryImage,
+  coverImage,
+  fullImage,
   alt,
 }: ProductGalleryProps) => {
   const [activeImage, setActiveImage] = useState<"main" | "secondary">("main");
@@ -30,17 +30,17 @@ const ProductGallery = ({
   const images = [
     {
       key: "main" as const,
-      src: mainImage,
+      src: coverImage,
       label: APP_TEXT.productGallery.frontView,
     },
     {
       key: "secondary" as const,
-      src: secondaryImage,
+      src: fullImage,
       label: APP_TEXT.productGallery.detailView,
     },
   ];
 
-  const currentSrc = activeImage === "main" ? mainImage : secondaryImage;
+  const currentSrc = activeImage === "main" ? coverImage : fullImage;
 
   return (
     <div className="flex flex-col gap-4">

@@ -4,8 +4,8 @@ export interface Product {
   main_category: string;
   sub_category: string;
   size?: string;
-  image: string;
-  secondary_image: string;
+  cover_image: string;
+  full_image: string;
   paper_type: string;
   description: string;
   tag?: string;

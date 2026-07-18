@@ -20,8 +20,8 @@ export interface ProductDetailsProps {
 
 /** Props for ProductGallery */
 export interface ProductGalleryProps {
-  mainImage: string;
-  secondaryImage: string;
+  coverImage: string;
+  fullImage: string;
   alt: string;
 }
 

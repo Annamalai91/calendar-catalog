@@ -44,7 +44,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
         >
           <div className="relative aspect-5/4 w-full overflow-hidden bg-muted/40">
             <Image
-              src={product.secondary_image || product.image}
+              src={product.full_image || product.cover_image}
               alt={`${product.name} — ${product.main_category}`}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

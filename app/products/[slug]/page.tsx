@@ -100,8 +100,8 @@ export default async function ProductDetailPage({
           >
             {/* Left: Gallery */}
             <ProductGallery
-              mainImage={product.image}
-              secondaryImage={product.secondary_image}
+              coverImage={product.cover_image}
+              fullImage={product.full_image}
               alt={product.name}
             />
 

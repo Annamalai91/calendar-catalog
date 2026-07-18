@@ -72,7 +72,7 @@ export const productsMetadata: Metadata = {
 export const buildProductMetadata = (product: {
   name: string;
   description: string;
-  image: string;
+  cover_image: string;
   meta_title?: string;
   meta_description?: string;
 }): Metadata => {
@@ -85,7 +85,7 @@ export const buildProductMetadata = (product: {
     openGraph: {
       title: `${title} — ${SITE.name}`,
       description,
-      images: [{ url: product.image, alt: title }],
+      images: [{ url: product.cover_image, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
