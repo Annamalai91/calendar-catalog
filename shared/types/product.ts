@@ -9,6 +9,7 @@ export interface Product {
   paper_type: string;
   description: string;
   tag?: string;
+  advt_space?: string;
   /** Optional SEO overrides — falls back to name/description if omitted */
   meta_title?: string;
   meta_description?: string;

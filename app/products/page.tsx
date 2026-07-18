@@ -117,6 +117,11 @@ export default async function ProductsPage({
     });
   }
 
+  // Extract metadata lists from displayed products for the banner
+  const mainCat = [...new Set(filteredProducts.map((p) => p.main_category))].join(", ");
+  const subCategoriesList = [...new Set(filteredProducts.map((p) => p.sub_category))];
+  const advtSpacesList = [...new Set(filteredProducts.map((p) => p.advt_space).filter(Boolean))];
+
   return (
     <div className="min-h-screen bg-[#F7FBF9]">
       <div className="mx-auto max-w-360 px-8 py-8">
@@ -194,6 +199,50 @@ export default async function ProductsPage({
                 </SheetContent>
               </Sheet>
             </section>
+
+            {/* Category Banner Placeholder */}
+            {params.category && (
+              <div className="relative overflow-hidden rounded-xl bg-sage-700 text-white p-3 shadow-sm border border-sage-800 mb-3 transition-all duration-300">
+
+                <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-2.5 gap-x-6 text-xs text-white">
+                  {/* Main Category (Left) */}
+                  <div className="flex items-center gap-2 sm:w-1/3 sm:justify-start">
+                    <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Category</span>
+                    <span className="font-semibold bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-white">
+                      {mainCat}
+                    </span>
+                  </div>
+
+                  {/* Advt. Spaces (Center) */}
+                  <div className="flex items-center gap-2 sm:w-1/3 sm:justify-center">
+                    {advtSpacesList.length > 0 && (
+                      <>
+                        <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Advt. Space</span>
+                        <div className="flex flex-wrap items-center gap-1">
+                          {advtSpacesList.map((space) => (
+                            <span key={space} className="bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
+                              {space}
+                            </span>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Sub Categories (Right) */}
+                  <div className="flex items-center gap-2 sm:w-1/3 sm:justify-end">
+                    <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Types</span>
+                    <div className="flex flex-wrap items-center gap-1">
+                      {subCategoriesList.map((sub) => (
+                        <span key={sub} className="bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
+                          {sub}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <Suspense fallback={<ProductGridSkeleton count={6} />}>
               <ProductGrid products={filteredProducts} />

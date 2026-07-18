@@ -40,7 +40,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
               onPreview(product);
             }
           }}
-          className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="flex flex-col h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <div className="relative aspect-5/4 w-full overflow-hidden bg-muted/40">
             <Image
@@ -60,7 +60,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
             ) : null}
           </div>
 
-          <CardContent className="space-y-2.5 p-4">
+          <CardContent className="flex flex-col flex-1 space-y-2.5 p-4">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {product.main_category}
             </p>
@@ -84,7 +84,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
               {product.description}
             </p>
 
-            <div className="pt-1">
+            <div className="mt-auto pt-1">
               <Button
                 asChild
                 className="h-9.75 w-full rounded-lg border border-transparent bg-[#06B6A4] px-4 py-2.5 text-sm font-medium text-white shadow-none hover:bg-[#08998B]"
