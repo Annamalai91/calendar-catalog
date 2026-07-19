@@ -52,8 +52,8 @@ const categoryDetails: Record<
   },
 };
 
-export default function HomePage() {
-  const allProducts = getAllProducts();
+export default async function HomePage() {
+  const allProducts = await getAllProducts();
   const categoriesSeen = new Set<string>();
   const carouselProducts = allProducts.filter((product) => {
     if (!categoriesSeen.has(product.main_category)) {
