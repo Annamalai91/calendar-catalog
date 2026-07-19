@@ -17,28 +17,13 @@ import { APP_TEXT } from "@configs/constants";
 const ProductFilter = ({
   categories,
   subCategoriesByCategory,
-  paperTypes,
   activeCategory,
   activeSubCategory,
-  activePaperType,
 }: ProductFilterProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const setFilter = useCallback(
-    (key: string, value: string | undefined) => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (value) {
-        params.set(key, value);
-      } else {
-        params.delete(key);
-      }
-      params.delete("page");
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    },
-    [router, pathname, searchParams],
-  );
 
   const setCategoryAndSubFilter = useCallback(
     (nextCategory: string | undefined, nextSubCategory?: string) => {
@@ -67,7 +52,7 @@ const ProductFilter = ({
   };
 
   const hasActiveFilters =
-    !!activeCategory || !!activeSubCategory || !!activePaperType;
+    !!activeCategory || !!activeSubCategory;
 
   const sectionClassName =
     "rounded-lg border border-black/8 bg-white p-3.5 sm:p-4";
@@ -187,51 +172,7 @@ const ProductFilter = ({
         );
       })}
 
-      <section className={sectionClassName}>
-        <h3 className={sectionTitleClassName}>
-          {APP_TEXT.productFilter.paperTypeTitle}
-        </h3>
-        <div className={optionListClassName}>
-          <button
-            onClick={() => setFilter("paper", undefined)}
-            className={optionRowClassName}
-          >
-            <span
-              className={cn(
-                checkboxClassName,
-                !activePaperType &&
-                  "border-primary/30 bg-primary/15 text-primary",
-              )}
-            >
-              {!activePaperType ? <Check className="h-3 w-3" /> : null}
-            </span>
-            <span>{APP_TEXT.common.all}</span>
-          </button>
 
-          {paperTypes.map((type) => {
-            const slug = toSlug(type);
-            const isActive = activePaperType === slug;
-
-            return (
-              <button
-                key={type}
-                onClick={() => setFilter("paper", isActive ? undefined : slug)}
-                className={optionRowClassName}
-              >
-                <span
-                  className={cn(
-                    checkboxClassName,
-                    isActive && "border-primary/30 bg-primary/15 text-primary",
-                  )}
-                >
-                  {isActive ? <Check className="h-3 w-3" /> : null}
-                </span>
-                <span>{type}</span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
     </aside>
   );
 };

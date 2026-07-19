@@ -37,7 +37,6 @@ export default async function ProductsPage({
 
   const allProducts = getAllProducts();
   const categories = getAllCategories();
-  const paperTypes = [...new Set(allProducts.map((p) => p.paper_type))];
   const subCategoriesByCategory = categories.reduce<Record<string, string[]>>(
     (acc, category) => {
       const categorySlug = toSlug(category);
@@ -64,9 +63,6 @@ export default async function ProductsPage({
     ) {
       return false;
     }
-    if (params.paper && toSlug(product.paper_type) !== params.paper) {
-      return false;
-    }
     if (params.q) {
       const query = params.q.toLowerCase();
       return (
@@ -82,9 +78,6 @@ export default async function ProductsPage({
     ? fromSlug(params.category)
     : undefined;
   const activeSubCategoryLabel = params.sub ? fromSlug(params.sub) : undefined;
-  const activePaperTypeLabel = params.paper
-    ? fromSlug(params.paper)
-    : undefined;
   const activeQueryLabel = params.q?.trim() ? params.q.trim() : undefined;
   type SelectedFilter = { key: string; label: string; value: string };
   const selectedFilters: SelectedFilter[] = [];
@@ -100,13 +93,6 @@ export default async function ProductsPage({
       key: "size",
       label: APP_TEXT.productsPage.selectedFilterLabels.size,
       value: activeSubCategoryLabel,
-    });
-  }
-  if (activePaperTypeLabel) {
-    selectedFilters.push({
-      key: "paper",
-      label: APP_TEXT.productsPage.selectedFilterLabels.paper,
-      value: activePaperTypeLabel,
     });
   }
   if (activeQueryLabel) {
@@ -131,10 +117,8 @@ export default async function ProductsPage({
               <ProductFilter
                 categories={categories}
                 subCategoriesByCategory={subCategoriesByCategory}
-                paperTypes={paperTypes}
                 activeCategory={params.category}
                 activeSubCategory={params.sub}
-                activePaperType={params.paper}
               />
             </Suspense>
           </aside>
@@ -180,20 +164,18 @@ export default async function ProductsPage({
                     {APP_TEXT.productsPage.mobileFiltersButton}
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="bg-[#F7FBF9] p-0">
+                <SheetContent side="left" className="bg-[#F7FBF9] p-0 flex flex-col h-full gap-0">
                   <SheetHeader className="border-b border-black/8 px-5 py-4">
                     <SheetTitle>
                       {APP_TEXT.productsPage.mobileFiltersTitle}
                     </SheetTitle>
                   </SheetHeader>
-                  <div className="p-5">
+                  <div className="flex-1 overflow-y-auto p-5">
                     <ProductFilter
                       categories={categories}
                       subCategoriesByCategory={subCategoriesByCategory}
-                      paperTypes={paperTypes}
                       activeCategory={params.category}
                       activeSubCategory={params.sub}
-                      activePaperType={params.paper}
                     />
                   </div>
                 </SheetContent>

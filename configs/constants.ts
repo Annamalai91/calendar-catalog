@@ -96,7 +96,6 @@ export const APP_TEXT = {
     selectedFilterLabels: {
       category: "Category",
       size: "Size",
-      paper: "Paper",
       search: "Search",
     },
     mobileFiltersButton: "Filters",
@@ -112,7 +111,6 @@ export const APP_TEXT = {
   },
   productFilter: {
     ariaLabel: "Product filters",
-    paperTypeTitle: "Paper Type",
   },
   productGrid: {
     ariaLabel: "Product grid",
@@ -191,7 +189,7 @@ export const SEO_TEXT = {
   products: {
     title: "Product Catalog",
     description:
-      "Browse our full calendar catalog. Filter by category, size, and paper type to find your perfect calendar.",
+      "Browse our full calendar catalog. Filter by category and size to find your perfect calendar.",
     openGraphDescription: "Browse our full calendar catalog.",
   },
 } as const;

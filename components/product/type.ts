@@ -29,8 +29,6 @@ export interface ProductGalleryProps {
 export interface ProductFilterProps {
   categories: string[];
   subCategoriesByCategory: Record<string, string[]>;
-  paperTypes: string[];
   activeCategory?: string;
   activeSubCategory?: string;
-  activePaperType?: string;
 }
