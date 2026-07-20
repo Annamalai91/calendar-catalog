@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  defaultBaseUrl: "https://calenders-arun.com",
+  defaultBaseUrl: "www.vidhyasrienterprises.in",
   locale: "en_US",
 } as const;
 
@@ -163,7 +163,7 @@ export const APP_TEXT = {
 
 export const SEO_TEXT = {
   root: {
-    titleDefault: "Calenders Arun - Premium Calendar Printing",
+    titleDefault: "Vidhyasri Enterprises - Premium Calendar Printing",
     titleTemplate: "%s",
     description:
       "Browse our premium calendar collection. Monthly, yearly, and custom calendars with art and gloss paper options. Quality printing for every occasion.",
@@ -173,10 +173,10 @@ export const SEO_TEXT = {
       "monthly calendar",
       "custom calendar",
     ],
-    openGraphTitle: "Calenders Arun - Premium Calendar Printing",
+    openGraphTitle: "Vidhyasri Enterprises- Premium Calendar Printing",
     openGraphDescription:
       "Browse our premium calendar collection with art and gloss paper options.",
-    twitterTitle: "Calenders Arun - Premium Calendar Printing",
+    twitterTitle: "Vidhyasri Enterprises - Premium Calendar Printing",
     twitterDescription: "Browse our premium calendar collection.",
   },
   home: {
