@@ -35,8 +35,8 @@ export default async function ProductsPage({
 }: PageProps<Record<string, never>>) {
   const params = (await searchParams) as ProductsPageSearchParams;
 
-  const allProducts = getAllProducts();
-  const categories = getAllCategories();
+  const allProducts = await getAllProducts();
+  const categories = await getAllCategories();
   const subCategoriesByCategory = categories.reduce<Record<string, string[]>>(
     (acc, category) => {
       const categorySlug = toSlug(category);

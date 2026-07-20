@@ -4,9 +4,9 @@ import { SITEMAP, SITE_CONFIG } from "@configs/constants";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? SITE_CONFIG.defaultBaseUrl;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const productSlugs = getAllProductSlugs();
-  const categorySlugs = getAllCategorySlugs();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const productSlugs = await getAllProductSlugs();
+  const categorySlugs = await getAllCategorySlugs();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

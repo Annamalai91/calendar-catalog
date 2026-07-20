@@ -20,14 +20,16 @@ import { APP_TEXT } from "@configs/constants";
  * Generates static params for all known product slugs.
  * Enables full static generation at build time.
  */
-export const generateStaticParams = () =>
-  getAllProductSlugs().map((slug) => ({ slug }));
+export const generateStaticParams = async () => {
+  const slugs = await getAllProductSlugs();
+  return slugs.map((slug) => ({ slug }));
+};
 
 export const generateMetadata = async ({
   params,
 }: PageProps<ProductDetailParams>): Promise<Metadata> => {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return { title: APP_TEXT.productDetailPage.metadataNotFoundTitle };
@@ -50,14 +52,15 @@ export default async function ProductDetailPage({
   params,
 }: PageProps<ProductDetailParams>) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
   // Related products — same category, excluding current
-  const relatedProducts = getAllProducts()
+  const allProducts = await getAllProducts();
+  const relatedProducts = allProducts
     .filter(
       (p) =>
         p.main_category === product.main_category &&

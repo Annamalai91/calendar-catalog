@@ -56,7 +56,7 @@ const ProductPreviewDialog = ({
                       alt={product.name}
                       width={1200}
                       height={1800}
-                      priority
+                      loading="eager"
                       sizes="(max-width: 1024px) 95vw, 70vw"
                       className="h-full w-auto max-w-full object-contain"
                     />

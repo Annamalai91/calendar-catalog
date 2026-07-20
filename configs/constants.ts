@@ -14,12 +14,12 @@ export const APP_TEXT = {
   },
   brand: {
     shortName: "SC",
-    name: "Sivakasi Calendars",
-    siteName: "Calenders Arun",
-    homeAriaLabel: "Sivakasi Calendars - Home",
+    name: "Vidhyasri Enterprises",
+    siteName: "Vidhyasri Enterprises",
+    homeAriaLabel: "Vidhyasri Enterprises - Home",
   },
   homePage: {
-    heroTag: "Sivakasi Printing Excellence",
+    heroTag: "Vidhyasri Enterprises Excellence",
     heroTitle: "Masterpieces for your wall & desk.",
     heroDescription:
       "Discover our exclusive range of corporate planners, wall calendars, and premium diaries. Crafted with precision and over 30 years of printing expertise to help you organize your year beautifully.",
@@ -64,7 +64,6 @@ export const APP_TEXT = {
       call: "Call",
       whatsapp: "WhatsApp",
       instagram: "Instagram",
-      facebook: "Facebook",
       email: "Email",
     },
     quickContactLabels: {
@@ -158,7 +157,6 @@ export const APP_TEXT = {
     values: {
       whatsapp: "Quick chat",
       instagram: "Direct message",
-      facebook: "Message page",
     },
   },
 } as const;
@@ -182,7 +180,7 @@ export const SEO_TEXT = {
     twitterDescription: "Browse our premium calendar collection.",
   },
   home: {
-    title: "Sivakasi Calendars - Premium Printing",
+    title: "Vidhyasri Enterprises - Premium Calendar Printing ",
     description:
       "Masterpieces for your wall and desk with premium calendar printing, corporate planners, and gifting collections.",
   },

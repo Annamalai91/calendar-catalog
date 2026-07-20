@@ -51,14 +51,25 @@ const ProductGallery = ({
         aria-label={`${APP_TEXT.productGallery.openPreviewPrefix} ${alt}`}
         className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-xl border border-border/60 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <Image
-          src={currentSrc}
-          alt={alt}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
-          className="object-contain p-4"
-        />
+        {activeImage === "main" ? (
+          <Image
+            src={coverImage}
+            alt={alt}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
+            className="object-contain p-4"
+          />
+        ) : (
+          <Image
+            src={fullImage}
+            alt={alt}
+            fill
+            loading="eager"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
+            className="object-contain p-4"
+          />
+        )}
       </button>
 
       {/* Thumbnail strip */}
@@ -109,6 +120,7 @@ const ProductGallery = ({
               alt={alt}
               width={0}
               height={0}
+              loading="eager"
               sizes="calc(100vw - 1rem)"
               style={{
                 width: "auto",
