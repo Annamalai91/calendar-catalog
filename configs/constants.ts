@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  defaultBaseUrl: "www.vidhyasrienterprises.in",
+  defaultBaseUrl: "https://www.vidhyasrienterprises.in",
   locale: "en_US",
 } as const;
 
