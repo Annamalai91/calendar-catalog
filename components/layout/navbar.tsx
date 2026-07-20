@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Phone, MessageCircle, Camera, Users, Mail, Menu } from "lucide-react";
@@ -28,11 +29,6 @@ const contactLinks = [
     label: APP_TEXT.navbar.contactLinkLabels.instagram,
     href: CONTACT_LINKS.instagram,
     icon: Camera,
-  },
-  {
-    label: APP_TEXT.navbar.contactLinkLabels.facebook,
-    href: CONTACT_LINKS.facebook,
-    icon: Users,
   },
   {
     label: APP_TEXT.navbar.contactLinkLabels.email,
@@ -138,10 +134,16 @@ const Navbar = () => {
             className="flex items-center gap-2 font-bold text-lg tracking-[-0.02em] text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
             aria-label={APP_TEXT.brand.homeAriaLabel}
           >
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[#2AA8BE] text-xs font-bold text-white select-none">
-              {APP_TEXT.brand.shortName}
-            </span>
-            <span>{APP_TEXT.brand.name}</span>
+            <Image
+              src="/assets/logo-v2.png"
+              alt={APP_TEXT.brand.name}
+              width={34}
+              height={32}
+              className="h-14 w-auto object-contain"
+              style={{ width: "auto" }}
+              priority
+            />
+            {/* <span>{APP_TEXT.brand.name}</span> */}
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -200,9 +202,15 @@ const Navbar = () => {
           className="flex items-center gap-2 rounded-sm text-lg font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label={APP_TEXT.brand.homeAriaLabel}
         >
-          <span className="inline-flex h-7 w-7 select-none items-center justify-center rounded-md bg-[#2AA8BE] text-xs font-bold text-white">
-            {APP_TEXT.brand.shortName}
-          </span>
+          <Image
+            src="/assets/logo-v2.png"
+            alt={APP_TEXT.brand.name}
+            width={30}
+            height={28}
+            className="h-7 w-auto rounded-md object-contain"
+            style={{ width: "auto" }}
+            priority
+          />
           <span>{APP_TEXT.brand.name}</span>
         </Link>
 

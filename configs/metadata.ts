@@ -37,6 +37,11 @@ export const rootMetadata: Metadata = {
     title: SEO_TEXT.root.twitterTitle,
     description: SEO_TEXT.root.twitterDescription,
   },
+  icons: {
+    icon: "/assets/logo-v2.png",
+    shortcut: "/assets/logo-v2.png",
+    apple: "/assets/logo-v2.png",
+  },
   robots: {
     index: true,
     follow: true,

@@ -45,12 +45,6 @@ const contactChannels = [
     icon: Camera,
   },
   {
-    label: APP_TEXT.navbar.contactLinkLabels.facebook,
-    href: CONTACT_LINKS.facebook,
-    value: APP_TEXT.requestQuote.values.facebook,
-    icon: Users,
-  },
-  {
     label: APP_TEXT.navbar.contactLinkLabels.email,
     href: CONTACT_LINKS.email,
     value: CONTACT_INFO.email,
