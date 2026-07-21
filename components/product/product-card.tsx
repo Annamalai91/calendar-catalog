@@ -16,7 +16,7 @@ import { APP_TEXT } from "@configs/constants";
  *
  * Client Component — preview clicks are handled by the parent grid.
  */
-const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
+const ProductCard = ({ product, className, onPreview, priority }: ProductCardProps) => {
   const slug = product.slug ?? toSlug(product.name);
 
   return (
@@ -47,6 +47,7 @@ const ProductCard = ({ product, className, onPreview }: ProductCardProps) => {
               src={product.full_image || product.cover_image}
               alt={`${product.name} — ${product.main_category}`}
               fill
+              priority={priority}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
               placeholder="empty"

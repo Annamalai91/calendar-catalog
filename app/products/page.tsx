@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@components/ui/sheet";
-import { getAllProducts, getAllCategories } from "@data/products";
+import { getAllProducts, getFormattedCategories, getFormattedSubCategoriesByCategory } from "@data/products";
 import { toSlug, fromSlug } from "@lib/utils/slug";
 import type { PageProps } from "@shared/types/common";
 import type { ProductsPageSearchParams } from "./type";
@@ -36,21 +36,8 @@ export default async function ProductsPage({
   const params = (await searchParams) as ProductsPageSearchParams;
 
   const allProducts = await getAllProducts();
-  const categories = await getAllCategories();
-  const subCategoriesByCategory = categories.reduce<Record<string, string[]>>(
-    (acc, category) => {
-      const categorySlug = toSlug(category);
-      acc[categorySlug] = [
-        ...new Set(
-          allProducts
-            .filter((product) => product.main_category === category)
-            .map((product) => product.size ?? product.sub_category),
-        ),
-      ];
-      return acc;
-    },
-    {},
-  );
+  const categories = await getFormattedCategories();
+  const subCategoriesByCategory = await getFormattedSubCategoriesByCategory();
 
   // Apply filters
   const filteredProducts = allProducts.filter((product) => {
@@ -59,18 +46,22 @@ export default async function ProductsPage({
     }
     if (
       params.sub &&
-      toSlug(product.size ?? product.sub_category) !== params.sub
+      toSlug(product.sub_category) !== params.sub &&
+      toSlug(product.size ?? "") !== params.sub
     ) {
       return false;
     }
+
+
     if (params.q) {
       const query = params.q.toLowerCase();
       return (
-        product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query) ||
-        product.main_category.toLowerCase().includes(query)
+        (product.name || "").toLowerCase().includes(query) ||
+        (product.description || "").toLowerCase().includes(query) ||
+        (product.main_category || "").toLowerCase().includes(query)
       );
     }
+
     return true;
   });
 

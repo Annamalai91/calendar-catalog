@@ -70,6 +70,7 @@ const ProductGrid = ({ products, className }: ProductGridProps) => {
         <ProductCard
           key={product.slug ?? product.name}
           product={product}
+          priority={index < 4}
           onPreview={() => handlePreview(index)}
         />
       ))}
