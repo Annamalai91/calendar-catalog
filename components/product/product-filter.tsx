@@ -102,14 +102,18 @@ const ProductFilter = ({
       </button>
 
       {categories.map((category) => {
-        const categorySlug = toSlug(category);
+        const isObj = typeof category === "object" && category !== null;
+        const categoryName = isObj ? category.name : category;
+        const categoryLabel = isObj ? category.label : category;
+        const categorySlug = isObj ? category.slug : toSlug(categoryName);
+
         const categorySubCategories =
           subCategoriesByCategory[categorySlug] ?? [];
         const isCategoryActive = activeCategory === categorySlug;
 
         return (
-          <section key={category} className={sectionClassName}>
-            <h3 className={sectionTitleClassName}>{category}</h3>
+          <section key={categorySlug} className={sectionClassName}>
+            <h3 className={sectionTitleClassName}>{categoryLabel}</h3>
             <div className={optionListClassName}>
               <button
                 onClick={() =>
@@ -137,13 +141,17 @@ const ProductFilter = ({
               </button>
 
               {categorySubCategories.map((subCategory) => {
-                const subSlug = toSlug(subCategory);
+                const isSubObj = typeof subCategory === "object" && subCategory !== null;
+                const subName = isSubObj ? subCategory.name : subCategory;
+                const subLabel = isSubObj ? subCategory.label : subCategory;
+                const subSlug = isSubObj ? subCategory.slug : toSlug(subName);
+
                 const isSubCategoryActive =
                   isCategoryActive && activeSubCategory === subSlug;
 
                 return (
                   <button
-                    key={subCategory}
+                    key={subSlug}
                     onClick={() =>
                       setCategoryAndSubFilter(
                         categorySlug,
@@ -163,7 +171,7 @@ const ProductFilter = ({
                         <Check className="h-3 w-3" />
                       ) : null}
                     </span>
-                    <span>{subCategory}</span>
+                    <span>{subLabel}</span>
                   </button>
                 );
               })}
@@ -171,6 +179,7 @@ const ProductFilter = ({
           </section>
         );
       })}
+
 
 
     </aside>

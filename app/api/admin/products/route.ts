@@ -74,7 +74,10 @@ export async function POST(request: Request) {
     const coverFile = formData.get("cover_image_file") as File | null;
     const fullFile = formData.get("full_image_file") as File | null;
 
-    if (!name || !main_category || !sub_category) {
+    const category_id = formData.get("category_id") as string || null;
+    const sub_category_id = formData.get("sub_category_id") as string || null;
+
+    if (!name || (!main_category && !category_id) || (!sub_category && !sub_category_id)) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -99,23 +102,26 @@ export async function POST(request: Request) {
     const coverUrl = await uploadImage(supabaseServer, coverFile, name, "cover");
     const fullUrl = await uploadImage(supabaseServer, fullFile, name, "full");
 
+    const recordToInsert: any = {
+      name,
+      description,
+      advt_space,
+      size,
+      paper_type,
+      cover_image: coverUrl,
+      full_image: fullUrl,
+      tag,
+      meta_title,
+      meta_description,
+    };
+    if (category_id) recordToInsert.category_id = category_id;
+    if (sub_category_id) recordToInsert.sub_category_id = sub_category_id;
+
+
     // Insert record
     const { error: dbError } = await supabaseServer
       .from("products")
-      .insert({
-        name,
-        description,
-        main_category,
-        sub_category,
-        advt_space,
-        size,
-        paper_type,
-        cover_image: coverUrl,
-        full_image: fullUrl,
-        tag,
-        meta_title,
-        meta_description,
-      });
+      .insert(recordToInsert);
 
     if (dbError) {
       // Cleanup uploaded files on DB insert failure
@@ -123,6 +129,7 @@ export async function POST(request: Request) {
       await deleteStorageFile(supabaseServer, fullUrl);
       return NextResponse.json({ error: dbError.message }, { status: 500 });
     }
+
 
     // Revalidate paths
     revalidatePath("/");
@@ -158,7 +165,10 @@ export async function PUT(request: Request) {
     const coverFile = formData.get("cover_image_file") as File | null;
     const fullFile = formData.get("full_image_file") as File | null;
 
-    if (!id || !name || !main_category || !sub_category) {
+    const category_id = formData.get("category_id") as string || null;
+    const sub_category_id = formData.get("sub_category_id") as string || null;
+
+    if (!id || !name || (!main_category && !category_id) || (!sub_category && !sub_category_id)) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -192,24 +202,28 @@ export async function PUT(request: Request) {
       fullUrl = await uploadImage(supabaseServer, fullFile, name, "full");
     }
 
+    const recordToUpdate: any = {
+      name,
+      description,
+      advt_space,
+      size,
+      paper_type,
+      cover_image: coverUrl,
+      full_image: fullUrl,
+      tag,
+      meta_title,
+      meta_description,
+    };
+    if (category_id) recordToUpdate.category_id = category_id;
+    if (sub_category_id) recordToUpdate.sub_category_id = sub_category_id;
+
+
     // Update DB
     const { error: dbError } = await supabaseServer
       .from("products")
-      .update({
-        name,
-        description,
-        main_category,
-        sub_category,
-        advt_space,
-        size,
-        paper_type,
-        cover_image: coverUrl,
-        full_image: fullUrl,
-        tag,
-        meta_title,
-        meta_description,
-      })
+      .update(recordToUpdate)
       .eq("id", id);
+
 
     if (dbError) {
       // Cleanup newly uploaded images if DB update fails
