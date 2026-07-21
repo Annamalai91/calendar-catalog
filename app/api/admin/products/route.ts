@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import crypto from "crypto";
 import { getSupabaseServer } from "@lib/supabase/server";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { processImage } from "@lib/utils/image-processor";
 
 async function isAuthorized() {
   const adminPassword = process.env.ADMIN_PASSWORD;
@@ -19,20 +20,21 @@ async function isAuthorized() {
   return sessionToken === expectedToken;
 }
 
-function getFileExtension(filename: string) {
-  return filename.split(".").pop() || "jpg";
-}
-
 async function uploadImage(supabaseServer: any, file: File, productName: string, type: "cover" | "full") {
-  const ext = getFileExtension(file.name);
   const sanitizedName = productName.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-  const destPath = `products/${sanitizedName}-${type}-${Date.now()}.${ext}`;
-  const fileBuffer = Buffer.from(await file.arrayBuffer());
+  const rawBuffer = Buffer.from(await file.arrayBuffer());
+
+  // Convert to optimized WebP before uploading (preserves original resolution)
+  const { buffer, contentType, extension } = await processImage(rawBuffer, {
+    quality: 80,
+  });
+
+  const destPath = `products/${sanitizedName}-${type}-${Date.now()}.${extension}`;
 
   const { error } = await supabaseServer.storage
     .from("product-images")
-    .upload(destPath, fileBuffer, {
-      contentType: file.type,
+    .upload(destPath, buffer, {
+      contentType,
       upsert: true,
     });
 
@@ -134,7 +136,7 @@ export async function POST(request: Request) {
     // Revalidate paths
     revalidatePath("/");
     revalidatePath("/products");
-    revalidateTag("products");
+    revalidateTag("products", { expire: 0 });
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
@@ -242,7 +244,7 @@ export async function PUT(request: Request) {
     revalidatePath("/products");
     revalidatePath(`/products/${existing.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-")}`);
     revalidatePath(`/products/${name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-")}`);
-    revalidateTag("products");
+    revalidateTag("products", { expire: 0 });
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
@@ -296,7 +298,7 @@ export async function DELETE(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath(`/products/${existing.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-")}`);
-    revalidateTag("products");
+    revalidateTag("products", { expire: 0 });
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

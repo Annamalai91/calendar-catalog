@@ -80,8 +80,8 @@ export async function POST(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath("/admin");
-    revalidateTag("sub-categories");
-    revalidateTag("categories");
+    revalidateTag("sub-categories", { expire: 0 });
+    revalidateTag("categories", { expire: 0 });
 
     return NextResponse.json(data, { status: 201 });
   } catch (error: any) {
@@ -133,8 +133,8 @@ export async function PUT(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath("/admin");
-    revalidateTag("sub-categories");
-    revalidateTag("categories");
+    revalidateTag("sub-categories", { expire: 0 });
+    revalidateTag("categories", { expire: 0 });
 
     return NextResponse.json(data);
   } catch (error: any) {
@@ -209,8 +209,8 @@ export async function DELETE(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath("/admin");
-    revalidateTag("sub-categories");
-    revalidateTag("categories");
+    revalidateTag("sub-categories", { expire: 0 });
+    revalidateTag("categories", { expire: 0 });
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
