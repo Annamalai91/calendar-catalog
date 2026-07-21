@@ -17,8 +17,17 @@ export const getAllProducts = async (): Promise<Product[]> => {
       .select("*, categories(id, name, display_order), sub_categories(id, name, display_order)")
       .order("name", { ascending: true });
 
+    if (error && error.code === "PGRST201") {
+      const res = await supabase
+        .from("products")
+        .select("*, categories!products_category_id_fkey(id, name, display_order), sub_categories(id, name, display_order)")
+        .order("name", { ascending: true });
+      data = res.data;
+      error = res.error;
+    }
+
     if (error) {
-      // Fallback if joined query fails before schema migration
+      // Fallback if joined query fails
       const res = await supabase
         .from("products")
         .select("*")

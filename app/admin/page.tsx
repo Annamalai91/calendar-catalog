@@ -133,10 +133,28 @@ export default function AdminPage() {
     setIsLoadingProducts(true);
     try {
       const { supabase } = await import("@lib/supabase/client");
-      const { data, error } = await supabase
+      let { data, error } = await supabase
         .from("products")
         .select("*, categories(name), sub_categories(name)")
         .order("name", { ascending: true });
+
+      if (error && error.code === "PGRST201") {
+        const res = await supabase
+          .from("products")
+          .select("*, categories!products_category_id_fkey(name), sub_categories(name)")
+          .order("name", { ascending: true });
+        data = res.data;
+        error = res.error;
+      }
+
+      if (error && error.code === "PGRST201") {
+        const res = await supabase
+          .from("products")
+          .select("*")
+          .order("name", { ascending: true });
+        data = res.data;
+        error = res.error;
+      }
 
       if (error) {
         throw error;

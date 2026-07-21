@@ -136,7 +136,7 @@ export async function PUT(request: Request) {
   }
 }
 
-// DELETE - Delete a category
+// DELETE - Delete a category (blocked if products are still assigned to it)
 export async function DELETE(request: Request) {
   if (!(await isAuthorized())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -154,6 +154,42 @@ export async function DELETE(request: Request) {
     }
 
     const supabaseServer = getSupabaseServer();
+
+    // 1. Fetch category info
+    const { data: category } = await supabaseServer
+      .from("categories")
+      .select("id, name")
+      .eq("id", id)
+      .single();
+
+    if (!category) {
+      return NextResponse.json({ error: "Category not found" }, { status: 404 });
+    }
+
+    // 2. Check if any products are using this category (by category_id or main_category name)
+    let filterOr = `category_id.eq.${id}`;
+    if (category.name) {
+      filterOr += `,main_category.eq.${category.name}`;
+    }
+
+    const { count: productCount } = await supabaseServer
+      .from("products")
+      .select("id", { count: "exact" })
+      .or(filterOr);
+
+    if (productCount && productCount > 0) {
+      return NextResponse.json(
+        {
+          error: `Cannot delete category "${category.name}". ${productCount} product(s) are currently assigned to this category. Please reassign or delete those products first.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // 3. Delete any subcategories under this category
+    await supabaseServer.from("sub_categories").delete().eq("category_id", id);
+
+    // 4. Delete the category
     const { error } = await supabaseServer
       .from("categories")
       .delete()

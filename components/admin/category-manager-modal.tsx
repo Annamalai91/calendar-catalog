@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FolderPlus, X, Edit3, Trash2, AlertTriangle } from "lucide-react";
 import { formatSupabaseError } from "@lib/utils";
 
@@ -37,8 +37,39 @@ export default function CategoryManagerModal({
   const [subOrderInput, setSubOrderInput] = useState<number | "">(1);
   const [editingSubId, setEditingSubId] = useState<string | null>(null);
 
+  const [confirmDeleteCatId, setConfirmDeleteCatId] = useState<string | null>(null);
+  const [confirmDeleteSubId, setConfirmDeleteSubId] = useState<string | null>(null);
+
   const [catActionLoading, setCatActionLoading] = useState(false);
   const [catManagerError, setCatManagerError] = useState("");
+
+  const modalBodyRef = useRef<HTMLDivElement>(null);
+  const catInputRef = useRef<HTMLInputElement>(null);
+  const subInputRef = useRef<HTMLInputElement>(null);
+
+  const scrollToTop = () => {
+    if (modalBodyRef.current) {
+      modalBodyRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const startEditCategory = (cat: { id: string; name: string; display_order: number }) => {
+    setEditingCatId(cat.id);
+    setCatNameInput(cat.name);
+    setCatOrderInput(cat.display_order);
+    setConfirmDeleteCatId(null);
+    scrollToTop();
+    setTimeout(() => catInputRef.current?.focus(), 50);
+  };
+
+  const startEditSubCategory = (sub: { id: string; name: string; display_order: number }) => {
+    setEditingSubId(sub.id);
+    setSubNameInput(sub.name);
+    setSubOrderInput(sub.display_order);
+    setConfirmDeleteSubId(null);
+    scrollToTop();
+    setTimeout(() => subInputRef.current?.focus(), 50);
+  };
 
   if (!isOpen) return null;
 
@@ -77,25 +108,20 @@ export default function CategoryManagerModal({
       } else {
         const errorMsg = formatSupabaseError(data.error || "Failed to save category");
         setCatManagerError(errorMsg);
-        showToast(errorMsg, "error");
+        scrollToTop();
       }
     } catch {
       setCatManagerError("Request failed");
-      showToast("Request failed", "error");
+      scrollToTop();
     } finally {
       setCatActionLoading(false);
     }
   };
 
   const handleDeleteCategory = async (id: string) => {
-    if (
-      !confirm(
-        "Are you sure you want to delete this category and all its subcategories?"
-      )
-    )
-      return;
     setCatActionLoading(true);
     setCatManagerError("");
+    setConfirmDeleteCatId(null);
     try {
       const res = await fetch(`/api/admin/categories?id=${id}`, {
         method: "DELETE",
@@ -108,10 +134,11 @@ export default function CategoryManagerModal({
         const data = await res.json();
         const errorMsg = formatSupabaseError(data.error || "Delete failed");
         setCatManagerError(errorMsg);
-        showToast(errorMsg, "error");
+        scrollToTop();
       }
     } catch {
-      showToast("Delete failed", "error");
+      setCatManagerError("Delete failed");
+      scrollToTop();
     } finally {
       setCatActionLoading(false);
     }
@@ -152,20 +179,20 @@ export default function CategoryManagerModal({
       } else {
         const errorMsg = formatSupabaseError(data.error || "Failed to save subcategory");
         setCatManagerError(errorMsg);
-        showToast(errorMsg, "error");
+        scrollToTop();
       }
     } catch {
       setCatManagerError("Request failed");
-      showToast("Request failed", "error");
+      scrollToTop();
     } finally {
       setCatActionLoading(false);
     }
   };
 
   const handleDeleteSubCategory = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this subcategory?")) return;
     setCatActionLoading(true);
     setCatManagerError("");
+    setConfirmDeleteSubId(null);
     try {
       const res = await fetch(`/api/admin/sub-categories?id=${id}`, {
         method: "DELETE",
@@ -177,10 +204,11 @@ export default function CategoryManagerModal({
         const data = await res.json();
         const errorMsg = formatSupabaseError(data.error || "Delete failed");
         setCatManagerError(errorMsg);
-        showToast(errorMsg, "error");
+        scrollToTop();
       }
     } catch {
-      showToast("Delete failed", "error");
+      setCatManagerError("Delete failed");
+      scrollToTop();
     } finally {
       setCatActionLoading(false);
     }
@@ -217,11 +245,10 @@ export default function CategoryManagerModal({
           <button
             type="button"
             onClick={() => setCatManagerTab("categories")}
-            className={`py-2.5 text-sm font-semibold border-b-2 transition cursor-pointer ${
-              catManagerTab === "categories"
+            className={`py-2.5 text-sm font-semibold border-b-2 transition cursor-pointer ${catManagerTab === "categories"
                 ? "border-primary text-primary"
                 : "border-transparent text-slate-500 hover:text-slate-800"
-            }`}
+              }`}
           >
             Main Categories ({dbCategories.length})
           </button>
@@ -233,18 +260,17 @@ export default function CategoryManagerModal({
                 setSelectedCatId(dbCategories[0].id);
               }
             }}
-            className={`py-2.5 text-sm font-semibold border-b-2 transition cursor-pointer ${
-              catManagerTab === "subcategories"
+            className={`py-2.5 text-sm font-semibold border-b-2 transition cursor-pointer ${catManagerTab === "subcategories"
                 ? "border-primary text-primary"
                 : "border-transparent text-slate-500 hover:text-slate-800"
-            }`}
+              }`}
           >
             Subcategories ({dbSubCategories.length})
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+        <div ref={modalBodyRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
           {catManagerError && (
             <div className="flex items-center gap-2 rounded-xl bg-red-50 p-4 text-sm text-red-600 border border-red-200">
               <AlertTriangle className="h-4 w-4 shrink-0" />
@@ -264,6 +290,7 @@ export default function CategoryManagerModal({
                     Category Name
                   </label>
                   <input
+                    ref={catInputRef}
                     type="text"
                     required
                     value={catNameInput}
@@ -332,28 +359,48 @@ export default function CategoryManagerModal({
                           {cat.name}
                         </td>
                         <td className="px-4 py-3 text-right">
-                          <div className="inline-flex gap-2">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setEditingCatId(cat.id);
-                                setCatNameInput(cat.name);
-                                setCatOrderInput(cat.display_order);
-                              }}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition"
-                              title="Edit"
-                            >
-                              <Edit3 className="h-4 w-4" />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteCategory(cat.id)}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
-                              title="Delete"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          </div>
+                          {confirmDeleteCatId === cat.id ? (
+                            <div className="inline-flex items-center gap-2 bg-red-50 p-1.5 rounded-lg border border-red-200">
+                              <span className="text-xs font-bold text-red-700">Delete category?</span>
+                              <button
+                                type="button"
+                                disabled={catActionLoading}
+                                onClick={() => handleDeleteCategory(cat.id)}
+                                className="px-2 py-1 rounded bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition cursor-pointer disabled:opacity-50"
+                              >
+                                {catActionLoading ? "..." : "Yes, Delete"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setConfirmDeleteCatId(null)}
+                                className="px-2 py-1 rounded bg-white text-slate-600 border border-slate-300 text-xs font-medium hover:bg-slate-100 transition cursor-pointer"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-flex gap-2">
+                              <button
+                                type="button"
+                                onClick={() => startEditCategory(cat)}
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition"
+                                title="Edit"
+                              >
+                                <Edit3 className="h-4 w-4" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setConfirmDeleteCatId(cat.id);
+                                  setConfirmDeleteSubId(null);
+                                }}
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+                                title="Delete"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -392,6 +439,7 @@ export default function CategoryManagerModal({
                       Subcategory Name / Size
                     </label>
                     <input
+                      ref={subInputRef}
                       type="text"
                       required
                       value={subNameInput}
@@ -463,43 +511,63 @@ export default function CategoryManagerModal({
                             {sub.name}
                           </td>
                           <td className="px-4 py-3 text-right">
-                            <div className="inline-flex gap-2">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setEditingSubId(sub.id);
-                                  setSubNameInput(sub.name);
-                                  setSubOrderInput(sub.display_order);
-                                }}
-                                className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition"
-                                title="Edit"
-                              >
-                                <Edit3 className="h-4 w-4" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleDeleteSubCategory(sub.id)}
-                                className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
-                                title="Delete"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </button>
-                            </div>
+                            {confirmDeleteSubId === sub.id ? (
+                              <div className="inline-flex items-center gap-2 bg-red-50 p-1.5 rounded-lg border border-red-200">
+                                <span className="text-xs font-bold text-red-700">Delete?</span>
+                                <button
+                                  type="button"
+                                  disabled={catActionLoading}
+                                  onClick={() => handleDeleteSubCategory(sub.id)}
+                                  className="px-2 py-1 rounded bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition cursor-pointer disabled:opacity-50"
+                                >
+                                  {catActionLoading ? "..." : "Yes, Delete"}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setConfirmDeleteSubId(null)}
+                                  className="px-2 py-1 rounded bg-white text-slate-600 border border-slate-300 text-xs font-medium hover:bg-slate-100 transition cursor-pointer"
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="inline-flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => startEditSubCategory(sub)}
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition"
+                                  title="Edit"
+                                >
+                                  <Edit3 className="h-4 w-4" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setConfirmDeleteSubId(sub.id);
+                                    setConfirmDeleteCatId(null);
+                                  }}
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+                                  title="Delete"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              </div>
+                            )}
                           </td>
                         </tr>
                       ))}
                     {dbSubCategories.filter(
                       (s) => s.category_id === selectedCatId
                     ).length === 0 && (
-                      <tr>
-                        <td
-                          colSpan={3}
-                          className="px-4 py-6 text-center text-slate-400 text-sm"
-                        >
-                          No subcategories found for this main category.
-                        </td>
-                      </tr>
-                    )}
+                        <tr>
+                          <td
+                            colSpan={3}
+                            className="px-4 py-6 text-center text-slate-400 text-sm"
+                          >
+                            No subcategories found for this main category.
+                          </td>
+                        </tr>
+                      )}
                   </tbody>
                 </table>
               </div>
