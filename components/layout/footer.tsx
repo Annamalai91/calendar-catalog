@@ -39,7 +39,7 @@ const Footer = () => {
                   href="/products"
                   className="hover:text-foreground transition-colors"
                 >
-                  {APP_TEXT.footer.links.allProducts}
+                  {APP_TEXT.common.catalog}
                 </Link>
               </li>
               <li>

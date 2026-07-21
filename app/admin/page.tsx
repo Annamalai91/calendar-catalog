@@ -115,33 +115,27 @@ export default function AdminPage() {
     }
   };
 
-  const fetchCategoriesAndSubs = async () => {
-    try {
-      const resCat = await fetch("/api/admin/categories");
-      const catData = await resCat.json();
-      if (Array.isArray(catData)) setDbCategories(catData);
-
-      const resSub = await fetch("/api/admin/sub-categories");
-      const subData = await resSub.json();
-      if (Array.isArray(subData)) setDbSubCategories(subData);
-    } catch (err) {
-      console.error("Failed fetching categories/subcategories:", err);
-    }
-  };
-
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
     try {
       const { supabase } = await import("@lib/supabase/client");
-      let { data, error } = await supabase
-        .from("products")
-        .select("*, categories(name), sub_categories(name)")
-        .order("name", { ascending: true });
+
+      const [productsRes, catRes, subRes] = await Promise.all([
+        supabase
+          .from("products")
+          .select("*, categories!products_category_id_fkey(name), sub_categories(name)")
+          .order("name", { ascending: true }),
+        fetch("/api/admin/categories").then((r) => r.json()).catch(() => []),
+        fetch("/api/admin/sub-categories").then((r) => r.json()).catch(() => []),
+      ]);
+
+      let data = productsRes.data;
+      let error = productsRes.error;
 
       if (error && error.code === "PGRST201") {
         const res = await supabase
           .from("products")
-          .select("*, categories!products_category_id_fkey(name), sub_categories(name)")
+          .select("*, categories(name), sub_categories(name)")
           .order("name", { ascending: true });
         data = res.data;
         error = res.error;
@@ -165,7 +159,9 @@ export default function AdminPage() {
         sub_category: p.sub_categories?.name ?? p.sub_category ?? "",
       }));
       setProducts(formatted);
-      await fetchCategoriesAndSubs();
+
+      if (Array.isArray(catRes)) setDbCategories(catRes);
+      if (Array.isArray(subRes)) setDbSubCategories(subRes);
     } catch (err: any) {
       console.error("Fetch products failed:", err);
       showToast("Could not sync with Supabase database.", "error");

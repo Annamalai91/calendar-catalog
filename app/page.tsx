@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { homeMetadata } from "@configs/metadata";
 import { APP_TEXT } from "@configs/constants";
-import { getAllProducts } from "@data/products";
+import { getCachedAllProducts } from "@data/products";
 import HeroCarousel from "@components/product/hero-carousel";
 import { toSlug } from "@lib/utils/slug";
 
@@ -53,7 +53,7 @@ const categoryDetails: Record<
 };
 
 export default async function HomePage() {
-  const allProducts = await getAllProducts();
+  const allProducts = await getCachedAllProducts();
   const categoriesSeen = new Set<string>();
   const carouselProducts = allProducts.filter((product) => {
     if (!categoriesSeen.has(product.main_category)) {

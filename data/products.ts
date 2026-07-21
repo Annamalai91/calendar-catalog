@@ -1,4 +1,5 @@
 import { supabase } from "@lib/supabase/client";
+import { unstable_cache } from "next/cache";
 import type { Product, ProductsByCategory, FormattedCategory, FormattedSubCategory } from "@shared/types/product";
 import { toSlug } from "@lib/utils/slug";
 
@@ -197,5 +198,28 @@ export const getAllProductSlugs = async (): Promise<string[]> => {
   const products = await getAllProducts();
   return products.map((p) => p.slug ?? toSlug(p.name));
 };
+
+/* ─── Cached versions for non-admin pages ─── */
+
+/** Cached getAllProducts — revalidates every 60s or on tag bust */
+export const getCachedAllProducts = unstable_cache(
+  getAllProducts,
+  ["all-products"],
+  { revalidate: 60, tags: ["products"] },
+);
+
+/** Cached getFormattedCategories — revalidates every 120s or on tag bust */
+export const getCachedFormattedCategories = unstable_cache(
+  getFormattedCategories,
+  ["formatted-categories"],
+  { revalidate: 120, tags: ["categories"] },
+);
+
+/** Cached getFormattedSubCategoriesByCategory — revalidates every 120s or on tag bust */
+export const getCachedFormattedSubCategoriesByCategory = unstable_cache(
+  getFormattedSubCategoriesByCategory,
+  ["formatted-sub-categories"],
+  { revalidate: 120, tags: ["categories", "sub-categories"] },
+);
 
 

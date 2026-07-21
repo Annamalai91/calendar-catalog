@@ -7,10 +7,7 @@ export const APP_TEXT = {
   common: {
     home: "Home",
     catalog: "Catalog",
-    all: "All",
-    allProducts: "All Products",
-    filters: "Filters",
-    clearAll: "Clear all",
+    categories: "Categories",
   },
   brand: {
     shortName: "SC",
@@ -79,7 +76,6 @@ export const APP_TEXT = {
     companyTitle: "Company",
     supportTitle: "Support",
     links: {
-      allProducts: "All Products",
       monthlyCalendars: "Monthly Calendars",
       about: "About",
       contact: "Contact",
@@ -92,13 +88,13 @@ export const APP_TEXT = {
     catalogLabel: "Catalog",
     productSingular: "product",
     productPlural: "products",
-    selectedFilterLabels: {
+    selectedCategoryLabels: {
       category: "Category",
       size: "Size",
       search: "Search",
     },
-    mobileFiltersButton: "Filters",
-    mobileFiltersTitle: "Product Filters",
+    mobileCategoriesButton: "Categories",
+    mobileCategoriesTitle: "Product Categories",
   },
   productDetailPage: {
     metadataNotFoundTitle: "Product Not Found",

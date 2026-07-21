@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import crypto from "crypto";
 import { getSupabaseServer } from "@lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 async function isAuthorized() {
   const adminPassword = process.env.ADMIN_PASSWORD;
@@ -134,6 +134,7 @@ export async function POST(request: Request) {
     // Revalidate paths
     revalidatePath("/");
     revalidatePath("/products");
+    revalidateTag("products");
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
@@ -241,6 +242,7 @@ export async function PUT(request: Request) {
     revalidatePath("/products");
     revalidatePath(`/products/${existing.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-")}`);
     revalidatePath(`/products/${name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-")}`);
+    revalidateTag("products");
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
@@ -294,6 +296,7 @@ export async function DELETE(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath(`/products/${existing.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-")}`);
+    revalidateTag("products");
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

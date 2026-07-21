@@ -66,7 +66,7 @@ export default function AdminProductTable({
             No products found
           </h3>
           <p className="text-slate-500 text-sm mt-1 max-w-sm">
-            Try adjusting your search queries or category filters, or add a brand new calendar template.
+            Try adjusting your search queries or categories, or add a brand new calendar template.
           </p>
         </div>
       ) : (
@@ -94,6 +94,8 @@ export default function AdminProductTable({
                         <img
                           src={product.cover_image}
                           alt={product.name}
+                          loading="lazy"
+                          decoding="async"
                           className="h-full w-full object-cover"
                         />
                       </div>

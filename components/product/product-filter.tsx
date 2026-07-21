@@ -9,10 +9,9 @@ import type { ProductFilterProps } from "./type";
 import { APP_TEXT } from "@configs/constants";
 
 /**
- * ProductFilter — sidebar filter for the catalog page.
+ * ProductFilter — sidebar category selector for the catalog page.
  *
- * Figma source: "Aside" frame in Product Selection Container.
- * Uses grouped filter cards with checkbox-style rows.
+ * Grouped category cards with subcategory choices.
  */
 const ProductFilter = ({
   categories,
@@ -24,35 +23,18 @@ const ProductFilter = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-
-  const setCategoryAndSubFilter = useCallback(
-    (nextCategory: string | undefined, nextSubCategory?: string) => {
+  const setCategoryAndSub = useCallback(
+    (nextCategory: string, nextSubCategory: string) => {
       const params = new URLSearchParams(searchParams.toString());
 
-      if (nextCategory) {
-        params.set("category", nextCategory);
-      } else {
-        params.delete("category");
-      }
-
-      if (nextSubCategory) {
-        params.set("sub", nextSubCategory);
-      } else {
-        params.delete("sub");
-      }
-
+      params.set("category", nextCategory);
+      params.set("sub", nextSubCategory);
       params.delete("page");
+
       router.push(`${pathname}?${params.toString()}`, { scroll: false });
     },
     [pathname, router, searchParams],
   );
-
-  const clearAll = () => {
-    router.push(pathname, { scroll: false });
-  };
-
-  const hasActiveFilters =
-    !!activeCategory || !!activeSubCategory;
 
   const sectionClassName =
     "rounded-lg border border-black/8 bg-white p-3.5 sm:p-4";
@@ -71,35 +53,9 @@ const ProductFilter = ({
     >
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold text-slate-950">
-          {APP_TEXT.common.filters}
+          {APP_TEXT.common.categories}
         </h2>
-        {hasActiveFilters ? (
-          <button
-            onClick={clearAll}
-            className="text-xs font-medium text-slate-500 transition-colors hover:text-slate-900"
-          >
-            {APP_TEXT.common.clearAll}
-          </button>
-        ) : null}
       </div>
-
-      <button
-        onClick={() => setCategoryAndSubFilter(undefined)}
-        className={cn(
-          optionRowClassName,
-          "rounded-lg border border-black/8 px-3 py-2",
-        )}
-      >
-        <span
-          className={cn(
-            checkboxClassName,
-            !activeCategory && "border-primary/30 bg-primary/15 text-primary",
-          )}
-        >
-          {!activeCategory ? <Check className="h-3 w-3" /> : null}
-        </span>
-        <span>{APP_TEXT.common.allProducts}</span>
-      </button>
 
       {categories.map((category) => {
         const isObj = typeof category === "object" && category !== null;
@@ -110,38 +66,37 @@ const ProductFilter = ({
         const categorySubCategories =
           subCategoriesByCategory[categorySlug] ?? [];
         const isCategoryActive = activeCategory === categorySlug;
+        const firstSub = categorySubCategories[0];
+        const firstSubSlug = firstSub
+          ? typeof firstSub === "object" && firstSub !== null
+            ? firstSub.slug
+            : toSlug(firstSub)
+          : undefined;
 
         return (
           <section key={categorySlug} className={sectionClassName}>
-            <h3 className={sectionTitleClassName}>{categoryLabel}</h3>
-            <div className={optionListClassName}>
-              <button
-                onClick={() =>
-                  setCategoryAndSubFilter(
-                    isCategoryActive && !activeSubCategory
-                      ? undefined
-                      : categorySlug,
-                  )
+            <button
+              type="button"
+              onClick={() => {
+                if (firstSubSlug) {
+                  setCategoryAndSub(categorySlug, firstSubSlug);
                 }
-                className={optionRowClassName}
+              }}
+              className="w-full text-left"
+            >
+              <h3
+                className={cn(
+                  sectionTitleClassName,
+                  isCategoryActive && "text-primary font-bold",
+                )}
               >
-                <span
-                  className={cn(
-                    checkboxClassName,
-                    isCategoryActive &&
-                      !activeSubCategory &&
-                      "border-primary/30 bg-primary/15 text-primary",
-                  )}
-                >
-                  {isCategoryActive && !activeSubCategory ? (
-                    <Check className="h-3 w-3" />
-                  ) : null}
-                </span>
-                <span>{APP_TEXT.common.all}</span>
-              </button>
-
+                {categoryLabel}
+              </h3>
+            </button>
+            <div className={optionListClassName}>
               {categorySubCategories.map((subCategory) => {
-                const isSubObj = typeof subCategory === "object" && subCategory !== null;
+                const isSubObj =
+                  typeof subCategory === "object" && subCategory !== null;
                 const subName = isSubObj ? subCategory.name : subCategory;
                 const subLabel = isSubObj ? subCategory.label : subCategory;
                 const subSlug = isSubObj ? subCategory.slug : toSlug(subName);
@@ -152,12 +107,8 @@ const ProductFilter = ({
                 return (
                   <button
                     key={subSlug}
-                    onClick={() =>
-                      setCategoryAndSubFilter(
-                        categorySlug,
-                        isSubCategoryActive ? undefined : subSlug,
-                      )
-                    }
+                    type="button"
+                    onClick={() => setCategoryAndSub(categorySlug, subSlug)}
                     className={optionRowClassName}
                   >
                     <span
@@ -179,9 +130,6 @@ const ProductFilter = ({
           </section>
         );
       })}
-
-
-
     </aside>
   );
 };

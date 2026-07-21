@@ -1,5 +1,6 @@
 import { SlidersHorizontal } from "lucide-react";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 import ProductGrid from "@components/product/product-grid";
 import ProductFilter from "@components/product/product-filter";
 import { ProductGridSkeleton } from "@components/product/product-skeleton";
@@ -11,7 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@components/ui/sheet";
-import { getAllProducts, getFormattedCategories, getFormattedSubCategoriesByCategory } from "@data/products";
+import { getCachedAllProducts, getCachedFormattedCategories, getCachedFormattedSubCategoriesByCategory } from "@data/products";
 import { toSlug, fromSlug } from "@lib/utils/slug";
 import type { PageProps } from "@shared/types/common";
 import type { ProductsPageSearchParams } from "./type";
@@ -22,36 +23,53 @@ export { productsMetadata as metadata };
 /**
  * Product Selection page — "/products"
  *
- * Figma source: "Product Selection" frame
- *   - Header (64px) + Container: Aside (fixed width) + Main (flex-grow)
- *   - Container padding: 32px, itemSpacing: 32px
- *   - Aside: VERTICAL, FIXED width, FILL height
- *   - Main: VERTICAL, FILL, itemSpacing: 28px
- *
  * Server Component — filter state driven by URL search params.
+ * Enforces that at least one main and one sub category are always selected by default.
  */
 export default async function ProductsPage({
   searchParams,
 }: PageProps<Record<string, never>>) {
   const params = (await searchParams) as ProductsPageSearchParams;
 
-  const allProducts = await getAllProducts();
-  const categories = await getFormattedCategories();
-  const subCategoriesByCategory = await getFormattedSubCategoriesByCategory();
+  // Run all 3 queries in parallel instead of sequentially
+  const [allProducts, categories, subCategoriesByCategory] = await Promise.all([
+    getCachedAllProducts(),
+    getCachedFormattedCategories(),
+    getCachedFormattedSubCategoriesByCategory(),
+  ]);
 
-  // Apply filters
+  const validCategory =
+    categories.find((c) => c.slug === params.category)?.slug ?? categories[0]?.slug;
+  const availableSubCategories = validCategory
+    ? (subCategoriesByCategory[validCategory] ?? [])
+    : [];
+  const validSubCategory =
+    availableSubCategories.find((s) => s.slug === params.sub)?.slug ??
+    availableSubCategories[0]?.slug;
+
+  if (
+    (validCategory && params.category !== validCategory) ||
+    (validSubCategory && params.sub !== validSubCategory)
+  ) {
+    const urlParams = new URLSearchParams();
+    if (validCategory) urlParams.set("category", validCategory);
+    if (validSubCategory) urlParams.set("sub", validSubCategory);
+    if (params.q) urlParams.set("q", params.q);
+    redirect(`/products?${urlParams.toString()}`);
+  }
+
+  // Filter products by category, subcategory, and optional search query
   const filteredProducts = allProducts.filter((product) => {
-    if (params.category && toSlug(product.main_category) !== params.category) {
+    if (validCategory && toSlug(product.main_category) !== validCategory) {
       return false;
     }
     if (
-      params.sub &&
-      toSlug(product.sub_category) !== params.sub &&
-      toSlug(product.size ?? "") !== params.sub
+      validSubCategory &&
+      toSlug(product.sub_category) !== validSubCategory &&
+      toSlug(product.size ?? "") !== validSubCategory
     ) {
       return false;
     }
-
 
     if (params.q) {
       const query = params.q.toLowerCase();
@@ -65,31 +83,30 @@ export default async function ProductsPage({
     return true;
   });
 
-  const activeCategoryLabel = params.category
-    ? fromSlug(params.category)
-    : undefined;
-  const activeSubCategoryLabel = params.sub ? fromSlug(params.sub) : undefined;
+  const activeCategoryLabel = validCategory ? fromSlug(validCategory) : undefined;
+  const activeSubCategoryLabel = validSubCategory ? fromSlug(validSubCategory) : undefined;
   const activeQueryLabel = params.q?.trim() ? params.q.trim() : undefined;
-  type SelectedFilter = { key: string; label: string; value: string };
-  const selectedFilters: SelectedFilter[] = [];
+
+  type SelectedCategory = { key: string; label: string; value: string };
+  const selectedCategories: SelectedCategory[] = [];
   if (activeCategoryLabel) {
-    selectedFilters.push({
+    selectedCategories.push({
       key: "category",
-      label: APP_TEXT.productsPage.selectedFilterLabels.category,
+      label: APP_TEXT.productsPage.selectedCategoryLabels.category,
       value: activeCategoryLabel,
     });
   }
   if (activeSubCategoryLabel) {
-    selectedFilters.push({
+    selectedCategories.push({
       key: "size",
-      label: APP_TEXT.productsPage.selectedFilterLabels.size,
+      label: APP_TEXT.productsPage.selectedCategoryLabels.size,
       value: activeSubCategoryLabel,
     });
   }
   if (activeQueryLabel) {
-    selectedFilters.push({
+    selectedCategories.push({
       key: "search",
-      label: APP_TEXT.productsPage.selectedFilterLabels.search,
+      label: APP_TEXT.productsPage.selectedCategoryLabels.search,
       value: activeQueryLabel,
     });
   }
@@ -108,8 +125,8 @@ export default async function ProductsPage({
               <ProductFilter
                 categories={categories}
                 subCategoriesByCategory={subCategoriesByCategory}
-                activeCategory={params.category}
-                activeSubCategory={params.sub}
+                activeCategory={validCategory}
+                activeSubCategory={validSubCategory}
               />
             </Suspense>
           </aside>
@@ -122,7 +139,7 @@ export default async function ProductsPage({
                 </p>
                 <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
                   <h2 className="text-2xl font-bold tracking-[-0.03em] text-slate-950">
-                    {activeCategoryLabel ?? APP_TEXT.common.allProducts}
+                    {activeCategoryLabel}
                   </h2>
                   <p className="text-sm text-slate-600">
                     {filteredProducts.length}{" "}
@@ -131,14 +148,14 @@ export default async function ProductsPage({
                       : APP_TEXT.productsPage.productPlural}
                   </p>
                 </div>
-                {selectedFilters.length > 0 ? (
+                {selectedCategories.length > 0 ? (
                   <div className="mt-3 flex flex-wrap items-center gap-2">
-                    {selectedFilters.map((filter) => (
+                    {selectedCategories.map((item) => (
                       <span
-                        key={filter.key}
+                        key={item.key}
                         className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-slate-700"
                       >
-                        {filter.label}: {filter.value}
+                        {item.label}: {item.value}
                       </span>
                     ))}
                   </div>
@@ -152,37 +169,36 @@ export default async function ProductsPage({
                     className="h-10 rounded-xl border-black/10 bg-white px-4 text-sm lg:hidden"
                   >
                     <SlidersHorizontal className="h-4 w-4" />
-                    {APP_TEXT.productsPage.mobileFiltersButton}
+                    {APP_TEXT.productsPage.mobileCategoriesButton}
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-[#F7FBF9] p-0 flex flex-col h-full gap-0">
                   <SheetHeader className="border-b border-black/8 px-5 py-4">
                     <SheetTitle>
-                      {APP_TEXT.productsPage.mobileFiltersTitle}
+                      {APP_TEXT.productsPage.mobileCategoriesTitle}
                     </SheetTitle>
                   </SheetHeader>
                   <div className="flex-1 overflow-y-auto p-5">
                     <ProductFilter
                       categories={categories}
                       subCategoriesByCategory={subCategoriesByCategory}
-                      activeCategory={params.category}
-                      activeSubCategory={params.sub}
+                      activeCategory={validCategory}
+                      activeSubCategory={validSubCategory}
                     />
                   </div>
                 </SheetContent>
               </Sheet>
             </section>
 
-            {/* Category Banner Placeholder */}
-            {params.category && (
+            {/* Category Banner */}
+            {validCategory && (
               <div className="relative overflow-hidden rounded-xl bg-sage-700 text-white p-3 shadow-sm border border-sage-800 mb-3 transition-all duration-300">
-
                 <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-2.5 gap-x-6 text-xs text-white">
                   {/* Main Category (Left) */}
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-start">
                     <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Category</span>
                     <span className="font-semibold bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-white">
-                      {mainCat}
+                      {mainCat || activeCategoryLabel}
                     </span>
                   </div>
 

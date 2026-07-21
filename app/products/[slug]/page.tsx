@@ -7,7 +7,7 @@ import { Separator } from "@components/ui/separator";
 import {
   getProductBySlug,
   getAllProductSlugs,
-  getAllProducts,
+  getCachedAllProducts,
 } from "@data/products";
 import { toSlug } from "@lib/utils/slug";
 import type { Metadata } from "next";
@@ -59,7 +59,7 @@ export default async function ProductDetailPage({
   }
 
   // Related products — same category, excluding current
-  const allProducts = await getAllProducts();
+  const allProducts = await getCachedAllProducts();
   const relatedProducts = allProducts
     .filter(
       (p) =>

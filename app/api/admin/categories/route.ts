@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import crypto from "crypto";
 import { getSupabaseServer } from "@lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { formatSupabaseError } from "@lib/utils";
 
 async function isAuthorized() {
@@ -79,6 +79,8 @@ export async function POST(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath("/admin");
+    revalidateTag("categories");
+    revalidateTag("products");
 
     return NextResponse.json(data, { status: 201 });
   } catch (error: any) {
@@ -125,6 +127,8 @@ export async function PUT(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath("/admin");
+    revalidateTag("categories");
+    revalidateTag("products");
 
     return NextResponse.json(data);
   } catch (error: any) {
@@ -202,6 +206,9 @@ export async function DELETE(request: Request) {
     revalidatePath("/");
     revalidatePath("/products");
     revalidatePath("/admin");
+    revalidateTag("categories");
+    revalidateTag("sub-categories");
+    revalidateTag("products");
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
