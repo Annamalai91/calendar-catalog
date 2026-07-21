@@ -19,7 +19,7 @@ const Footer = () => {
       aria-label={APP_TEXT.footer.ariaLabel}
     >
       <div className="mx-auto max-w-300 px-8 py-10">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           <div>
             <h2 className="text-sm font-semibold text-foreground mb-3">
               {APP_TEXT.footer.aboutTitle}
@@ -27,6 +27,17 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground leading-relaxed">
               {APP_TEXT.footer.aboutDescription}
             </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-3">
+              {APP_TEXT.footer.addressTitle}
+            </h3>
+            <div className="space-y-1 text-sm text-muted-foreground leading-relaxed">
+              {APP_TEXT.footer.address.map((line, i) => (
+                <p key={i}>{line}</p>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -40,62 +51,6 @@ const Footer = () => {
                   className="hover:text-foreground transition-colors"
                 >
                   {APP_TEXT.common.catalog}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products/monthly-calendar"
-                  className="hover:text-foreground transition-colors"
-                >
-                  {APP_TEXT.footer.links.monthlyCalendars}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-foreground mb-3">
-              {APP_TEXT.footer.companyTitle}
-            </h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-foreground transition-colors"
-                >
-                  {APP_TEXT.footer.links.about}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contact"
-                  className="hover:text-foreground transition-colors"
-                >
-                  {APP_TEXT.footer.links.contact}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-foreground mb-3">
-              {APP_TEXT.footer.supportTitle}
-            </h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-foreground transition-colors"
-                >
-                  {APP_TEXT.footer.links.faq}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-foreground transition-colors"
-                >
-                  {APP_TEXT.footer.links.shipping}
                 </Link>
               </li>
             </ul>

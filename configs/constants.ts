@@ -73,15 +73,14 @@ export const APP_TEXT = {
     aboutTitle: "Calenders Arun",
     aboutDescription: "Premium quality calendar printing for every occasion.",
     catalogTitle: "Catalog",
-    companyTitle: "Company",
-    supportTitle: "Support",
-    links: {
-      monthlyCalendars: "Monthly Calendars",
-      about: "About",
-      contact: "Contact",
-      faq: "FAQ",
-      shipping: "Shipping",
-    },
+    addressTitle: "Address",
+    address: [
+      "Vidhyasri Enterprises",
+      "111, Gandhi Road,",
+      "Behind Manikandan Orthi Clinic,",
+      "Sivakasi - 626189",
+    ],
+    links: {},
     copyrightSuffix: "Calenders Arun. All rights reserved.",
   },
   productsPage: {
