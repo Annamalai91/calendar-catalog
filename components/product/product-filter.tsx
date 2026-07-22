@@ -84,14 +84,15 @@ const ProductFilter = ({
               }}
               className="w-full text-left"
             >
-              <h3
+              <span
                 className={cn(
                   sectionTitleClassName,
+                  "block",
                   isCategoryActive && "text-primary font-bold",
                 )}
               >
                 {categoryLabel}
-              </h3>
+              </span>
             </button>
             <div className={optionListClassName}>
               {categorySubCategories.map((subCategory) => {
