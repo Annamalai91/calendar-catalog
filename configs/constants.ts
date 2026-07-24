@@ -70,7 +70,7 @@ export const APP_TEXT = {
   },
   footer: {
     ariaLabel: "Site footer",
-    aboutTitle: "Calenders Arun",
+    aboutTitle: "Vidhyasri Enterprises",
     aboutDescription: "Premium quality calendar printing for every occasion.",
     catalogTitle: "Catalog",
     addressTitle: "Address",
@@ -81,7 +81,7 @@ export const APP_TEXT = {
       "Sivakasi - 626189",
     ],
     links: {},
-    copyrightSuffix: "Calenders Arun. All rights reserved.",
+    copyrightSuffix: "Vidhyasri Enterprises. All rights reserved.",
   },
   productsPage: {
     catalogLabel: "Catalog",
