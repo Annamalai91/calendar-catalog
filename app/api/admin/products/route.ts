@@ -27,6 +27,8 @@ async function uploadImage(supabaseServer: any, file: File, productName: string,
   // Convert to optimized WebP before uploading (preserves original resolution)
   const { buffer, contentType, extension } = await processImage(rawBuffer, {
     quality: 80,
+    fallbackContentType: file.type,
+    fallbackName: file.name,
   });
 
   const destPath = `products/${sanitizedName}-${type}-${Date.now()}.${extension}`;
