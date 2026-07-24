@@ -106,6 +106,8 @@ interface ProductModalProps {
   onSave: (productData: FormData) => Promise<void>;
   formError: string;
   setFormError: (err: string) => void;
+  formSuccess?: string;
+  setFormSuccess?: (msg: string) => void;
   isSaving: boolean;
 }
 
@@ -122,6 +124,8 @@ export default function ProductModal({
   onSave,
   formError,
   setFormError,
+  formSuccess,
+  setFormSuccess,
   isSaving,
 }: ProductModalProps) {
   const [name, setName] = useState("");
@@ -139,6 +143,14 @@ export default function ProductModal({
   const [fullImageFile, setFullImageFile] = useState<File | null>(null);
   const [coverImagePreview, setCoverImagePreview] = useState("");
   const [fullImagePreview, setFullImagePreview] = useState("");
+
+  const formTopRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (formError || formSuccess) {
+      formTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [formError, formSuccess]);
 
   useEffect(() => {
     if (editingProduct) {
@@ -254,10 +266,20 @@ export default function ProductModal({
 
         {/* Modal Body (Scrollable Form) */}
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+          <div ref={formTopRef} />
           {formError && (
             <div className="flex items-center gap-2 rounded-xl bg-red-50 p-4 text-sm text-red-600 border border-red-100">
               <AlertTriangle className="h-4 w-4 shrink-0" />
               <p>{formError}</p>
+            </div>
+          )}
+
+          {formSuccess && (
+            <div className="flex items-center gap-2 rounded-xl bg-green-50 p-4 text-sm text-green-700 border border-green-200">
+              <div className="h-4 w-4 shrink-0 rounded-full bg-green-500 text-white flex items-center justify-center">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <p>{formSuccess}</p>
             </div>
           )}
 

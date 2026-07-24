@@ -38,6 +38,7 @@ export default function AdminPage() {
   const [editingProduct, setEditingProduct] = useState<AdminProduct | null>(null);
   const [isSavingProduct, setIsSavingProduct] = useState(false);
   const [formError, setFormError] = useState("");
+  const [formSuccess, setFormSuccess] = useState("");
 
   const [isCatManagerOpen, setIsCatManagerOpen] = useState(false);
   const [deletingProduct, setDeletingProduct] = useState<AdminProduct | null>(null);
@@ -173,6 +174,7 @@ export default function AdminPage() {
   const handleSaveProduct = async (formData: FormData) => {
     setIsSavingProduct(true);
     setFormError("");
+    setFormSuccess("");
 
     try {
       const url = "/api/admin/products";
@@ -186,13 +188,11 @@ export default function AdminPage() {
       const result = await res.json();
 
       if (res.ok) {
-        showToast(
+        setFormSuccess(
           editingProduct
             ? "Product updated successfully"
-            : "Product created successfully",
-          "success"
+            : "Product created successfully"
         );
-        setIsProductModalOpen(false);
         fetchProducts();
       } else {
         setFormError(result.error || "Failed to save product.");
@@ -356,6 +356,7 @@ export default function AdminPage() {
           onOpenAddModal={() => {
             setEditingProduct(null);
             setFormError("");
+            setFormSuccess("");
             setIsProductModalOpen(true);
           }}
         />
@@ -379,6 +380,7 @@ export default function AdminPage() {
           onEditProduct={(product) => {
             setEditingProduct(product);
             setFormError("");
+            setFormSuccess("");
             setIsProductModalOpen(true);
           }}
           onDeleteProduct={setDeletingProduct}
@@ -399,6 +401,8 @@ export default function AdminPage() {
         onSave={handleSaveProduct}
         formError={formError}
         setFormError={setFormError}
+        formSuccess={formSuccess}
+        setFormSuccess={setFormSuccess}
         isSaving={isSavingProduct}
       />
 
