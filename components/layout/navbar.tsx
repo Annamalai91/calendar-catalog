@@ -80,10 +80,10 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
           <SheetClose asChild key={shortLabel}>
             <a
               href={href}
-              className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200/60 bg-white px-3 py-2.5 text-base font-bold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-w-0 cursor-pointer items-center gap-3 rounded-lg border border-slate-200/60 bg-white px-3 py-2.5 text-xs font-bold text-slate-900 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Icon className="h-5 w-5 shrink-0" />
-              <span>{label}</span>
+              <span className="truncate min-w-0">{label}</span>
             </a>
           </SheetClose>
         ))}
