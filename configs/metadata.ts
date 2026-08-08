@@ -38,9 +38,9 @@ export const rootMetadata: Metadata = {
     description: SEO_TEXT.root.twitterDescription,
   },
   icons: {
-    icon: "/assets/logo-v2.png",
-    shortcut: "/assets/logo-v2.png",
-    apple: "/assets/logo-v2.png",
+    icon: "/assets/logo-v2.svg",
+    shortcut: "/assets/logo-v2.svg",
+    apple: "/assets/logo-v2.svg",
   },
   robots: {
     index: true,

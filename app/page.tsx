@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone, Mail } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { homeMetadata } from "@configs/metadata";
 import { APP_TEXT } from "@configs/constants";
+import { CONTACT_INFO, CONTACT_LINKS } from "@/configs/contact";
 import { getCachedAllProducts } from "@data/products";
 import HeroCarousel from "@components/product/hero-carousel";
 import { toSlug } from "@lib/utils/slug";
@@ -72,12 +73,17 @@ export default async function HomePage() {
       >
         <div className="mx-auto max-w-5xl px-8 pb-24 pt-16 lg:pb-32 lg:pt-20">
           <div className="flex flex-col items-center text-center">
-            <div className="inline-flex rounded-xl bg-[#EDEFF4] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.5px] text-slate-600">
-              {APP_TEXT.homePage.heroTag}
-            </div>
+            <Image
+              src="/assets/logo-v2.svg"
+              alt={APP_TEXT.brand.name}
+              width={400}
+              height={360}
+              className="h-36 sm:h-48 md:h-56 w-auto object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105"
+              priority
+            />
             <h1
               id="hero-heading"
-              className="mt-6 max-w-3xl text-5xl font-extrabold tracking-[-0.03em] text-[#0f172a] sm:text-6xl md:text-7xl leading-tight"
+              className="mt-6 max-w-2xl text-2xl font-semibold tracking-tight text-slate-700 sm:text-3xl md:text-4xl leading-snug"
             >
               {APP_TEXT.homePage.heroTitle}
             </h1>
@@ -85,17 +91,33 @@ export default async function HomePage() {
               {APP_TEXT.homePage.heroDescription}
             </p>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <Button
                 size="lg"
                 asChild
-                className="rounded-xl px-8 py-6 text-base"
+                className="rounded-xl px-8 py-6 text-base font-semibold"
               >
                 <Link href="/products">
                   {APP_TEXT.homePage.heroPrimaryCta}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
+
+              <a
+                href={CONTACT_LINKS.call}
+                className="inline-flex cursor-pointer items-center gap-2.5 rounded-xl border border-slate-200/90 bg-white px-6 py-3.5 text-base font-bold text-slate-900 shadow-xs"
+              >
+                <Phone className="h-5 w-5 text-[#06B6A4]" />
+                <span>{CONTACT_INFO.phoneDisplay}</span>
+              </a>
+
+              <a
+                href={CONTACT_LINKS.email}
+                className="inline-flex cursor-pointer items-center gap-2.5 rounded-xl border border-slate-200/90 bg-white px-6 py-3.5 text-base font-bold text-slate-900 shadow-xs"
+              >
+                <Mail className="h-5 w-5 text-[#06B6A4]" />
+                <span>{CONTACT_INFO.email}</span>
+              </a>
             </div>
 
             <div className="mt-16 w-full max-w-4xl">

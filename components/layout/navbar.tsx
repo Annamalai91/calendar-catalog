@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Phone, MessageCircle, Camera, Users, Mail, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@components/ui/button";
 import {
   Sheet,
@@ -13,27 +13,33 @@ import {
 } from "@components/ui/sheet";
 import { CONTACT_INFO, CONTACT_LINKS } from "@/configs/contact";
 import { APP_TEXT } from "@configs/constants";
+import {
+  WhatsAppIcon,
+  InstagramIcon,
+  GmailIcon,
+  PhoneCallIcon,
+} from "@/components/icons/brand-icons";
 
 const contactLinks = [
   {
     label: APP_TEXT.navbar.contactLinkLabels.call,
     href: CONTACT_LINKS.call,
-    icon: Phone,
+    icon: PhoneCallIcon,
   },
   {
     label: APP_TEXT.navbar.contactLinkLabels.whatsapp,
     href: CONTACT_LINKS.whatsapp,
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
   },
   {
     label: APP_TEXT.navbar.contactLinkLabels.instagram,
     href: CONTACT_LINKS.instagram,
-    icon: Camera,
+    icon: InstagramIcon,
   },
   {
     label: APP_TEXT.navbar.contactLinkLabels.email,
     href: CONTACT_LINKS.email,
-    icon: Mail,
+    icon: GmailIcon,
   },
 ] as const;
 
@@ -42,11 +48,13 @@ const quickContactItems = [
     label: CONTACT_INFO.phoneDisplay,
     href: CONTACT_LINKS.call,
     shortLabel: APP_TEXT.navbar.quickContactLabels.call,
+    icon: PhoneCallIcon,
   },
   {
     label: CONTACT_INFO.email,
     href: CONTACT_LINKS.email,
     shortLabel: APP_TEXT.navbar.quickContactLabels.email,
+    icon: GmailIcon,
   },
 ] as const;
 
@@ -68,13 +76,14 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
         <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {APP_TEXT.navbar.contactSectionTitle}
         </p>
-        {quickContactItems.map(({ label, href, shortLabel }) => (
+        {quickContactItems.map(({ label, href, shortLabel, icon: Icon }) => (
           <SheetClose asChild key={shortLabel}>
             <a
               href={href}
-              className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200/60 bg-white px-3 py-2.5 text-base font-bold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              {label}
+              <Icon className="h-5 w-5 shrink-0" />
+              <span>{label}</span>
             </a>
           </SheetClose>
         ))}
@@ -92,7 +101,7 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noreferrer" : undefined}
             >
-              <Icon className="h-4 w-4 text-muted-foreground" />
+              <Icon className="h-5 w-5 shrink-0" />
               {label}
             </a>
           </SheetClose>
@@ -135,11 +144,11 @@ const Navbar = () => {
             aria-label={APP_TEXT.brand.homeAriaLabel}
           >
             <Image
-              src="/assets/logo-v2.png"
+              src="/assets/logo-v2.svg"
               alt={APP_TEXT.brand.name}
-              width={34}
-              height={32}
-              className="h-14 w-auto object-contain"
+              width={50}
+              height={48}
+              className="h-16 w-auto object-contain"
               style={{ width: "auto" }}
               priority
             />
@@ -147,32 +156,33 @@ const Navbar = () => {
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden items-center gap-2 lg:flex">
-              {quickContactItems.map(({ label, href, shortLabel }) => (
+            <div className="hidden items-center gap-3.5 lg:flex">
+              {quickContactItems.map(({ label, href, shortLabel, icon: Icon }) => (
                 <a
                   key={shortLabel}
                   href={href}
-                  className="rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 bg-white/90 px-3.5 py-1.5 text-sm font-bold text-slate-800 shadow-2xs hover:bg-slate-50 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  {label}
+                  <Icon className="h-4.5 w-4.5 shrink-0" />
+                  <span>{label}</span>
                 </a>
               ))}
             </div>
 
             <nav
-              className="hidden items-center gap-1 sm:gap-2 lg:flex"
+              className="hidden items-center gap-2 lg:flex"
               aria-label={APP_TEXT.navbar.contactAndSocialAriaLabel}
             >
               {contactLinks.map(({ label, href, icon: Icon }) => (
                 <a
                   key={label}
                   href={href}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/10 bg-white/70 text-muted-foreground transition-colors hover:bg-white hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="inline-flex p-1.5 items-center justify-center transition-transform hover:scale-115 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
                   aria-label={label}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noreferrer" : undefined}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-6 w-6 shrink-0" />
                 </a>
               ))}
             </nav>
@@ -203,11 +213,11 @@ const Navbar = () => {
           aria-label={APP_TEXT.brand.homeAriaLabel}
         >
           <Image
-            src="/assets/logo-v2.png"
+            src="/assets/logo-v2.svg"
             alt={APP_TEXT.brand.name}
-            width={30}
-            height={28}
-            className="h-7 w-auto rounded-md object-contain"
+            width={40}
+            height={38}
+            className="h-11 w-auto rounded-md object-contain"
             style={{ width: "auto" }}
             priority
           />
@@ -215,32 +225,33 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden items-center gap-2 lg:flex">
-            {quickContactItems.map(({ label, href, shortLabel }) => (
+          <div className="hidden items-center gap-3.5 lg:flex">
+            {quickContactItems.map(({ label, href, shortLabel, icon: Icon }) => (
               <a
                 key={shortLabel}
                 href={href}
-                className="rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 bg-white/90 px-3.5 py-1.5 text-sm font-bold text-slate-800 shadow-2xs hover:bg-slate-50 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                {label}
+                <Icon className="h-4.5 w-4.5 shrink-0" />
+                <span>{label}</span>
               </a>
             ))}
           </div>
 
           <nav
-            className="hidden items-center gap-1 sm:gap-2 lg:flex"
+            className="hidden items-center gap-2 lg:flex"
             aria-label={APP_TEXT.navbar.contactAndSocialAriaLabel}
           >
             {contactLinks.map(({ label, href, icon: Icon }) => (
               <a
                 key={label}
                 href={href}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/10 bg-white/70 text-muted-foreground transition-colors hover:bg-white hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex p-1.5 items-center justify-center transition-transform hover:scale-115 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
                 aria-label={label}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noreferrer" : undefined}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-6 w-6 shrink-0" />
               </a>
             ))}
           </nav>
