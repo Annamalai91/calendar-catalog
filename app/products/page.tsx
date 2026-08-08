@@ -117,7 +117,7 @@ export default async function ProductsPage({
   const advtSpacesList = [...new Set(filteredProducts.map((p) => p.advt_space).filter(Boolean))];
 
   return (
-    <div className="min-h-screen bg-[#F7FBF9]">
+    <div className="min-h-screen bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors">
       <div className="mx-auto max-w-360 px-8 py-8">
         <div className="flex gap-8">
           <aside className="hidden w-68 shrink-0 lg:block">
@@ -134,14 +134,14 @@ export default async function ProductsPage({
           <div className="flex min-w-0 flex-1 flex-col gap-7">
             <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   {APP_TEXT.productsPage.catalogLabel}
                 </p>
                 <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <h2 className="text-2xl font-bold tracking-[-0.03em] text-slate-950">
+                  <h2 className="text-2xl font-bold tracking-[-0.03em] text-slate-950 dark:text-slate-100">
                     {activeCategoryLabel}
                   </h2>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
                     {filteredProducts.length}{" "}
                     {filteredProducts.length === 1
                       ? APP_TEXT.productsPage.productSingular
@@ -153,7 +153,7 @@ export default async function ProductsPage({
                     {selectedCategories.map((item) => (
                       <span
                         key={item.key}
-                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-slate-700"
+                        className="rounded-full border border-black/10 dark:border-white/15 bg-white dark:bg-slate-800 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-200"
                       >
                         {item.label}: {item.value}
                       </span>
@@ -166,14 +166,14 @@ export default async function ProductsPage({
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
-                    className="h-10 rounded-xl border-black/10 bg-white px-4 text-sm lg:hidden"
+                    className="h-10 rounded-xl border-black/10 dark:border-white/15 bg-white dark:bg-slate-800 px-4 text-sm lg:hidden"
                   >
                     <SlidersHorizontal className="h-4 w-4" />
                     {APP_TEXT.productsPage.mobileCategoriesButton}
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="bg-[#F7FBF9] p-0 flex flex-col h-full gap-0">
-                  <SheetHeader className="border-b border-black/8 px-5 py-4">
+                <SheetContent side="left" className="bg-[#F7FBF9] dark:bg-[#0A0A0C] p-0 flex flex-col h-full gap-0 dark:border-white/10">
+                  <SheetHeader className="border-b border-black/8 dark:border-white/10 px-5 py-4">
                     <SheetTitle>
                       {APP_TEXT.productsPage.mobileCategoriesTitle}
                     </SheetTitle>
@@ -192,12 +192,12 @@ export default async function ProductsPage({
 
             {/* Category Banner */}
             {validCategory && (
-              <div className="relative overflow-hidden rounded-xl bg-sage-700 text-white p-3 shadow-sm border border-sage-800 mb-3 transition-all duration-300">
+              <div className="relative overflow-hidden rounded-xl bg-sage-700 dark:bg-[#18181B] text-white p-3 shadow-sm border border-sage-800 dark:border-[#27272A] mb-3 transition-all duration-300">
                 <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-2.5 gap-x-6 text-xs text-white">
                   {/* Main Category (Left) */}
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-start">
-                    <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Category</span>
-                    <span className="font-semibold bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-white">
+                    <span className="text-[10px] uppercase tracking-wider text-sage-200 dark:text-sage-300 font-bold">Category</span>
+                    <span className="font-semibold bg-white/10 dark:bg-white/15 px-2 py-0.5 rounded-md border border-white/10 text-white">
                       {mainCat || activeCategoryLabel}
                     </span>
                   </div>
@@ -206,10 +206,10 @@ export default async function ProductsPage({
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-center">
                     {advtSpacesList.length > 0 && (
                       <>
-                        <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Advertisement Space</span>
+                        <span className="text-[10px] uppercase tracking-wider text-sage-200 dark:text-sage-300 font-bold">Advertisement Space</span>
                         <div className="flex flex-wrap items-center gap-1">
                           {advtSpacesList.map((space) => (
-                            <span key={space} className="bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
+                            <span key={space} className="bg-white/10 dark:bg-white/15 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
                               {space}
                             </span>
                           ))}
@@ -220,10 +220,10 @@ export default async function ProductsPage({
 
                   {/* Sub Categories (Right) */}
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-end">
-                    <span className="text-[10px] uppercase tracking-wider text-sage-200 font-bold">Types</span>
+                    <span className="text-[10px] uppercase tracking-wider text-sage-200 dark:text-sage-300 font-bold">Types</span>
                     <div className="flex flex-wrap items-center gap-1">
                       {subCategoriesList.map((sub) => (
-                        <span key={sub} className="bg-white/10 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
+                        <span key={sub} className="bg-white/10 dark:bg-white/15 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
                           {sub}
                         </span>
                       ))}

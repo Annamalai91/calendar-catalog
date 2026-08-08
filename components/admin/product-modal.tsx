@@ -43,7 +43,7 @@ function SearchableDropdown({
 
   return (
     <div ref={containerRef} className="space-y-2 relative">
-      <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+      <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
         {label}
       </label>
       <div className="relative">
@@ -57,19 +57,19 @@ function SearchableDropdown({
           }}
           onFocus={() => setIsOpen(true)}
           placeholder={placeholder}
-          className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 pr-10 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+          className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 pr-10 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
         />
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
         >
           <ChevronDown className="h-4 w-4" />
         </button>
       </div>
 
       {isOpen && filteredOptions.length > 0 && (
-        <ul className="absolute z-50 left-0 right-0 mt-1 max-h-40 overflow-y-auto rounded-xl border border-border bg-white shadow-lg py-1 divide-y divide-slate-100 animate-in fade-in slide-in-from-top-1 duration-100">
+        <ul className="absolute z-50 left-0 right-0 mt-1 max-h-40 overflow-y-auto rounded-xl border border-border dark:border-white/10 bg-white dark:bg-[#121215] shadow-lg py-1 divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1 duration-100">
           {filteredOptions.map((opt) => (
             <li
               key={opt}
@@ -77,7 +77,7 @@ function SearchableDropdown({
                 onChange(opt);
                 setIsOpen(false);
               }}
-              className="px-4 py-2 text-sm text-slate-700 hover:bg-[#EAF5EF] hover:text-primary cursor-pointer transition-colors"
+              className="px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-[#EAF5EF] dark:hover:bg-[#27272A] hover:text-primary dark:hover:text-primary cursor-pointer transition-colors"
             >
               {opt}
             </li>
@@ -247,10 +247,10 @@ export default function ProductModal({
         onClick={() => !isSaving && onClose()}
       />
 
-      <div className="relative z-10 w-full max-w-3xl rounded-2xl border border-border/60 bg-white shadow-2xl max-h-[90vh] flex flex-col animate-in scale-in duration-200">
+      <div className="relative z-10 w-full max-w-3xl rounded-2xl border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] shadow-2xl max-h-[90vh] flex flex-col animate-in scale-in duration-200">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-border/60 flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-900">
+        <div className="px-6 py-4 border-b border-border/60 dark:border-white/10 flex items-center justify-between">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
             {editingProduct
               ? `Edit Calendar: ${editingProduct.name}`
               : "Add New Calendar Template"}
@@ -258,7 +258,7 @@ export default function ProductModal({
           <button
             onClick={onClose}
             disabled={isSaving}
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition disabled:opacity-50 cursor-pointer"
+            className="p-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition disabled:opacity-50 cursor-pointer"
           >
             <X className="h-5 w-5" />
           </button>
@@ -268,14 +268,14 @@ export default function ProductModal({
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
           <div ref={formTopRef} />
           {formError && (
-            <div className="flex items-center gap-2 rounded-xl bg-red-50 p-4 text-sm text-red-600 border border-red-100">
+            <div className="flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-950/60 p-4 text-sm text-red-600 dark:text-red-300 border border-red-100 dark:border-red-900/50">
               <AlertTriangle className="h-4 w-4 shrink-0" />
               <p>{formError}</p>
             </div>
           )}
 
           {formSuccess && (
-            <div className="flex items-center gap-2 rounded-xl bg-green-50 p-4 text-sm text-green-700 border border-green-200">
+            <div className="flex items-center gap-2 rounded-xl bg-green-50 dark:bg-green-950/60 p-4 text-sm text-green-700 dark:text-green-300 border border-green-200 dark:border-green-900/50">
               <div className="h-4 w-4 shrink-0 rounded-full bg-green-500 text-white flex items-center justify-center">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
@@ -287,7 +287,7 @@ export default function ProductModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Product Name */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Product Name / Model Number *
               </label>
               <input
@@ -296,13 +296,13 @@ export default function ProductModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. 450, 51A"
-                className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+                className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
               />
             </div>
 
             {/* Tag */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Badge / Tag
               </label>
               <input
@@ -310,14 +310,14 @@ export default function ProductModal({
                 value={tag}
                 onChange={(e) => setTag(e.target.value)}
                 placeholder="e.g. Best seller, New Arrival"
-                className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+                className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
               />
             </div>
 
             {/* Main Category (Strict Select) */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                   Main Category *
                 </label>
                 <button
@@ -336,7 +336,7 @@ export default function ProductModal({
                   setMainCategory(newCat);
                   setSubCategory("");
                 }}
-                className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+                className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
               >
                 <option value="">-- Select Main Category --</option>
                 {dbCategories.map((cat) => (
@@ -349,7 +349,7 @@ export default function ProductModal({
 
             {/* Sub Category (Strict Select filtered by selected Main Category) */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                 Sub-category Description *
               </label>
               <select
@@ -357,7 +357,7 @@ export default function ProductModal({
                 disabled={!mainCategory}
                 value={subCategory}
                 onChange={(e) => setSubCategory(e.target.value)}
-                className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 disabled:opacity-50"
+                className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 disabled:opacity-50"
               >
                 <option value="">
                   {!mainCategory
@@ -413,7 +413,7 @@ export default function ProductModal({
 
             {/* Description */}
             <div className="space-y-2 md:col-span-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Detailed Description
               </label>
               <textarea
@@ -421,7 +421,7 @@ export default function ProductModal({
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Optional details about this design pattern..."
                 rows={3}
-                className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 resize-none"
+                className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 resize-none"
               />
             </div>
 
@@ -429,12 +429,12 @@ export default function ProductModal({
             <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
               {/* Cover Image File */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Cover Thumbnail Image *
                 </label>
-                <div className="relative border border-dashed border-border rounded-xl bg-[#F7FBF9] p-4 hover:border-primary/50 hover:bg-[#EAF5EF]/20 transition flex flex-col items-center justify-center text-center group min-h-[140px]">
+                <div className="relative border border-dashed border-border dark:border-white/20 rounded-xl bg-[#F7FBF9] dark:bg-[#18181B] p-4 hover:border-primary/50 hover:bg-[#EAF5EF]/20 dark:hover:bg-[#27272A]/80 transition flex flex-col items-center justify-center text-center group min-h-[140px]">
                   {coverImagePreview ? (
-                    <div className="relative h-20 w-16 bg-slate-50 border border-border rounded overflow-hidden">
+                    <div className="relative h-20 w-16 bg-slate-50 dark:bg-slate-900 border border-border dark:border-white/10 rounded overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={coverImagePreview}
@@ -454,11 +454,11 @@ export default function ProductModal({
                     </div>
                   ) : (
                     <>
-                      <Upload className="h-6 w-6 text-slate-400 group-hover:text-primary transition mb-2" />
-                      <span className="text-xs text-slate-500 block font-medium">
+                      <Upload className="h-6 w-6 text-slate-400 dark:text-slate-500 group-hover:text-primary transition mb-2" />
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block font-medium">
                         Drag & drop or Click
                       </span>
-                      <span className="text-[10px] text-slate-400 block mt-1">
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-1">
                         JPEG/PNG/WEBP files
                       </span>
                     </>
@@ -474,12 +474,12 @@ export default function ProductModal({
 
               {/* Full Image File */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Full Resolution Image *
                 </label>
-                <div className="relative border border-dashed border-border rounded-xl bg-[#F7FBF9] p-4 hover:border-primary/50 hover:bg-[#EAF5EF]/20 transition flex flex-col items-center justify-center text-center group min-h-[140px]">
+                <div className="relative border border-dashed border-border dark:border-white/20 rounded-xl bg-[#F7FBF9] dark:bg-[#18181B] p-4 hover:border-primary/50 hover:bg-[#EAF5EF]/20 dark:hover:bg-[#27272A]/80 transition flex flex-col items-center justify-center text-center group min-h-[140px]">
                   {fullImagePreview ? (
-                    <div className="relative h-20 w-16 bg-slate-50 border border-border rounded overflow-hidden">
+                    <div className="relative h-20 w-16 bg-slate-50 dark:bg-slate-900 border border-border dark:border-white/10 rounded overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={fullImagePreview}
@@ -499,11 +499,11 @@ export default function ProductModal({
                     </div>
                   ) : (
                     <>
-                      <Upload className="h-6 w-6 text-slate-400 group-hover:text-primary transition mb-2" />
-                      <span className="text-xs text-slate-500 block font-medium">
+                      <Upload className="h-6 w-6 text-slate-400 dark:text-slate-500 group-hover:text-primary transition mb-2" />
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block font-medium">
                         Drag & drop or Click
                       </span>
-                      <span className="text-[10px] text-slate-400 block mt-1">
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-1">
                         JPEG/PNG/WEBP files
                       </span>
                     </>
@@ -519,13 +519,13 @@ export default function ProductModal({
             </div>
 
             {/* SEO Section */}
-            <div className="md:col-span-2 border-t border-border/60 pt-4 space-y-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <div className="md:col-span-2 border-t border-border/60 dark:border-white/10 pt-4 space-y-4">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 SEO & Metadata Configuration (Optional)
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Meta Title
                   </label>
                   <input
@@ -533,12 +533,12 @@ export default function ProductModal({
                     value={metaTitle}
                     onChange={(e) => setMetaTitle(e.target.value)}
                     placeholder="Page title for search engines"
-                    className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+                    className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Meta Description
                   </label>
                   <input
@@ -546,7 +546,7 @@ export default function ProductModal({
                     value={metaDescription}
                     onChange={(e) => setMetaDescription(e.target.value)}
                     placeholder="Page description snippet"
-                    className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+                    className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
                   />
                 </div>
               </div>
@@ -554,12 +554,12 @@ export default function ProductModal({
           </div>
 
           {/* Modal Actions */}
-          <div className="flex justify-end gap-3 pt-6 border-t border-border/60">
+          <div className="flex justify-end gap-3 pt-6 border-t border-border/60 dark:border-white/10">
             <button
               type="button"
               disabled={isSaving}
               onClick={onClose}
-              className="rounded-xl border border-border bg-white px-5 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition disabled:opacity-50 cursor-pointer"
+              className="rounded-xl border border-border dark:border-slate-700 bg-white dark:bg-slate-800 px-5 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition disabled:opacity-50 cursor-pointer"
             >
               Cancel
             </button>

@@ -65,7 +65,7 @@ const ProductPreviewDialog = ({
                       type="button"
                       onClick={onPrevious}
                       aria-label={APP_TEXT.productPreview.previousDesignAria}
-                      className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-slate-900 shadow-md transition-transform hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:left-4"
+                      className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 dark:border-white/20 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md transition-transform hover:scale-105 hover:bg-white dark:hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:left-4"
                     >
                       <ChevronLeft className="h-5 w-5" />
                     </button>
@@ -74,7 +74,7 @@ const ProductPreviewDialog = ({
                       type="button"
                       onClick={onNext}
                       aria-label={APP_TEXT.productPreview.nextDesignAria}
-                      className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-slate-900 shadow-md transition-transform hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:right-4"
+                      className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 dark:border-white/20 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md transition-transform hover:scale-105 hover:bg-white dark:hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:right-4"
                     >
                       <ChevronRight className="h-5 w-5" />
                     </button>
@@ -90,8 +90,8 @@ const ProductPreviewDialog = ({
                         onClick={() => onNavigate(itemIndex)}
                         className={
                           itemIndex === index
-                            ? "h-2.5 w-8 rounded-full bg-[#0F766E]"
-                            : "h-2.5 w-2.5 rounded-full bg-black/20 transition-colors hover:bg-black/35"
+                            ? "h-2.5 w-8 rounded-full bg-[#0F766E] dark:bg-[#2dd4bf]"
+                            : "h-2.5 w-2.5 rounded-full bg-black/20 dark:bg-white/30 transition-colors hover:bg-black/35 dark:hover:bg-white/50"
                         }
                       />
                     ))}
@@ -99,7 +99,7 @@ const ProductPreviewDialog = ({
                 </div>
 
                 {/* Details panel — accordion on mobile, always visible on lg+ */}
-                <div className="w-full shrink-0 rounded-2xl bg-white/10 backdrop-blur-md lg:flex lg:w-72 lg:flex-col lg:justify-center xl:w-80">
+                <div className="w-full shrink-0 rounded-2xl bg-white/10 dark:bg-black/40 backdrop-blur-md lg:flex lg:w-72 lg:flex-col lg:justify-center xl:w-80 border border-white/10">
                   {/* Mobile toggle */}
                   <button
                     type="button"
@@ -166,7 +166,7 @@ const ProductPreviewDialog = ({
 
                 <DialogClose
                   aria-label={APP_TEXT.productPreview.closePreviewAria}
-                  className="absolute right-2 top-2 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/15 bg-white/90 text-slate-700 shadow-sm transition duration-200 hover:scale-105 hover:bg-white hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:right-4 sm:top-4"
+                  className="absolute right-2 top-2 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/15 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-100 shadow-sm transition duration-200 hover:scale-105 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-950 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:right-4 sm:top-4"
                 >
                   <span className="text-lg leading-none">x</span>
                 </DialogClose>

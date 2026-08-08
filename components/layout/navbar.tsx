@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button } from "@components/ui/button";
+import { ThemeToggle } from "@components/ui/theme-toggle";
 import {
   Sheet,
   SheetContent,
@@ -65,13 +66,20 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
   <Sheet>
     <SheetTrigger asChild>
       <button
-        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/10 bg-white/70 text-muted-foreground transition-colors hover:bg-white hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/10 dark:border-white/15 bg-white/70 dark:bg-slate-800/70 text-muted-foreground transition-colors hover:bg-white dark:hover:bg-slate-800 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
         aria-label={APP_TEXT.navbar.menuOpenAriaLabel}
       >
         <Menu className="h-5 w-5" />
       </button>
     </SheetTrigger>
-    <SheetContent side="right" className="flex flex-col gap-6 pt-12">
+    <SheetContent side="right" className="flex flex-col gap-6 pt-12 dark:bg-[#121215] dark:border-white/10">
+      <div className="flex items-center justify-between border-b border-border/60 pb-3">
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Theme
+        </span>
+        <ThemeToggle />
+      </div>
+
       <div className="flex flex-col gap-1">
         <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {APP_TEXT.navbar.contactSectionTitle}
@@ -80,7 +88,7 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
           <SheetClose asChild key={shortLabel}>
             <a
               href={href}
-              className="flex min-w-0 cursor-pointer items-center gap-3 rounded-lg border border-slate-200/60 bg-white px-3 py-2.5 text-xs font-bold text-slate-900 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-w-0 cursor-pointer items-center gap-3 rounded-lg border border-slate-200/60 dark:border-slate-700/60 bg-white dark:bg-slate-800/90 px-3 py-2.5 text-xs font-bold text-slate-900 dark:text-slate-100 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Icon className="h-5 w-5 shrink-0" />
               <span className="truncate min-w-0">{label}</span>
@@ -134,13 +142,12 @@ const Navbar = () => {
   if (isLandingPage) {
     return (
       <header
-        className="sticky top-0 z-50 w-full border-b bg-[#F7FBF9]"
-        style={{ borderColor: "rgba(0,0,0,0.08)" }}
+        className="sticky top-0 z-50 w-full border-b border-black/10 dark:border-white/10 bg-[#F7FBF9]/95 dark:bg-[#0A0A0C]/95 backdrop-blur-md transition-colors"
       >
         <div className="mx-auto flex h-18 max-w-300 items-center justify-between px-8 lg:px-12">
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-lg tracking-[-0.02em] text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+            className="flex items-center gap-2 font-bold text-lg tracking-[-0.02em] text-slate-950 dark:text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
             aria-label={APP_TEXT.brand.homeAriaLabel}
           >
             <Image
@@ -148,11 +155,10 @@ const Navbar = () => {
               alt={APP_TEXT.brand.name}
               width={50}
               height={48}
-              className="h-16 w-auto object-contain"
+              className="h-16 w-auto object-contain dark:brightness-110"
               style={{ width: "auto" }}
               priority
             />
-            {/* <span>{APP_TEXT.brand.name}</span> */}
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -161,7 +167,7 @@ const Navbar = () => {
                 <a
                   key={shortLabel}
                   href={href}
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 bg-white/90 px-3.5 py-1.5 text-sm font-bold text-slate-800 shadow-2xs hover:bg-slate-50 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/90 dark:bg-slate-900/90 px-3.5 py-1.5 text-sm font-bold text-slate-800 dark:text-slate-100 shadow-2xs hover:bg-slate-50 dark:hover:bg-slate-800 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <Icon className="h-4.5 w-4.5 shrink-0" />
                   <span>{label}</span>
@@ -187,6 +193,8 @@ const Navbar = () => {
               ))}
             </nav>
 
+            <ThemeToggle className="hidden lg:inline-flex" />
+
             <Button
               asChild
               className="hidden rounded-lg px-4 py-2 text-sm sm:px-6 sm:py-3 lg:inline-flex"
@@ -203,8 +211,7 @@ const Navbar = () => {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b bg-[#F7FBF9]"
-      style={{ borderColor: "rgba(0,0,0,0.08)" }}
+      className="sticky top-0 z-50 w-full border-b border-black/10 dark:border-white/10 bg-[#F7FBF9]/95 dark:bg-[#0A0A0C]/95 backdrop-blur-md transition-colors"
     >
       <div className="mx-auto flex h-16 max-w-360 items-center justify-between px-8">
         <Link
@@ -217,7 +224,7 @@ const Navbar = () => {
             alt={APP_TEXT.brand.name}
             width={40}
             height={38}
-            className="h-11 w-auto rounded-md object-contain"
+            className="h-11 w-auto rounded-md object-contain dark:brightness-110"
             style={{ width: "auto" }}
             priority
           />
@@ -230,7 +237,7 @@ const Navbar = () => {
               <a
                 key={shortLabel}
                 href={href}
-                className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 bg-white/90 px-3.5 py-1.5 text-sm font-bold text-slate-800 shadow-2xs hover:bg-slate-50 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/90 dark:bg-slate-900/90 px-3.5 py-1.5 text-sm font-bold text-slate-800 dark:text-slate-100 shadow-2xs hover:bg-slate-50 dark:hover:bg-slate-800 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Icon className="h-4.5 w-4.5 shrink-0" />
                 <span>{label}</span>
@@ -255,6 +262,8 @@ const Navbar = () => {
               </a>
             ))}
           </nav>
+
+          <ThemeToggle className="hidden lg:inline-flex" />
 
           <MobileMenu showStoreLink={false} />
         </div>

@@ -14,8 +14,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="w-full border-t bg-[#F7FBF9] mt-auto"
-      style={{ borderColor: "rgba(0,0,0,0.08)" }}
+      className="w-full border-t border-black/10 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#050507] mt-auto transition-colors"
       aria-label={APP_TEXT.footer.ariaLabel}
     >
       <div className="mx-auto max-w-300 px-8 py-10">

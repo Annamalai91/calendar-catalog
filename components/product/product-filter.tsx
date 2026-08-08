@@ -37,22 +37,22 @@ const ProductFilter = ({
   );
 
   const sectionClassName =
-    "rounded-lg border border-black/8 bg-white p-3.5 sm:p-4";
+    "rounded-lg border border-black/8 dark:border-white/10 bg-white dark:bg-[#121215] p-3.5 sm:p-4";
   const sectionTitleClassName =
-    "text-[15px] font-semibold leading-[18px] text-slate-900";
+    "text-[15px] font-semibold leading-[18px] text-slate-900 dark:text-slate-100";
   const optionListClassName = "mt-3 flex flex-col gap-2";
   const optionRowClassName =
-    "flex w-full items-center gap-3 rounded-md px-1 py-0.5 text-left text-sm text-slate-800 transition-colors hover:bg-[#F7FBF9]";
+    "flex w-full items-center gap-3 rounded-md px-1 py-0.5 text-left text-sm text-slate-800 dark:text-slate-200 transition-colors hover:bg-[#F7FBF9] dark:hover:bg-[#1C1C21]";
   const checkboxClassName =
-    "grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[4px] border border-black/8 bg-[#F7FCF9]";
+    "grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[4px] border border-black/8 dark:border-white/20 bg-[#F7FCF9] dark:bg-[#1C1C21]";
 
   return (
     <aside
       aria-label={APP_TEXT.productFilter.ariaLabel}
-      className="flex w-full flex-col gap-4 rounded-xl border border-black/8 bg-white p-5 shadow-sm"
+      className="flex w-full flex-col gap-4 rounded-xl border border-black/8 dark:border-white/10 bg-white dark:bg-[#121215] p-5 shadow-sm"
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold text-slate-950">
+        <h2 className="text-base font-semibold text-slate-950 dark:text-slate-100">
           {APP_TEXT.common.categories}
         </h2>
       </div>

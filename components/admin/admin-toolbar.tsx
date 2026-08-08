@@ -21,24 +21,24 @@ export default function AdminToolbar({
   onOpenAddModal,
 }: AdminToolbarProps) {
   return (
-    <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-2xl border border-border/60 shadow-sm">
+    <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-white dark:bg-[#121215] p-4 rounded-2xl border border-border/60 dark:border-white/10 shadow-sm">
       <div className="flex flex-1 flex-col gap-4 sm:flex-row">
         {/* Search Input */}
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
           <input
             type="text"
             placeholder="Search calendars by name, category, tags..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-border bg-[#F7FBF9] pl-10 pr-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none transition focus:border-primary/50"
+            className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] pl-10 pr-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none transition focus:border-primary/50"
           />
         </div>
         {/* Category Filter */}
         <select
           value={selectedCategoryFilter}
           onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-          className="rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm text-slate-800 outline-none transition focus:border-primary/50 min-w-[200px]"
+          className="rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 outline-none transition focus:border-primary/50 min-w-[200px]"
         >
           <option value="all">All Categories</option>
           {categories.map((cat) => (

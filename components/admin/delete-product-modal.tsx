@@ -26,18 +26,18 @@ export default function DeleteProductModal({
         onClick={() => !isDeleting && onClose()}
       />
 
-      <div className="relative w-full max-w-md rounded-2xl border border-border bg-white p-6 shadow-2xl animate-in scale-in duration-200">
+      <div className="relative w-full max-w-md rounded-2xl border border-border dark:border-white/10 bg-white dark:bg-[#121215] p-6 shadow-2xl animate-in scale-in duration-200">
         <div className="flex items-start gap-4">
-          <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600 border border-red-100">
+          <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-slate-800">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
               Delete Calendar Template?
             </h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Are you sure you want to delete{" "}
-              <span className="text-slate-800 font-semibold">
+              <span className="text-slate-800 dark:text-slate-100 font-semibold">
                 {deletingProduct.name}
               </span>
               ? This will permanently delete the database record and all
@@ -52,7 +52,7 @@ export default function DeleteProductModal({
             type="button"
             disabled={isDeleting}
             onClick={onClose}
-            className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition disabled:opacity-50 cursor-pointer"
+            className="rounded-xl border border-border dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition disabled:opacity-50 cursor-pointer"
           >
             Cancel
           </button>

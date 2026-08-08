@@ -319,8 +319,8 @@ export default function AdminPage() {
         <div
           className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-2xl border px-5 py-4 shadow-2xl animate-in slide-in-from-bottom duration-300 ${
             toast.type === "success"
-              ? "bg-white border-border text-slate-800"
-              : "bg-red-50 border-red-200 text-red-800"
+              ? "bg-white dark:bg-[#121215] border-border dark:border-white/10 text-slate-800 dark:text-slate-100"
+              : "bg-red-50 dark:bg-red-950/80 border-red-200 dark:border-red-900 text-red-800 dark:text-red-200"
           } backdrop-blur-xl`}
         >
           {toast.type === "success" ? (

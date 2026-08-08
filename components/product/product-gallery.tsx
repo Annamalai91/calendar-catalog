@@ -49,7 +49,7 @@ const ProductGallery = ({
         type="button"
         onClick={() => setIsPreviewOpen(true)}
         aria-label={`${APP_TEXT.productGallery.openPreviewPrefix} ${alt}`}
-        className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-xl border border-border/60 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-xl border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] shadow-sm transition-shadow duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {activeImage === "main" ? (
           <Image
@@ -86,10 +86,10 @@ const ProductGallery = ({
             aria-label={label}
             onClick={() => setActiveImage(key)}
             className={cn(
-              "group relative h-20 w-20 shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 bg-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              "group relative h-20 w-20 shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 bg-white dark:bg-[#121215] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               activeImage === key
                 ? "border-primary shadow-sm"
-                : "border-border/60 hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-md",
+                : "border-border/60 dark:border-white/10 hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-md",
             )}
           >
             <Image
@@ -129,7 +129,7 @@ const ProductGallery = ({
                 maxHeight: "calc(100vh - 1rem)",
               }}
             />
-            <DialogClose className="absolute right-2 -top-12 sm:-right-12 sm:top-2 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/90 text-slate-700 shadow-sm transition duration-200 hover:scale-105 hover:bg-white hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+            <DialogClose className="absolute right-2 -top-12 sm:-right-12 sm:top-2 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-black/10 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-100 shadow-sm transition duration-200 hover:scale-105 hover:bg-white dark:hover:bg-slate-800 hover:text-slate-950 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
               <X className="h-4 w-4" />
               <span className="sr-only">{APP_TEXT.productGallery.close}</span>
             </DialogClose>

@@ -69,11 +69,10 @@ export default async function ProductDetailPage({
     .slice(0, 3);
 
   return (
-    <div className="bg-[#F7FBF9] min-h-screen">
+    <div className="bg-[#F7FBF9] dark:bg-[#0A0A0C] min-h-screen transition-colors">
       {/* Breadcrumb strip */}
       <div
-        className="border-b bg-[#F7FBF9] px-8 py-4"
-        style={{ borderColor: "rgba(0,0,0,0.08)" }}
+        className="border-b border-black/10 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#0A0A0C] px-8 py-4 transition-colors"
       >
         <div className="mx-auto max-w-300">
           <Breadcrumbs

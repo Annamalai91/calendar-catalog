@@ -2,7 +2,7 @@ import { Skeleton } from "@components/ui/skeleton";
 
 /** Skeleton placeholder for a single ProductCard */
 export const ProductCardSkeleton = () => (
-  <div className="rounded-lg overflow-hidden border border-border/60 bg-white">
+  <div className="rounded-lg overflow-hidden border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215]">
     <Skeleton className="aspect-4/3 w-full rounded-none" />
     <div className="p-4 space-y-2">
       <Skeleton className="h-3 w-24" />

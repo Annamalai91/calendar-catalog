@@ -51,6 +51,37 @@
   --card-gap: 28px;
 }
 
+.dark {
+  /* ShadCN CSS variables - True Obsidian Black Theme (WCAG AA/AAA compliant) */
+  --background: 0 0% 4%;              /* #0A0A0C - deep true black page background */
+  --foreground: 0 0% 96%;             /* #F4F4F5 - crisp high-contrast text (>15:1 contrast) */
+  --card: 240 6% 10%;                 /* #18181B - obsidian dark card container */
+  --card-foreground: 0 0% 96%;        /* #F4F4F5 */
+  --popover: 240 6% 10%;             /* #18181B */
+  --popover-foreground: 0 0% 96%;     /* #F4F4F5 */
+  --primary: 148 45% 42%;             /* #3A9B60 - accessible green action color */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 15%;            /* #27272A */
+  --secondary-foreground: 0 0% 92%;   /* #E4E4E7 */
+  --muted: 240 5% 15%;                /* #27272A */
+  --muted-foreground: 240 5% 65%;     /* #A1A1AA - WCAG AA & AAA text contrast (>6:1) */
+  --accent: 240 5% 18%;               /* #2E2E33 */
+  --accent-foreground: 0 0% 96%;
+  --destructive: 0 62% 50%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5% 18%;               /* #27272A - crisp dark borders */
+  --input: 240 5% 18%;
+  --ring: 148 45% 45%;
+
+  /* Dark mode brand color tokens */
+  --color-sage-50: #121215;
+  --color-sage-100: #18181B;
+  --color-sage-500: #4E9E6D;
+  --color-sage-700: #27272A;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

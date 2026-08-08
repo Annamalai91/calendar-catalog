@@ -13,14 +13,14 @@ export default function AdminHeader({
   onLogout,
 }: AdminHeaderProps) {
   return (
-    <header className="border-b border-border/60 bg-white/80 sticky top-[64px] z-30 backdrop-blur-md">
+    <header className="border-b border-border/60 dark:border-white/10 bg-white/80 dark:bg-[#0A0A0C]/90 sticky top-[64px] z-30 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold">
             CC
           </div>
           <div>
-            <h1 className="text-lg font-bold tracking-tight text-[#1A1A1A] leading-none">
+            <h1 className="text-lg font-bold tracking-tight text-[#1A1A1A] dark:text-slate-100 leading-none">
               Catalog Admin
             </h1>
             <p className="text-xs text-muted-foreground mt-1">
@@ -38,7 +38,7 @@ export default function AdminHeader({
           </button>
           <button
             onClick={onLogout}
-            className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-accent transition cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-xl border border-border dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-accent dark:hover:bg-slate-700 transition cursor-pointer"
           >
             <LogOut className="h-4 w-4" />
             <span>Sign Out</span>

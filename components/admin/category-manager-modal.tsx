@@ -221,33 +221,33 @@ export default function CategoryManagerModal({
         onClick={onClose}
       />
 
-      <div className="relative z-10 w-full max-w-2xl rounded-2xl border border-border/60 bg-white shadow-2xl max-h-[85vh] flex flex-col animate-in scale-in duration-200">
+      <div className="relative z-10 w-full max-w-2xl rounded-2xl border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] shadow-2xl max-h-[85vh] flex flex-col animate-in scale-in duration-200">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-border/60 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-border/60 dark:border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
               <FolderPlus className="h-5 w-5" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               Manage Categories & Subcategories
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer"
+            className="p-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-border/60 px-6 pt-2 bg-slate-50/50 gap-4">
+        <div className="flex border-b border-border/60 dark:border-white/10 px-6 pt-2 bg-slate-50/50 dark:bg-[#18181B]/50 gap-4">
           <button
             type="button"
             onClick={() => setCatManagerTab("categories")}
             className={`py-2.5 text-sm font-semibold border-b-2 transition cursor-pointer ${catManagerTab === "categories"
                 ? "border-primary text-primary"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
               }`}
           >
             Main Categories ({dbCategories.length})
@@ -262,7 +262,7 @@ export default function CategoryManagerModal({
             }}
             className={`py-2.5 text-sm font-semibold border-b-2 transition cursor-pointer ${catManagerTab === "subcategories"
                 ? "border-primary text-primary"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
               }`}
           >
             Subcategories ({dbSubCategories.length})
@@ -272,7 +272,7 @@ export default function CategoryManagerModal({
         {/* Modal Body */}
         <div ref={modalBodyRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
           {catManagerError && (
-            <div className="flex items-center gap-2 rounded-xl bg-red-50 p-4 text-sm text-red-600 border border-red-200">
+            <div className="flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-950/60 p-4 text-sm text-red-600 dark:text-red-300 border border-red-200 dark:border-red-900/50">
               <AlertTriangle className="h-4 w-4 shrink-0" />
               <p className="font-medium">{catManagerError}</p>
             </div>
@@ -283,10 +283,10 @@ export default function CategoryManagerModal({
               {/* Form to Add/Edit Main Category */}
               <form
                 onSubmit={handleSaveCategory}
-                className="flex gap-3 items-end bg-[#F7FBF9] p-4 rounded-xl border border-border"
+                className="flex gap-3 items-end bg-[#F7FBF9] dark:bg-[#18181B] p-4 rounded-xl border border-border dark:border-white/10"
               >
                 <div className="flex-1 space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                     Category Name
                   </label>
                   <input
@@ -296,11 +296,11 @@ export default function CategoryManagerModal({
                     value={catNameInput}
                     onChange={(e) => setCatNameInput(e.target.value)}
                     placeholder="e.g. Premium Planners"
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-primary"
+                    className="w-full rounded-lg border border-border dark:border-white/10 bg-white dark:bg-[#121215] px-3 py-2 text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-primary"
                   />
                 </div>
                 <div className="w-28 space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                     Order #
                   </label>
                   <input
@@ -313,7 +313,7 @@ export default function CategoryManagerModal({
                         e.target.value ? Number(e.target.value) : ""
                       )
                     }
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-primary"
+                    className="w-full rounded-lg border border-border dark:border-white/10 bg-white dark:bg-[#121215] px-3 py-2 text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-primary"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -331,7 +331,7 @@ export default function CategoryManagerModal({
                         setEditingCatId(null);
                         setCatNameInput("");
                       }}
-                      className="rounded-lg border border-border bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
+                      className="rounded-lg border border-border dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                     >
                       Cancel
                     </button>
@@ -340,28 +340,28 @@ export default function CategoryManagerModal({
               </form>
 
               {/* List of Categories */}
-              <div className="rounded-xl border border-border overflow-hidden">
+              <div className="rounded-xl border border-border dark:border-white/10 overflow-hidden">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 text-xs font-semibold text-slate-500 uppercase">
+                  <thead className="bg-slate-50 dark:bg-[#18181B] text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">
                     <tr>
                       <th className="px-4 py-3 w-16">Order</th>
                       <th className="px-4 py-3">Category Name</th>
                       <th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-border">
+                  <tbody className="divide-y divide-border dark:divide-white/10">
                     {dbCategories.map((cat) => (
-                      <tr key={cat.id} className="hover:bg-slate-50/50">
+                      <tr key={cat.id} className="hover:bg-slate-50/50 dark:hover:bg-[#18181B]/50">
                         <td className="px-4 py-3 font-semibold text-primary">
                           {cat.display_order}
                         </td>
-                        <td className="px-4 py-3 font-medium text-slate-800">
+                        <td className="px-4 py-3 font-medium text-slate-800 dark:text-slate-100">
                           {cat.name}
                         </td>
                         <td className="px-4 py-3 text-right">
                           {confirmDeleteCatId === cat.id ? (
-                            <div className="inline-flex items-center gap-2 bg-red-50 p-1.5 rounded-lg border border-red-200">
-                              <span className="text-xs font-bold text-red-700">Delete category?</span>
+                            <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/60 p-1.5 rounded-lg border border-red-200 dark:border-red-900/50">
+                              <span className="text-xs font-bold text-red-700 dark:text-red-300">Delete category?</span>
                               <button
                                 type="button"
                                 disabled={catActionLoading}
@@ -373,7 +373,7 @@ export default function CategoryManagerModal({
                               <button
                                 type="button"
                                 onClick={() => setConfirmDeleteCatId(null)}
-                                className="px-2 py-1 rounded bg-white text-slate-600 border border-slate-300 text-xs font-medium hover:bg-slate-100 transition cursor-pointer"
+                                className="px-2 py-1 rounded bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer"
                               >
                                 Cancel
                               </button>
@@ -383,7 +383,7 @@ export default function CategoryManagerModal({
                               <button
                                 type="button"
                                 onClick={() => startEditCategory(cat)}
-                                className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition"
+                                className="p-1.5 rounded-lg text-slate-400 dark:text-slate-500 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                                 title="Edit"
                               >
                                 <Edit3 className="h-4 w-4" />
@@ -394,7 +394,7 @@ export default function CategoryManagerModal({
                                   setConfirmDeleteCatId(cat.id);
                                   setConfirmDeleteSubId(null);
                                 }}
-                                className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+                                className="p-1.5 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 transition"
                                 title="Delete"
                               >
                                 <Trash2 className="h-4 w-4" />
@@ -412,13 +412,13 @@ export default function CategoryManagerModal({
             <div className="space-y-6">
               {/* Category Selector for Subcategories */}
               <div className="space-y-1">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                   Select Parent Main Category
                 </label>
                 <select
                   value={selectedCatId}
                   onChange={(e) => setSelectedCatId(e.target.value)}
-                  className="w-full rounded-xl border border-border bg-[#F7FBF9] px-4 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-primary"
+                  className="w-full rounded-xl border border-border dark:border-white/10 bg-[#F7FBF9] dark:bg-[#18181B] px-4 py-2.5 text-sm font-semibold text-slate-800 dark:text-slate-100 outline-none focus:border-primary"
                 >
                   {dbCategories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
@@ -432,10 +432,10 @@ export default function CategoryManagerModal({
               {selectedCatId && (
                 <form
                   onSubmit={handleSaveSubCategory}
-                  className="flex gap-3 items-end bg-[#F7FBF9] p-4 rounded-xl border border-border"
+                  className="flex gap-3 items-end bg-[#F7FBF9] dark:bg-[#18181B] p-4 rounded-xl border border-border dark:border-white/10"
                 >
                   <div className="flex-1 space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                       Subcategory Name / Size
                     </label>
                     <input
@@ -445,11 +445,11 @@ export default function CategoryManagerModal({
                       value={subNameInput}
                       onChange={(e) => setSubNameInput(e.target.value)}
                       placeholder="e.g. 14 x 20 4 Sheeter"
-                      className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-primary"
+                      className="w-full rounded-lg border border-border dark:border-white/10 bg-white dark:bg-[#121215] px-3 py-2 text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-primary"
                     />
                   </div>
                   <div className="w-28 space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                       Order #
                     </label>
                     <input
@@ -462,7 +462,7 @@ export default function CategoryManagerModal({
                           e.target.value ? Number(e.target.value) : ""
                         )
                       }
-                      className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-primary"
+                      className="w-full rounded-lg border border-border dark:border-white/10 bg-white dark:bg-[#121215] px-3 py-2 text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-primary"
                     />
                   </div>
                   <div className="flex items-center gap-2">
@@ -480,7 +480,7 @@ export default function CategoryManagerModal({
                           setEditingSubId(null);
                           setSubNameInput("");
                         }}
-                        className="rounded-lg border border-border bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
+                        className="rounded-lg border border-border dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                       >
                         Cancel
                       </button>
@@ -490,30 +490,30 @@ export default function CategoryManagerModal({
               )}
 
               {/* List of Subcategories under Selected Category */}
-              <div className="rounded-xl border border-border overflow-hidden">
+              <div className="rounded-xl border border-border dark:border-white/10 overflow-hidden">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 text-xs font-semibold text-slate-500 uppercase">
+                  <thead className="bg-slate-50 dark:bg-[#18181B] text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">
                     <tr>
                       <th className="px-4 py-3 w-16">Order</th>
                       <th className="px-4 py-3">Subcategory Name</th>
                       <th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-border">
+                  <tbody className="divide-y divide-border dark:divide-white/10">
                     {dbSubCategories
                       .filter((s) => s.category_id === selectedCatId)
                       .map((sub) => (
-                        <tr key={sub.id} className="hover:bg-slate-50/50">
+                        <tr key={sub.id} className="hover:bg-slate-50/50 dark:hover:bg-[#18181B]/50">
                           <td className="px-4 py-3 font-semibold text-primary">
                             {sub.display_order}
                           </td>
-                          <td className="px-4 py-3 font-medium text-slate-800">
+                          <td className="px-4 py-3 font-medium text-slate-800 dark:text-slate-100">
                             {sub.name}
                           </td>
                           <td className="px-4 py-3 text-right">
                             {confirmDeleteSubId === sub.id ? (
-                              <div className="inline-flex items-center gap-2 bg-red-50 p-1.5 rounded-lg border border-red-200">
-                                <span className="text-xs font-bold text-red-700">Delete?</span>
+                              <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/60 p-1.5 rounded-lg border border-red-200 dark:border-red-900/50">
+                                <span className="text-xs font-bold text-red-700 dark:text-red-300">Delete?</span>
                                 <button
                                   type="button"
                                   disabled={catActionLoading}
@@ -525,7 +525,7 @@ export default function CategoryManagerModal({
                                 <button
                                   type="button"
                                   onClick={() => setConfirmDeleteSubId(null)}
-                                  className="px-2 py-1 rounded bg-white text-slate-600 border border-slate-300 text-xs font-medium hover:bg-slate-100 transition cursor-pointer"
+                                  className="px-2 py-1 rounded bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer"
                                 >
                                   Cancel
                                 </button>
@@ -535,7 +535,7 @@ export default function CategoryManagerModal({
                                 <button
                                   type="button"
                                   onClick={() => startEditSubCategory(sub)}
-                                  className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition"
+                                  className="p-1.5 rounded-lg text-slate-400 dark:text-slate-500 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                                   title="Edit"
                                 >
                                   <Edit3 className="h-4 w-4" />
@@ -546,7 +546,7 @@ export default function CategoryManagerModal({
                                     setConfirmDeleteSubId(sub.id);
                                     setConfirmDeleteCatId(null);
                                   }}
-                                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+                                  className="p-1.5 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 transition"
                                   title="Delete"
                                 >
                                   <Trash2 className="h-4 w-4" />
@@ -562,7 +562,7 @@ export default function CategoryManagerModal({
                         <tr>
                           <td
                             colSpan={3}
-                            className="px-4 py-6 text-center text-slate-400 text-sm"
+                            className="px-4 py-6 text-center text-slate-400 dark:text-slate-500 text-sm"
                           >
                             No subcategories found for this main category.
                           </td>

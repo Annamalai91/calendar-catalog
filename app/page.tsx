@@ -67,8 +67,7 @@ export default async function HomePage() {
     <>
       <section
         aria-labelledby="hero-heading"
-        className="bg-[#F7FBF9]"
-        style={{ borderColor: "rgba(0,0,0,0.08)" }}
+        className="bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
       >
         <div className="mx-auto max-w-5xl px-8 pb-24 pt-16 lg:pb-32 lg:pt-20">
           <div className="flex flex-col items-center text-center">
@@ -77,16 +76,16 @@ export default async function HomePage() {
               alt={APP_TEXT.brand.name}
               width={400}
               height={360}
-              className="h-36 sm:h-48 md:h-56 w-auto object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105"
+              className="h-36 sm:h-48 md:h-56 w-auto object-contain drop-shadow-sm dark:brightness-110 transition-transform duration-300 hover:scale-105"
               priority
             />
             <h1
               id="hero-heading"
-              className="mt-6 max-w-2xl text-2xl font-semibold tracking-tight text-slate-700 sm:text-3xl md:text-4xl leading-snug"
+              className="mt-6 max-w-2xl text-2xl font-semibold tracking-tight text-slate-700 dark:text-slate-100 sm:text-3xl md:text-4xl leading-snug"
             >
               {APP_TEXT.homePage.heroTitle}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300 sm:text-xl">
               {APP_TEXT.homePage.heroDescription}
             </p>
 
@@ -112,17 +111,17 @@ export default async function HomePage() {
 
       <section
         aria-labelledby="expertise-heading"
-        className="border-t border-border/60 bg-[#F7FBF9]"
+        className="border-t border-border/60 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
       >
         <div className="mx-auto max-w-7xl px-8 py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
             <h2
               id="expertise-heading"
-              className="text-4xl font-extrabold tracking-[-0.02em] text-slate-900 sm:text-5xl"
+              className="text-4xl font-extrabold tracking-[-0.02em] text-slate-900 dark:text-slate-100 sm:text-5xl"
             >
               {APP_TEXT.homePage.expertiseTitle}
             </h2>
-            <p className="mt-4 text-lg text-slate-600 sm:text-xl">
+            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 sm:text-xl">
               {APP_TEXT.homePage.expertiseDescription}
             </p>
           </div>
@@ -139,11 +138,11 @@ export default async function HomePage() {
                 <Link
                   key={product.main_category}
                   href={`/products?category=${slug}`}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]"
                 >
                   <div>
                     {/* Image showcase */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center p-4 border border-border/30">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-[#1C1C21] flex items-center justify-center p-4 border border-border/30 dark:border-white/10">
                       <div className="relative w-full h-[85%]">
                         <Image
                           src={product.cover_image || product.full_image}
@@ -156,19 +155,19 @@ export default async function HomePage() {
                     </div>
 
                     <div className="mt-6 flex flex-col text-left">
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#115e59]">
+                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#115e59] dark:text-[#5eead4]">
                         {details.tagline}
                       </span>
-                      <h3 className="mt-1.5 text-xl font-bold text-slate-900 group-hover:text-[#06B6A4] transition-colors leading-tight">
+                      <h3 className="mt-1.5 text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-[#06B6A4] dark:group-hover:text-[#2dd4bf] transition-colors leading-tight">
                         {product.main_category}
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                         {details.description}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-6 flex items-center justify-start gap-1.5 text-sm font-bold text-[#06B6A4] transition-colors group-hover:text-[#08998B]">
+                  <div className="mt-6 flex items-center justify-start gap-1.5 text-sm font-bold text-[#06B6A4] dark:text-[#2dd4bf] transition-colors group-hover:text-[#08998B] dark:group-hover:text-[#5eead4]">
                     <span>Explore Collection</span>
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
@@ -182,7 +181,7 @@ export default async function HomePage() {
               variant="outline"
               size="lg"
               asChild
-              className="rounded-xl px-8 py-6 text-base"
+              className="rounded-xl px-8 py-6 text-base border-border dark:border-white/20 dark:hover:bg-[#1C1C21]"
             >
               <Link href="/products">
                 {APP_TEXT.homePage.expertiseSecondaryCta}

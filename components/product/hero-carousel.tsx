@@ -80,11 +80,11 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
 
                 {/* Minimal High-Contrast Info Block */}
                 <div className="mt-6 flex flex-col items-center text-center pb-2">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#115e59] flex items-center gap-1.5 transition-colors group-hover/slide:text-[#0f766e]">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#115e59] dark:text-[#5eead4] flex items-center gap-1.5 transition-colors group-hover/slide:text-[#0f766e] dark:group-hover/slide:text-[#2dd4bf]">
                     {product.main_category}
                     <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 transition-all group-hover/slide:opacity-100 group-hover/slide:translate-x-0" />
                   </span>
-                  <span className="mt-1.5 text-base sm:text-lg font-extrabold text-[#0f172a] tracking-tight">
+                  <span className="mt-1.5 text-base sm:text-lg font-extrabold text-[#0f172a] dark:text-slate-100 tracking-tight">
                     Model {product.name}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
         type="button"
         onClick={prevSlide}
         aria-label="Previous slide"
-        className="absolute left-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border/60 bg-white/90 text-slate-900 shadow-md backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#06B6A4] focus:ring-offset-2"
+        className="absolute left-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border/60 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 shadow-md backdrop-blur-sm transition-all hover:bg-white dark:hover:bg-slate-800 hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#06B6A4] focus:ring-offset-2"
       >
         <ChevronLeft className="h-6 w-6 stroke-[2.5]" />
       </button>
@@ -107,7 +107,7 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
         type="button"
         onClick={nextSlide}
         aria-label="Next slide"
-        className="absolute right-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border/60 bg-white/90 text-slate-900 shadow-md backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#06B6A4] focus:ring-offset-2"
+        className="absolute right-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border/60 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 shadow-md backdrop-blur-sm transition-all hover:bg-white dark:hover:bg-slate-800 hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#06B6A4] focus:ring-offset-2"
       >
         <ChevronRight className="h-6 w-6 stroke-[2.5]" />
       </button>
@@ -123,8 +123,8 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
             className={cn(
               "h-2 rounded-full transition-all duration-300 cursor-pointer focus:outline-none",
               idx === currentIndex
-                ? "w-6 bg-[#06B6A4]"
-                : "w-2 bg-slate-300 hover:bg-slate-400 focus:bg-slate-400"
+                ? "w-6 bg-[#06B6A4] dark:bg-[#2dd4bf]"
+                : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600 focus:bg-slate-400"
             )}
           />
         ))}

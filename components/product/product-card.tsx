@@ -23,7 +23,7 @@ const ProductCard = ({ product, className, onPreview, priority }: ProductCardPro
     <article>
       <Card
         className={cn(
-          "group h-full overflow-hidden border-border/60 bg-white transition-shadow hover:shadow-md",
+          "group h-full overflow-hidden border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] transition-shadow hover:shadow-md",
           className,
         )}
       >
@@ -42,7 +42,7 @@ const ProductCard = ({ product, className, onPreview, priority }: ProductCardPro
           }}
           className="flex flex-col h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <div className="relative aspect-5/4 w-full overflow-hidden bg-muted/40">
+          <div className="relative aspect-5/4 w-full overflow-hidden bg-muted/40 dark:bg-[#1C1C21]">
             <Image
               src={product.full_image || product.cover_image}
               alt={`${product.name} — ${product.main_category}`}
