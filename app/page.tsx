@@ -131,16 +131,14 @@ export default async function HomePage() {
                 >
                   <div>
                     {/* Image showcase */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-[#1C1C21] flex items-center justify-center p-4 border border-border/30 dark:border-white/10">
-                      <div className="relative w-full h-[85%]">
-                        <Image
-                          src={product.cover_image || product.full_image}
-                          alt={`${product.main_category} — ${product.name}`}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-contain select-none transition-transform duration-300 group-hover:scale-[1.04]"
-                        />
-                      </div>
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-[#1C1C21] border border-border/30 dark:border-white/10 p-2">
+                      <Image
+                        src={product.cover_image || product.full_image}
+                        alt={`${product.main_category} — ${product.name}`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-contain select-none transition-transform duration-300 group-hover:scale-[1.04]"
+                      />
                     </div>
 
                     <div className="mt-6 flex flex-col text-left">

@@ -138,9 +138,11 @@ export const APP_TEXT = {
     showPrefix: "Show",
     mobileViewDetails: "View details",
     nameLabel: "Name",
+    categoryLabel: "Category",
     descriptionLabel: "Description",
     sizeLabel: "Size",
     paperTypeLabel: "Paper Type",
+    advtSpaceLabel: "Advertisement Space",
     closePreviewAria: "Close preview",
   },
   requestQuote: {
