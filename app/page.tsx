@@ -4,8 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { homeMetadata } from "@configs/metadata";
 import { APP_TEXT } from "@configs/constants";
-import { getCachedAllProducts } from "@data/products";
-import HeroCarousel from "@components/product/hero-carousel";
+import { getCachedAllProducts, getCachedFormattedCategories } from "@data/products";
 import { toSlug } from "@lib/utils/slug";
 
 export { homeMetadata as metadata };
@@ -53,15 +52,15 @@ const categoryDetails: Record<
 };
 
 export default async function HomePage() {
-  const allProducts = await getCachedAllProducts();
-  const categoriesSeen = new Set<string>();
-  const carouselProducts = allProducts.filter((product) => {
-    if (!categoriesSeen.has(product.main_category)) {
-      categoriesSeen.add(product.main_category);
-      return true;
-    }
-    return false;
-  });
+  const [allProducts, categories] = await Promise.all([
+    getCachedAllProducts(),
+    getCachedFormattedCategories(),
+  ]);
+
+  const carouselProducts = categories
+    .map((cat) => allProducts.find((p) => p.main_category === cat.name))
+    .filter((product): product is typeof allProducts[number] => Boolean(product))
+    .slice(0, 6);
 
   return (
     <>
@@ -69,41 +68,31 @@ export default async function HomePage() {
         aria-labelledby="hero-heading"
         className="bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
       >
-        <div className="mx-auto max-w-5xl px-8 pb-24 pt-16 lg:pb-32 lg:pt-20">
-          <div className="flex flex-col items-center text-center">
-            <Image
-              src="/assets/logo-v2.svg"
-              alt={APP_TEXT.brand.name}
-              width={400}
-              height={360}
-              className="h-36 sm:h-48 md:h-56 w-auto object-contain drop-shadow-sm dark:brightness-110 transition-transform duration-300 hover:scale-105"
-              priority
-            />
-            <h1
-              id="hero-heading"
-              className="mt-6 max-w-2xl text-2xl font-semibold tracking-tight text-slate-700 dark:text-slate-100 sm:text-3xl md:text-4xl leading-snug"
-            >
-              {APP_TEXT.homePage.heroTitle}
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300 sm:text-xl">
-              {APP_TEXT.homePage.heroDescription}
-            </p>
-
-            <div className="mt-8 flex items-center justify-center">
-              <Button
-                size="lg"
-                asChild
-                className="rounded-xl px-8 py-6 text-base font-semibold"
-              >
-                <Link href="/products">
-                  {APP_TEXT.homePage.heroPrimaryCta}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+        <div className="mx-auto max-w-6xl px-8 pb-12 pt-12 lg:pb-10 lg:pt-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Logo on Left */}
+            <div className="md:col-span-5 lg:col-span-4 flex justify-center md:justify-start">
+              <Image
+                src="/assets/logo-v2.svg"
+                alt={APP_TEXT.brand.name}
+                width={400}
+                height={360}
+                className="h-40 sm:h-48 md:h-56 lg:h-64 w-auto object-contain drop-shadow-sm dark:brightness-110 transition-transform duration-300 hover:scale-105"
+                priority
+              />
             </div>
 
-            <div className="mt-16 w-full max-w-4xl">
-              <HeroCarousel products={carouselProducts} />
+            {/* Title & Description on Right */}
+            <div className="md:col-span-7 lg:col-span-8 flex flex-col text-center md:text-left">
+              <h1
+                id="hero-heading"
+                className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl md:text-4xl lg:text-5xl leading-tight"
+              >
+                {APP_TEXT.homePage.heroTitle}
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg lg:text-xl">
+                {APP_TEXT.homePage.heroDescription}
+              </p>
             </div>
           </div>
         </div>
@@ -111,9 +100,9 @@ export default async function HomePage() {
 
       <section
         aria-labelledby="expertise-heading"
-        className="border-t border-border/60 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
+        className="bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
       >
-        <div className="mx-auto max-w-7xl px-8 py-20 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl px-8 pt-8 pb-20 lg:px-12 lg:pt-4 lg:pb-24">
           <div className="mx-auto max-w-3xl text-center">
             <h2
               id="expertise-heading"

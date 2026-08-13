@@ -1,17 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Separator } from "@components/ui/separator";
 import { APP_TEXT } from "@configs/constants";
 
 const Footer = () => {
-  const pathname = usePathname();
-
-  if (pathname === "/") {
-    return null;
-  }
-
   return (
     <footer
       className="w-full border-t border-black/10 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#050507] mt-auto transition-colors"

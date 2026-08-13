@@ -99,7 +99,7 @@ const ProductPreviewDialog = ({
                 </div>
 
                 {/* Details panel — accordion on mobile, always visible on lg+ */}
-                <div className="w-full shrink-0 rounded-2xl bg-white/10 dark:bg-black/40 backdrop-blur-md lg:flex lg:w-72 lg:flex-col lg:justify-center xl:w-80 border border-white/10">
+                <div className="w-full shrink-0 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl lg:flex lg:w-72 lg:flex-col lg:justify-center xl:w-80 border border-slate-200/80 dark:border-white/10 shadow-xl">
                   {/* Mobile toggle */}
                   <button
                     type="button"
@@ -108,7 +108,7 @@ const ProductPreviewDialog = ({
                         currentIndex === index ? null : index,
                       )
                     }
-                    className="flex w-full items-center justify-between px-5 py-3 text-sm font-medium text-white lg:hidden"
+                    className="flex w-full items-center justify-between px-5 py-3 text-sm font-medium text-slate-900 dark:text-white lg:hidden"
                   >
                     <span>{APP_TEXT.productPreview.mobileViewDetails}</span>
                     <ChevronDown
@@ -118,23 +118,23 @@ const ProductPreviewDialog = ({
 
                   {/* Content */}
                   <div
-                    className={`flex flex-col gap-6 p-6 pt-2 lg:pt-6 ${detailsOpenIndex === index ? "flex" : "hidden lg:flex"}`}
+                    className={`flex flex-col gap-5 p-6 pt-2 lg:pt-6 ${detailsOpenIndex === index ? "flex" : "hidden lg:flex"}`}
                   >
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs font-medium uppercase tracking-widest text-white/50">
+                      <span className="text-xs font-bold uppercase tracking-widest text-[#0F766E] dark:text-[#2dd4bf]">
                         {APP_TEXT.productPreview.nameLabel}
                       </span>
-                      <span className="text-lg font-semibold leading-snug text-white">
+                      <span className="text-lg font-semibold leading-snug text-slate-900 dark:text-white">
                         {product.name}
                       </span>
                     </div>
 
                     {product.description && (
                       <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium uppercase tracking-widest text-white/50">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#0F766E] dark:text-[#2dd4bf]">
                           {APP_TEXT.productPreview.descriptionLabel}
                         </span>
-                        <p className="text-sm leading-relaxed text-white/80">
+                        <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
                           {product.description}
                         </p>
                       </div>
@@ -142,10 +142,10 @@ const ProductPreviewDialog = ({
 
                     {product.size && (
                       <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium uppercase tracking-widest text-white/50">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#0F766E] dark:text-[#2dd4bf]">
                           {APP_TEXT.productPreview.sizeLabel}
                         </span>
-                        <span className="text-sm font-medium text-white/90">
+                        <span className="text-sm font-medium text-slate-900 dark:text-slate-100">
                           {product.size}
                         </span>
                       </div>
@@ -153,10 +153,10 @@ const ProductPreviewDialog = ({
 
                     {product.paper_type && (
                       <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium uppercase tracking-widest text-white/50">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#0F766E] dark:text-[#2dd4bf]">
                           {APP_TEXT.productPreview.paperTypeLabel}
                         </span>
-                        <span className="text-sm font-medium text-white/90">
+                        <span className="text-sm font-medium text-slate-900 dark:text-slate-100">
                           {product.paper_type}
                         </span>
                       </div>

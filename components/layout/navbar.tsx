@@ -23,11 +23,6 @@ import {
 
 const contactLinks = [
   {
-    label: APP_TEXT.navbar.contactLinkLabels.call,
-    href: CONTACT_LINKS.call,
-    icon: PhoneCallIcon,
-  },
-  {
     label: APP_TEXT.navbar.contactLinkLabels.whatsapp,
     href: CONTACT_LINKS.whatsapp,
     icon: WhatsAppIcon,
@@ -36,11 +31,6 @@ const contactLinks = [
     label: APP_TEXT.navbar.contactLinkLabels.instagram,
     href: CONTACT_LINKS.instagram,
     icon: InstagramIcon,
-  },
-  {
-    label: APP_TEXT.navbar.contactLinkLabels.email,
-    href: CONTACT_LINKS.email,
-    icon: GmailIcon,
   },
 ] as const;
 
