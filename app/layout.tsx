@@ -35,12 +35,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#F7FBF9] dark:bg-[#0A0A0C] text-foreground transition-colors duration-200">
+      <body className="min-h-full flex flex-col bg-[#F7FBF9] text-foreground transition-colors duration-200">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          forcedTheme="light"
           enableSystem={false}
-          disableTransitionOnChange={false}
+          disableTransitionOnChange
         >
           <Navbar />
           <main className="flex-1">{children}</main>
