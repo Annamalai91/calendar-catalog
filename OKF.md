@@ -1,10 +1,10 @@
 # Overall Knowledge File (OKF)
 
-This document serves as an architectural overview and knowledge base for the Calendar Catalog project, intended to provide context for AI assistants and LLMs.
+This document serves as an architectural overview and knowledge base for the Calendar Catalogue project, intended to provide context for AI assistants and LLMs.
 
 ## 1. Project Overview
 
-**Calendar Catalog** is a web application that allows users to browse through various calendar products. It features dynamic filtering by categories, subcategories, tags, and paper types.
+**Calendar Catalogue** is a web application that allows users to browse through various calendar products. It features dynamic filtering by categories, subcategories, tags, and paper types.
 
 - **Frontend:** Next.js (App Router), React, Tailwind CSS, Radix UI primitives.
 - **Backend/DB:** Supabase (PostgreSQL database + Storage for images).
