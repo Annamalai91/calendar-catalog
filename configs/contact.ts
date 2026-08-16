@@ -1,6 +1,6 @@
 export const CONTACT_INFO = {
   phoneDisplay: "+91 9843015902",
-  phoneDial: "+9843015902",
+  phoneDial: "+919843015902",
   phoneDigits: "919843015902",
   email: "vidhyasriprints@gmail.com",
   instagramUrl: "https://www.instagram.com/vidhyasrienterprises/",
