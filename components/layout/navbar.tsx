@@ -3,9 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Download } from "lucide-react";
 import { Button } from "@components/ui/button";
-import { ThemeToggle } from "@components/ui/theme-toggle";
 import {
   Sheet,
   SheetContent,
@@ -63,13 +62,6 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
       </button>
     </SheetTrigger>
     <SheetContent side="right" className="flex flex-col gap-6 pt-12 dark:bg-[#121215] dark:border-white/10">
-      <div className="flex items-center justify-between border-b border-border/60 pb-3">
-        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          Theme
-        </span>
-        <ThemeToggle />
-      </div>
-
       <div className="flex flex-col gap-1">
         <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {APP_TEXT.navbar.contactSectionTitle}
@@ -106,6 +98,23 @@ const MobileMenu = ({ showStoreLink }: { showStoreLink: boolean }) => (
         ))}
       </div>
 
+      <div className="flex flex-col gap-1">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          {APP_TEXT.navbar.downloadsSectionTitle}
+        </p>
+        <SheetClose asChild>
+          <a
+            href={CONTACT_LINKS.catalogueDrive}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-3 rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Download className="h-5 w-5 shrink-0 text-[#06B6A4]" />
+            <span>Download Catalogue</span>
+          </a>
+        </SheetClose>
+      </div>
+
       {showStoreLink && (
         <div className="mt-auto">
           <SheetClose asChild>
@@ -135,21 +144,29 @@ const Navbar = () => {
         className="sticky top-0 z-50 w-full border-b border-black/10 dark:border-white/10 bg-[#F7FBF9]/95 dark:bg-[#0A0A0C]/95 backdrop-blur-md transition-colors"
       >
         <div className="mx-auto flex h-18 max-w-300 items-center justify-between px-8 lg:px-12">
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-bold text-lg tracking-[-0.02em] text-slate-950 dark:text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-            aria-label={APP_TEXT.brand.homeAriaLabel}
-          >
-            <Image
-              src="/assets/logo-v2.svg"
-              alt={APP_TEXT.brand.name}
-              width={50}
-              height={48}
-              className="h-16 w-auto object-contain dark:brightness-110"
-              style={{ width: "auto" }}
-              priority
-            />
-          </Link>
+          <div className="flex items-center gap-4 sm:gap-5">
+            <Link
+              href="/"
+              className="flex items-center gap-2 font-bold text-lg tracking-[-0.02em] text-slate-950 dark:text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+              aria-label={APP_TEXT.brand.homeAriaLabel}
+            >
+              <Image
+                src="/assets/logo-v2.svg"
+                alt={APP_TEXT.brand.name}
+                width={50}
+                height={48}
+                className="h-14 w-auto object-contain dark:brightness-110"
+                style={{ width: "auto" }}
+                priority
+              />
+              <span className="font-[family-name:var(--font-outfit)] font-black text-2xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
+                <span className="text-[#00A0E3]">V</span>
+                <span className="text-slate-950 dark:text-slate-50">E</span>
+              </span>
+            </Link>
+
+
+          </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden items-center gap-3.5 lg:flex">
@@ -183,8 +200,6 @@ const Navbar = () => {
               ))}
             </nav>
 
-            <ThemeToggle className="hidden lg:inline-flex" />
-
             <Button
               asChild
               className="hidden rounded-lg px-4 py-2 text-sm sm:px-6 sm:py-3 lg:inline-flex"
@@ -204,22 +219,29 @@ const Navbar = () => {
       className="sticky top-0 z-50 w-full border-b border-black/10 dark:border-white/10 bg-[#F7FBF9]/95 dark:bg-[#0A0A0C]/95 backdrop-blur-md transition-colors"
     >
       <div className="mx-auto flex h-16 max-w-360 items-center justify-between px-8">
-        <Link
-          href="/"
-          className="flex items-center gap-2 rounded-sm text-lg font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label={APP_TEXT.brand.homeAriaLabel}
-        >
-          <Image
-            src="/assets/logo-v2.svg"
-            alt={APP_TEXT.brand.name}
-            width={40}
-            height={38}
-            className="h-11 w-auto rounded-md object-contain dark:brightness-110"
-            style={{ width: "auto" }}
-            priority
-          />
-          <span>{APP_TEXT.brand.name}</span>
-        </Link>
+        <div className="flex items-center gap-4 sm:gap-5">
+          <Link
+            href="/"
+            className="flex items-center gap-2 rounded-sm text-lg font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label={APP_TEXT.brand.homeAriaLabel}
+          >
+            <Image
+              src="/assets/logo-v2.svg"
+              alt={APP_TEXT.brand.name}
+              width={40}
+              height={38}
+              className="h-11 w-auto rounded-md object-contain dark:brightness-110"
+              style={{ width: "auto" }}
+              priority
+            />
+            <span className="font-[family-name:var(--font-outfit)] font-black text-2xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
+              <span className="text-[#00A0E3]">V</span>
+              <span className="text-slate-950 dark:text-slate-50">E</span>
+            </span>
+          </Link>
+
+
+        </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="hidden items-center gap-3.5 lg:flex">
@@ -252,8 +274,6 @@ const Navbar = () => {
               </a>
             ))}
           </nav>
-
-          <ThemeToggle className="hidden lg:inline-flex" />
 
           <MobileMenu showStoreLink={false} />
         </div>

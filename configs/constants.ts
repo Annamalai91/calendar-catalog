@@ -10,24 +10,22 @@ export const APP_TEXT = {
     categories: "Categories",
   },
   brand: {
-    shortName: "SC",
+    shortName: "VE",
     name: "Vidhyasri Enterprises",
     siteName: "Vidhyasri Enterprises",
     homeAriaLabel: "Vidhyasri Enterprises - Home",
   },
   homePage: {
     heroTag: "Vidhyasri Enterprises Excellence",
-    heroTitle: "Masterpieces for your wall & desk.",
-    heroDescription:
-      "Discover our exclusive range of corporate planners, wall calendars, and premium diaries. Crafted with precision and over 30 years of printing expertise to help you organize your year beautifully.",
+    heroTitle: "Beyond Boundaries in Print",
+    heroDescription: "All types of printing jobs — calendars, keychains, and premium diaries — crafted with precision to shape the way you own your year.",
     heroPrimaryCta: "Explore Calendars",
     heroImageAlt: "Premium calendars collection",
     heroPreviousSlideAria: "Previous slide",
     heroNextSlideAria: "Next slide",
     heroImageCaption: "Premium Calendars Collection",
     expertiseTitle: "Our Categories & Expertise",
-    expertiseDescription:
-      "From daily planning to corporate gifting, we offer a comprehensive range of premium printed products designed to inspire.",
+    expertiseDescription: "From daily planning to corporate gifting, every product we craft is designed to inspire and built to last.",
     expertiseSecondaryCta: "Go to Store",
     expertiseCards: [
       {
@@ -55,6 +53,7 @@ export const APP_TEXT = {
     menuOpenAriaLabel: "Open menu",
     contactSectionTitle: "Contact",
     socialSectionTitle: "Socials",
+    downloadsSectionTitle: "Downloads",
     contactAndSocialAriaLabel: "Contact and social links",
     storeCta: "Go to Store",
     contactLinkLabels: {
@@ -70,14 +69,20 @@ export const APP_TEXT = {
   },
   footer: {
     ariaLabel: "Site footer",
-    aboutTitle: "Vidhyasri Enterprises",
-    aboutDescription: "Premium quality calendar printing for every occasion.",
+    aboutTitle: "About Us",
+    aboutDescription:
+      "At Vidhyasri Enterprises, we turn everyday printing into something worth keeping. Rooted in Sivakasi's manufacturing heritage, we bring hands-on craft to every order — treating each one, big or small, like it's our own.",
     catalogTitle: "Catalog",
-    addressTitle: "Address",
-    address: [
+    registeredOfficeTitle: "Registered Office",
+    registeredOfficeAddress: [
       "Vidhyasri Enterprises",
+      "1257A, Gnangiri Road,",
+      "Sivakasi - 626189",
+    ],
+    factoryAddressTitle: "Factory Address",
+    factoryAddress: [
       "111, Gandhi Road,",
-      "Behind Manikandan Orthi Clinic,",
+      "Behind Manikandan Orthopedic Clinic,",
       "Sivakasi - 626189",
     ],
     links: {},

@@ -34,14 +34,14 @@ export default function FloatingContact() {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 lg:hidden"
           aria-hidden="true"
         />
       )}
 
       <div
         ref={containerRef}
-        className="fixed bottom-6 right-6 z-[70] flex flex-col items-end gap-3 select-none"
+        className="fixed bottom-6 right-6 z-[70] flex flex-col items-end gap-3 select-none lg:hidden"
       >
         {/* Speed dial items */}
         {isOpen && (
