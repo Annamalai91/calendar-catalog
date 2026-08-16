@@ -74,7 +74,7 @@ export default async function ProductDetailPage({
       <div
         className="border-b border-black/10 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#0A0A0C] px-8 py-4 transition-colors"
       >
-        <div className="mx-auto max-w-300">
+        <div className="mx-auto max-w-360">
           <Breadcrumbs
             items={[
               { label: APP_TEXT.common.home, href: "/" },
@@ -93,8 +93,7 @@ export default async function ProductDetailPage({
       </div>
 
       {/* Main content — Figma: Main:margin (120px outer) → Main (max-1200px, 32px pad) */}
-      <div className="px-8 lg:px-30">
-        <div className="mx-auto max-w-300 py-8 lg:py-12">
+      <div className="mx-auto max-w-360 px-8 py-8 lg:py-12">
           {/* Product section: Gallery + Details */}
           <article
             aria-label={`${APP_TEXT.productDetailPage.ariaLabelPrefix} ${product.name}`}
@@ -125,7 +124,6 @@ export default async function ProductDetailPage({
             </section>
           )}
         </div>
-      </div>
     </div>
   );
 }

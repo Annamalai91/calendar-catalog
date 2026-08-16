@@ -143,7 +143,7 @@ const Navbar = () => {
       <header
         className="sticky top-0 z-50 w-full border-b border-black/10 dark:border-white/10 bg-[#F7FBF9]/95 dark:bg-[#0A0A0C]/95 backdrop-blur-md transition-colors"
       >
-        <div className="mx-auto flex h-18 max-w-300 items-center justify-between px-8 lg:px-12">
+        <div className="mx-auto flex h-18 max-w-360 items-center justify-between px-8">
           <div className="flex items-center gap-4 sm:gap-5">
             <Link
               href="/"

@@ -68,10 +68,10 @@ export default async function HomePage() {
         aria-labelledby="hero-heading"
         className="bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
       >
-        <div className="mx-auto max-w-6xl px-8 pb-12 pt-12 lg:pb-10 lg:pt-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Logo on Left */}
-            <div className="md:col-span-5 lg:col-span-4 flex justify-center md:justify-start">
+        <div className="mx-auto max-w-6xl px-8 pb-12 pt-12 lg:pb-14 lg:pt-16">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-14">
+            {/* Logo */}
+            <div className="flex items-center justify-center shrink-0">
               <Image
                 src="/assets/logo-v2.svg"
                 alt={APP_TEXT.brand.name}
@@ -82,15 +82,15 @@ export default async function HomePage() {
               />
             </div>
 
-            {/* Title & Description on Right */}
-            <div className="md:col-span-7 lg:col-span-8 flex flex-col text-center md:text-left">
+            {/* Title & Description */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-2xl">
               <h1
                 id="hero-heading"
                 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl md:text-4xl lg:text-5xl leading-tight"
               >
                 {APP_TEXT.homePage.heroTitle}
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg lg:text-xl">
+              <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg lg:text-xl">
                 {APP_TEXT.homePage.heroDescription}
               </p>
             </div>
@@ -102,7 +102,7 @@ export default async function HomePage() {
         aria-labelledby="expertise-heading"
         className="bg-[#F7FBF9] dark:bg-[#0A0A0C] transition-colors"
       >
-        <div className="mx-auto max-w-7xl px-8 pt-8 pb-20 lg:px-12 lg:pt-4 lg:pb-24">
+        <div className="mx-auto max-w-360 px-8 pt-8 pb-20 lg:pt-4 lg:pb-24">
           <div className="mx-auto max-w-3xl text-center">
             <h2
               id="expertise-heading"

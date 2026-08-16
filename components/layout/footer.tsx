@@ -11,7 +11,7 @@ const Footer = () => {
       className="w-full border-t border-black/10 dark:border-white/10 bg-[#F7FBF9] dark:bg-[#050507] mt-auto transition-colors"
       aria-label={APP_TEXT.footer.ariaLabel}
     >
-      <div className="mx-auto max-w-300 px-8 py-10">
+      <div className="mx-auto max-w-360 px-8 py-10">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-3">
