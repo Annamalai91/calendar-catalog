@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { homeMetadata } from "@configs/metadata";
 import { APP_TEXT } from "@configs/constants";
+import { CONTACT_INFO, CONTACT_LINKS } from "@/configs/contact";
+import { PhoneCallIcon, GmailIcon } from "@/components/icons/brand-icons";
 import { getCachedAllProducts, getCachedFormattedCategories } from "@data/products";
 import { toSlug } from "@lib/utils/slug";
 
@@ -93,6 +95,25 @@ export default async function HomePage() {
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg lg:text-xl">
                 {APP_TEXT.homePage.heroDescription}
               </p>
+
+              {/* Quick Contact Chips on Landing Hero */}
+              <div className="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <a
+                  href={CONTACT_LINKS.call}
+                  className="inline-flex items-center gap-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-900 px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 shadow-2xs hover:border-[#06B6A4] dark:hover:border-[#2dd4bf] transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <PhoneCallIcon className="h-4.5 w-4.5 shrink-0" />
+                  <span>{CONTACT_INFO.phoneDisplay}</span>
+                </a>
+
+                <a
+                  href={CONTACT_LINKS.email}
+                  className="inline-flex items-center gap-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-900 px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 shadow-2xs hover:border-[#06B6A4] dark:hover:border-[#2dd4bf] transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <GmailIcon className="h-4.5 w-4.5 shrink-0" />
+                  <span>{CONTACT_INFO.email}</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
