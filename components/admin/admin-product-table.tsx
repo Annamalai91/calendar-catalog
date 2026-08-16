@@ -55,7 +55,7 @@ export default function AdminProductTable({
       {isLoading ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3 bg-slate-50/50 dark:bg-[#18181B]/50">
           <Loader2 className="h-8 w-8 text-primary animate-spin" />
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Loading catalog records...</p>
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Loading catalogue records...</p>
         </div>
       ) : products.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center px-4 bg-slate-50/50 dark:bg-[#18181B]/50">

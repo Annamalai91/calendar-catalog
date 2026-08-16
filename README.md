@@ -1,6 +1,6 @@
-# Calendar Catalog
+# Calendar Catalogue
 
-A digital catalog for calendar products, allowing users to browse and filter through various calendar options. Built with modern web technologies for a fast, responsive, and seamless user experience.
+A digital catalogue for calendar products, allowing users to browse and filter through various calendar options. Built with modern web technologies for a fast, responsive, and seamless user experience.
 
 ## Tech Stack
 

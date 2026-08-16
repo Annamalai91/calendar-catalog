@@ -52,7 +52,7 @@ const ProductPreviewDialog = ({
                 <div className="relative flex min-h-0 flex-1 flex-col items-center justify-center gap-4">
                   <div className="relative flex h-full w-full items-center justify-center">
                     <Image
-                      src={product.cover_image || product.full_image}
+                      src={product.full_image || product.cover_image}
                       alt={product.name}
                       width={1200}
                       height={1800}

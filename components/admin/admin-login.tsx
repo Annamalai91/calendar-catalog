@@ -33,7 +33,7 @@ export default function AdminLogin({
             Admin Portal
           </h1>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Enter your password to unlock catalog configurations
+            Enter your password to unlock catalogue configurations
           </p>
         </div>
 

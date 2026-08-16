@@ -20,10 +20,10 @@ const ProductCard = ({ product, className, onPreview, priority }: ProductCardPro
   const slug = product.slug ?? toSlug(product.name);
 
   return (
-    <article>
+    <article className="h-full">
       <Card
         className={cn(
-          "group h-full overflow-hidden border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] transition-shadow hover:shadow-md",
+          "group flex flex-col h-full overflow-hidden rounded-2xl border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] p-5 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.01]",
           className,
         )}
       >
@@ -40,37 +40,38 @@ const ProductCard = ({ product, className, onPreview, priority }: ProductCardPro
               onPreview(product);
             }
           }}
-          className="flex flex-col h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="flex flex-col flex-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <div className="relative aspect-5/4 w-full overflow-hidden bg-muted/40 dark:bg-[#1C1C21]">
+          {/* Framed Image Container */}
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-[#1C1C21] border border-border/30 dark:border-white/10 p-2.5">
             <Image
-              src={product.full_image || product.cover_image}
+              src={product.cover_image || product.full_image}
               alt={`${product.name} — ${product.main_category}`}
               fill
               priority={priority}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
+              className="object-contain select-none transition-transform duration-300 group-hover:scale-[1.04]"
               placeholder="empty"
             />
             {product.tag ? (
-              <div className="absolute left-3 top-3">
-                <Badge variant="success" className="text-xs font-semibold">
+              <div className="absolute left-2.5 top-2.5">
+                <Badge variant="success" className="text-xs font-semibold shadow-xs">
                   {product.tag}
                 </Badge>
               </div>
             ) : null}
           </div>
 
-          <CardContent className="flex flex-col flex-1 space-y-2.5 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <div className="mt-4 flex flex-col flex-1 space-y-2.5">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#115e59] dark:text-[#5eead4]">
               {product.main_category}
             </p>
 
-            <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
+            <h3 className="line-clamp-2 text-base font-bold leading-snug text-slate-900 dark:text-slate-100 transition-colors group-hover:text-[#06B6A4] dark:group-hover:text-[#2dd4bf]">
               {product.name}
             </h3>
 
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5">
               <Badge className={`${sizeBadgeClassName} text-xs`}>
                 {product.size ?? product.sub_category}
               </Badge>
@@ -81,14 +82,14 @@ const ProductCard = ({ product, className, onPreview, priority }: ProductCardPro
               </Badge>
             </div>
 
-            <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+            <p className="line-clamp-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
               {product.description}
             </p>
 
-            <div className="mt-auto pt-1">
+            <div className="mt-auto pt-2">
               <Button
                 asChild
-                className="h-9.75 w-full rounded-lg border border-transparent bg-[#06B6A4] px-4 py-2.5 text-sm font-medium text-white shadow-none hover:bg-[#08998B]"
+                className="h-10 w-full rounded-xl border border-transparent bg-[#06B6A4] px-4 py-2.5 text-sm font-semibold text-white shadow-none transition-all hover:bg-[#08998B]"
               >
                 <Link
                   href={`/products/${slug}`}
@@ -99,7 +100,7 @@ const ProductCard = ({ product, className, onPreview, priority }: ProductCardPro
                 </Link>
               </Button>
             </div>
-          </CardContent>
+          </div>
         </div>
       </Card>
     </article>

@@ -159,7 +159,7 @@ const Navbar = () => {
                 style={{ width: "auto" }}
                 priority
               />
-              <span className="font-[family-name:var(--font-outfit)] font-black text-2xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
+              <span className="font-[family-name:var(--font-outfit)] font-black text-3xl sm:text-4xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
                 <span className="text-[#00A0E3]">V</span>
                 <span className="text-slate-950 dark:text-slate-50">E</span>
               </span>
@@ -234,7 +234,7 @@ const Navbar = () => {
               style={{ width: "auto" }}
               priority
             />
-            <span className="font-[family-name:var(--font-outfit)] font-black text-2xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
+            <span className="font-[family-name:var(--font-outfit)] font-black text-3xl sm:text-4xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
               <span className="text-[#00A0E3]">V</span>
               <span className="text-slate-950 dark:text-slate-50">E</span>
             </span>

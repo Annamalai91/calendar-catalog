@@ -2,15 +2,16 @@ import { Skeleton } from "@components/ui/skeleton";
 
 /** Skeleton placeholder for a single ProductCard */
 export const ProductCardSkeleton = () => (
-  <div className="rounded-lg overflow-hidden border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215]">
-    <Skeleton className="aspect-4/3 w-full rounded-none" />
-    <div className="p-4 space-y-2">
+  <div className="rounded-2xl overflow-hidden border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] p-5 space-y-4">
+    <Skeleton className="aspect-[3/4] w-full rounded-xl" />
+    <div className="space-y-2.5">
       <Skeleton className="h-3 w-24" />
-      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-5 w-3/4" />
       <div className="flex gap-2">
         <Skeleton className="h-5 w-16 rounded-full" />
         <Skeleton className="h-5 w-20 rounded-full" />
       </div>
+      <Skeleton className="h-10 w-full rounded-xl" />
     </div>
   </div>
 );

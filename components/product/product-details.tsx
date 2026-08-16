@@ -18,7 +18,8 @@ import { APP_TEXT } from "@configs/constants";
  * Server Component.
  */
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const imageExtension = product.cover_image.split(".").pop()?.split("?")[0] ?? "jpg";
+  const downloadUrl = product.full_image || product.cover_image;
+  const imageExtension = downloadUrl.split(".").pop()?.split("?")[0] ?? "jpg";
   const downloadFileName = `${product.slug ?? "product"}-sample.${imageExtension}`;
 
   return (
@@ -88,7 +89,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           className="flex-1 py-3 sm:py-0 sm:flex-none"
           asChild
         >
-          <a href={product.cover_image} download={downloadFileName}>
+          <a href={downloadUrl} download={downloadFileName}>
             {APP_TEXT.productDetails.downloadSample}
           </a>
         </Button>

@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
 export const APP_TEXT = {
   common: {
     home: "Home",
-    catalog: "Catalog",
+    catalog: "Catalogue",
     categories: "Categories",
   },
   brand: {
@@ -72,7 +72,7 @@ export const APP_TEXT = {
     aboutTitle: "About Us",
     aboutDescription:
       "At Vidhyasri Enterprises, we turn everyday printing into something worth keeping. Rooted in Sivakasi's manufacturing heritage, we bring hands-on craft to every order — treating each one, big or small, like it's our own.",
-    catalogTitle: "Catalog",
+    catalogTitle: "Catalogue",
     registeredOfficeTitle: "Registered Office",
     registeredOfficeAddress: [
       "Vidhyasri Enterprises",
@@ -89,7 +89,7 @@ export const APP_TEXT = {
     copyrightSuffix: "Vidhyasri Enterprises. All rights reserved.",
   },
   productsPage: {
-    catalogLabel: "Catalog",
+    catalogLabel: "Catalogue",
     productSingular: "product",
     productPlural: "products",
     selectedCategoryLabels: {
@@ -105,7 +105,7 @@ export const APP_TEXT = {
     relatedProductsTitle: "Related Products",
     ariaLabelPrefix: "Product detail:",
     breadcrumb: {
-      products: "Catalog",
+      products: "Catalogue",
     },
   },
   productFilter: {
@@ -123,7 +123,7 @@ export const APP_TEXT = {
     viewDetailsAriaPrefix: "View details for",
   },
   productDetails: {
-    backToCatalog: "Back to Catalog",
+    backToCatalog: "Back to Catalogue",
     descriptionTitle: "Description",
     sizePrefix: "Size:",
     paperTypePrefix: "Paper Type:",
@@ -187,10 +187,10 @@ export const SEO_TEXT = {
       "Masterpieces for your wall and desk with premium calendar printing, corporate planners, and gifting collections.",
   },
   products: {
-    title: "Product Catalog",
+    title: "Product Catalogue",
     description:
-      "Browse our full calendar catalog. Filter by category and size to find your perfect calendar.",
-    openGraphDescription: "Browse our full calendar catalog.",
+      "Browse our full calendar catalogue. Filter by category and size to find your perfect calendar.",
+    openGraphDescription: "Browse our full calendar catalogue.",
   },
 } as const;
 

@@ -192,12 +192,12 @@ export default async function ProductsPage({
 
             {/* Category Banner */}
             {validCategory && (
-              <div className="relative overflow-hidden rounded-xl bg-sage-700 dark:bg-[#18181B] text-white p-3 shadow-sm border border-sage-800 dark:border-[#27272A] mb-3 transition-all duration-300">
-                <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-2.5 gap-x-6 text-xs text-white">
+              <div className="relative overflow-hidden rounded-xl bg-sage-700 dark:bg-[#18181B] text-white p-3.5 shadow-sm border border-sage-800 dark:border-[#27272A] mb-4 transition-all duration-300">
+                <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-3 gap-x-6 text-sm text-white">
                   {/* Main Category (Left) */}
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-start">
-                    <span className="text-[10px] uppercase tracking-wider text-sage-200 dark:text-sage-300 font-bold">Category</span>
-                    <span className="font-semibold bg-white/10 dark:bg-white/15 px-2 py-0.5 rounded-md border border-white/10 text-white">
+                    <span className="text-xs uppercase tracking-wider text-sage-100 dark:text-sage-200 font-extrabold">Category</span>
+                    <span className="font-bold text-xs sm:text-sm bg-white/15 dark:bg-white/20 px-2.5 py-1 rounded-md border border-white/20 text-white shadow-sm">
                       {mainCat || activeCategoryLabel}
                     </span>
                   </div>
@@ -206,10 +206,10 @@ export default async function ProductsPage({
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-center">
                     {advtSpacesList.length > 0 && (
                       <>
-                        <span className="text-[10px] uppercase tracking-wider text-sage-200 dark:text-sage-300 font-bold">Advertisement Space</span>
-                        <div className="flex flex-wrap items-center gap-1">
+                        <span className="text-xs uppercase tracking-wider text-sage-100 dark:text-sage-200 font-extrabold">Advertisement Space</span>
+                        <div className="flex flex-wrap items-center gap-1.5">
                           {advtSpacesList.map((space) => (
-                            <span key={space} className="bg-white/10 dark:bg-white/15 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
+                            <span key={space} className="bg-white/15 dark:bg-white/20 px-2.5 py-1 rounded-md border border-white/20 text-xs sm:text-sm font-bold text-white shadow-sm">
                               {space}
                             </span>
                           ))}
@@ -220,10 +220,10 @@ export default async function ProductsPage({
 
                   {/* Sub Categories (Right) */}
                   <div className="flex items-center gap-2 sm:w-1/3 sm:justify-end">
-                    <span className="text-[10px] uppercase tracking-wider text-sage-200 dark:text-sage-300 font-bold">Types</span>
-                    <div className="flex flex-wrap items-center gap-1">
+                    <span className="text-xs uppercase tracking-wider text-sage-100 dark:text-sage-200 font-extrabold">Types</span>
+                    <div className="flex flex-wrap items-center gap-1.5">
                       {subCategoriesList.map((sub) => (
-                        <span key={sub} className="bg-white/10 dark:bg-white/15 px-2 py-0.5 rounded-md border border-white/10 text-[11px] font-medium text-white shadow-sm">
+                        <span key={sub} className="bg-white/15 dark:bg-white/20 px-2.5 py-1 rounded-md border border-white/20 text-xs sm:text-sm font-bold text-white shadow-sm">
                           {sub}
                         </span>
                       ))}
