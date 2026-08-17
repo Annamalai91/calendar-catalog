@@ -151,18 +151,14 @@ const Navbar = () => {
               aria-label={APP_TEXT.brand.homeAriaLabel}
             >
               <Image
-                src="/assets/logo-v2.svg"
+                src="/assets/logo-cropped.svg"
                 alt={APP_TEXT.brand.name}
-                width={50}
+                width={58}
                 height={48}
-                className="h-14 w-auto object-contain dark:brightness-110"
+                className="h-13 w-auto object-contain dark:brightness-110"
                 style={{ width: "auto" }}
                 priority
               />
-              <span className="font-[family-name:var(--font-outfit)] font-black text-3xl sm:text-4xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
-                <span className="text-[#00A0E3]">V</span>
-                <span className="text-slate-950 dark:text-slate-50">E</span>
-              </span>
             </Link>
 
 
@@ -226,18 +222,14 @@ const Navbar = () => {
             aria-label={APP_TEXT.brand.homeAriaLabel}
           >
             <Image
-              src="/assets/logo-v2.svg"
+              src="/assets/logo-cropped.svg"
               alt={APP_TEXT.brand.name}
-              width={40}
-              height={38}
-              className="h-11 w-auto rounded-md object-contain dark:brightness-110"
+              width={50}
+              height={42}
+              className="h-10 w-auto rounded-md object-contain dark:brightness-110"
               style={{ width: "auto" }}
               priority
             />
-            <span className="font-[family-name:var(--font-outfit)] font-black text-3xl sm:text-4xl leading-none inline-flex items-center gap-0.5 select-none ml-0.5">
-              <span className="text-[#00A0E3]">V</span>
-              <span className="text-slate-950 dark:text-slate-50">E</span>
-            </span>
           </Link>
 
 
