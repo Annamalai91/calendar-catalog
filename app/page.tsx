@@ -9,47 +9,57 @@ import { toSlug } from "@lib/utils/slug";
 
 export { homeMetadata as metadata };
 
-const categoryDetails: Record<
-  string,
-  { tagline: string; description: string }
-> = {
-  "Real Art Calendars": {
-    tagline: "Artistic Elegance",
-    description: "Premium high-definition prints that bring fine art and scenic photography to life on your walls.",
+interface FeaturedCategoryItem {
+  title: string;
+  tagline: string;
+  description: string;
+  categoryQuery: string;
+}
+
+const FEATURED_ITEMS: FeaturedCategoryItem[] = [
+  {
+    title: "Monthly Calendar",
+    tagline: "Month-at-a-Glance",
+    description:
+      "A month-at-a-glance calendar with complete English and Tamil calendar dates, Pachanga details, and festival listings. Available in sizes ranging from 9 x 11 to 23 x 36, suited for homes, offices, and retail spaces alike.",
+    categoryQuery: "Monthly Calendar",
   },
-  "Crystal Calendars": {
-    tagline: "Modern Translucency",
-    description: "Ultra-modern plastic X-ray sheet designs offering a high-gloss, translucent crystal finish.",
-  },
-  "Die Cutting": {
-    tagline: "Custom Silhouettes",
-    description: "Unique custom-shaped boards featuring elegant hangers that turn calendars into stunning home decor.",
-  },
-  "Table Calendar": {
+  {
+    title: "Desktop Calendar",
     tagline: "Workspace Companions",
-    description: "Compact desk calendars with executive UV-coatings and planners, structured to organize your workspace daily.",
+    description:
+      "A compact, flip-style calendar that fits neatly on any desk or table. Easy-to-read dates on a sturdy build board, handy for daily planner at work or home.",
+    categoryQuery: "Desktop Calendar",
   },
-  "Foam Calendar": {
-    tagline: "Matte Durability",
-    description: "Durable, lightweight poly-sheet sheets offering a contemporary matte aesthetic with long-lasting build quality.",
-  },
-  "Golden Calendar": {
-    tagline: "Royal Foil",
-    description: "Opulent gold foil detailing on sleek plastic X-ray sheets for a majestic and luxurious presence.",
-  },
-  "Jumbo Calendar": {
-    tagline: "Grand Visibility",
-    description: "Massive 33\" x 56\" prints with pipe hangers, perfect for spacious offices and high-impact corporate branding.",
-  },
-  "Real Art Mount Calendar": {
+  {
+    title: "Real Art Mount Calendar",
     tagline: "Classic Mounts",
-    description: "Classic mounted art papers with premium hot-stamping foil borders for a time-honored luxury aesthetic.",
+    description:
+      "Premium look Gods Picture printed in 120 GSM Imported Art Paper suitable for 10 x 15 and 12 x 18 Size Tamil Daily Calendar.",
+    categoryQuery: "Real Art Mount Calendar",
   },
-  "Sheeter Calendar": {
-    tagline: "Daily Utilities",
-    description: "Traditional multi-sheet calendars crafted with lightweight paper for utility, clarity, and daily reference.",
+  {
+    title: "Die Cutting Tamil Calendar",
+    tagline: "Custom Silhouettes",
+    description:
+      "Premium look Tamil calendar with a custom die-cut shape for a distinctive look. Combines traditional Tamil dates with a fresh, eye-catching design.",
+    categoryQuery: "Die Cutting Tamil Calendar",
   },
-};
+  {
+    title: "Golden Wall Calendar",
+    tagline: "Royal Foil",
+    description:
+      "A wall calendar with an elegant golden finish for a festive touch with Frame. Adds a bit of shine and style to any home or office wall.",
+    categoryQuery: "Golden Wall Calendar",
+  },
+  {
+    title: "Diary",
+    tagline: "Daily Essentials",
+    description:
+      "A simple daily diary to jot down notes, plans, and reminders. Compact and handy for everyday writing.",
+    categoryQuery: "Diary",
+  },
+];
 
 export default async function HomePage() {
   const [allProducts, categories] = await Promise.all([
@@ -57,10 +67,33 @@ export default async function HomePage() {
     getCachedFormattedCategories(),
   ]);
 
-  const carouselProducts = categories
-    .map((cat) => allProducts.find((p) => p.main_category === cat.name))
-    .filter((product): product is typeof allProducts[number] => Boolean(product))
-    .slice(0, 6);
+  const showcaseCards = FEATURED_ITEMS.map((item) => {
+    // Strictly match category by name or slug
+    const matchedCategory = categories.find(
+      (cat) =>
+        cat.name.toLowerCase() === item.categoryQuery.toLowerCase() ||
+        cat.slug.toLowerCase() === toSlug(item.categoryQuery)
+    );
+
+    // Strictly match product directly against main_category in products table
+    const product =
+      allProducts.find(
+        (p) =>
+          p.main_category.toLowerCase() === item.categoryQuery.toLowerCase() ||
+          toSlug(p.main_category) === toSlug(item.categoryQuery)
+      ) ||
+      (matchedCategory ? allProducts.find((p) => p.main_category === matchedCategory.name) : undefined);
+
+    const targetSlug = matchedCategory?.slug || toSlug(item.categoryQuery);
+    const imageUrl = product?.cover_image || product?.full_image || "";
+
+    return {
+      ...item,
+      targetSlug,
+      productName: product?.name || item.title,
+      imageUrl,
+    };
+  });
 
   return (
     <>
@@ -116,40 +149,49 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {carouselProducts.map((product) => {
-              const details = categoryDetails[product.main_category] || {
-                tagline: "Specialty Print",
-                description: product.description || "Browse our beautiful selection of calendars.",
-              };
-              const slug = toSlug(product.main_category);
+            {showcaseCards.map((card) => {
+              const href = card.targetSlug ? `/products?category=${card.targetSlug}` : "/products";
 
               return (
                 <Link
-                  key={product.main_category}
-                  href={`/products?category=${slug}`}
+                  key={card.title}
+                  href={href}
                   className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 dark:border-white/10 bg-white dark:bg-[#121215] p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]"
                 >
                   <div>
                     {/* Image showcase */}
-                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-[#1C1C21] border border-border/30 dark:border-white/10 p-2">
-                      <Image
-                        src={product.cover_image || product.full_image}
-                        alt={`${product.main_category} — ${product.name}`}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain select-none transition-transform duration-300 group-hover:scale-[1.04]"
-                      />
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-[#1C1C21] border border-border/30 dark:border-white/10 p-2 flex items-center justify-center">
+                      {card.imageUrl ? (
+                        <Image
+                          src={card.imageUrl}
+                          alt={`${card.title} — ${card.productName}`}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-contain select-none transition-transform duration-300 group-hover:scale-[1.04]"
+                        />
+                      ) : (
+                        <div className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 gap-2 p-4 text-center">
+                          <Image
+                            src="/assets/logo-v2.svg"
+                            alt={APP_TEXT.brand.name}
+                            width={100}
+                            height={100}
+                            className="h-16 w-auto object-contain opacity-40"
+                          />
+                          <span className="text-xs font-semibold tracking-wide uppercase">Coming Soon</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="mt-6 flex flex-col text-left">
                       <span className="text-[11px] font-bold uppercase tracking-widest text-[#115e59] dark:text-[#5eead4]">
-                        {details.tagline}
+                        {card.tagline}
                       </span>
                       <h3 className="mt-1.5 text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-[#06B6A4] dark:group-hover:text-[#2dd4bf] transition-colors leading-tight">
-                        {product.main_category}
+                        {card.title}
                       </h3>
                       <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                        {details.description}
+                        {card.description}
                       </p>
                     </div>
                   </div>
